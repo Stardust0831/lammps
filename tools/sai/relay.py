@@ -6,10 +6,10 @@ import io
 import json
 import os
 from pathlib import Path
+import re
 import subprocess
 import tarfile
 import time
-import urllib.request
 
 from common import control_digest, read
 
@@ -38,10 +38,13 @@ def remote(*arguments, binary=False):
 
 
 def upstream_head():
-    request = urllib.request.Request("https://api.github.com/repos/lammps/lammps/git/ref/heads/develop",
-                                     headers={"User-Agent": "SAI-LAMMPS-tester"})
-    with urllib.request.urlopen(request, timeout=30) as response:
-        return json.load(response)["object"]["sha"]
+    # Git's read-only ref query avoids the anonymous REST API rate limit.
+    result = subprocess.check_output(["git", "ls-remote", "https://github.com/lammps/lammps.git",
+                                      "refs/heads/develop"], text=True, timeout=90)
+    sha, ref = result.strip().split()
+    if not re.fullmatch(r"[0-9a-f]{40}", sha) or ref != "refs/heads/develop":
+        raise ValueError("unexpected upstream branch response")
+    return sha
 
 
 def collect(raw, destination, expected_sha):
@@ -68,7 +71,11 @@ def collect(raw, destination, expected_sha):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--force", action="store_true")
+    parser.add_argument("--ack", action="store_true", help="acknowledge a published report")
     args = parser.parse_args()
+    if args.ack:
+        remote("ack", read(Path("artifacts") / "summary.json")["run_id"])
+        return 0
     source = upstream_head()
     selected = remote("inspect")
     if selected["control_digest"] != control_digest(Path(__file__).resolve().parent):

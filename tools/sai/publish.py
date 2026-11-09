@@ -8,7 +8,6 @@ import subprocess
 import tempfile
 
 from common import read
-from relay import remote
 
 
 def main():
@@ -59,7 +58,6 @@ def main():
             # Do not echo a credential-bearing Git configuration on error.
             raise RuntimeError("report push failed: " + pushed.stderr)
         print("Published report:", config["report_url"], flush=True)
-        remote("ack", summary["run_id"])
 
 
 if __name__ == "__main__":

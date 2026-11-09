@@ -117,7 +117,7 @@ def deck(kind, backend):
              "pair_style " + pair + suffix + " 2.5", "pair_coeff * * 1.0 1.0",
              "neighbor 0.3 bin", "neigh_modify every 1 delay 0 check yes"]
     if kind == "pppm":
-        lines += ["kspace_style " + ("pppm/kk" if backend == "kokkos" else "pppm") + " 1e-6",
+        lines += ["kspace_style pppm" + suffix + " 1e-6",
                   "kspace_modify mesh 32 32 32 order 5"]
     lines += ["thermo 10", "thermo_style custom step atoms pe ke etotal pxx pyy pzz pxy pxz pyz",
               "thermo_modify norm no format float %.17g", "timestep 0.001", "fix integrate all nve"]
@@ -261,7 +261,7 @@ def run_suite(run):
                 if backend == "gpu":
                     arguments = ["-pk", "gpu", "1", "neigh", "yes", "split", "1.0"]
                 if backend == "kokkos":
-                    arguments = ["-k", "on", "g", "1", "-pk", "kokkos", "neigh", "full",
+                    arguments = ["-k", "on", "g", "1", "-sf", "kk", "-pk", "kokkos", "neigh", "full",
                                  "comm", "device", "gpu/aware", "on"]
                 arguments += ["-in", "in.lmp", "-log", "log.lammps"]
                 argv = command(case, nodes[:count], per_node, arguments)

@@ -23,7 +23,8 @@ For each of two deterministic, perturbed 2048-atom periodic systems (LJ and
 LJ/Coulomb with PPPM), the suite runs:
 
 - A single-rank CPU reference, with GPUs still visible.
-- GPU-package CUDA with one GPU, two GPUs on one node, and four on two nodes.
+- GPU-package CUDA with one GPU, two GPUs on one node, and four on two nodes,
+  explicitly using `pppm/gpu` for the charged fixture.
 - Kokkos CUDA with the same three layouts, including device communication and
   CUDA-aware MPI. The PPPM case explicitly selects `pppm/kk` and cuFFT.
 
@@ -51,7 +52,7 @@ Summary fields `date`, `commit`, `branch`, `version`, `compiler`,
 interface. Additional fields describe hardware, allocation and provenance.
 JUnit contains failures and infrastructure errors as well as passes. The
 publisher commits XML, JSON and HTML together, including failed completed
-runs. The Git banner in JUnit lets the upstream importer detect a mixed read
+runs. GitHub Pages is deployed explicitly through Actions. The Git banner in JUnit lets the upstream importer detect a mixed read
 across report updates.
 
 The existing upstream importer can read the public pair without source edits:
@@ -97,6 +98,7 @@ reported as waiting, never as tested. Failures before any completed result
 remain visible in Actions and leave the previous explicitly dated report intact.
 Completed results remain resumable until the report push is acknowledged, so
 a connection loss during publication does not discard a completed test.
+Acknowledgement happens after both the report-branch push and Pages deployment.
 
 Remote runs and failed attempts are retained. Inspect `plan.json`,
 `slurm-*.log`, `accounting.json`, `results/cases.json` and `results/manifest.json`
