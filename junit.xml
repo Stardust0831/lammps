@@ -1,14 +1,17 @@
 <?xml version='1.0' encoding='utf-8'?>
-<testsuite name="SAI MPI CUDA regression" timestamp="2026-11-09T18:05:47Z" tests="19" failures="8" errors="0" skipped="0" time="62.553659">
+<testsuite name="SAI MPI CUDA regression" timestamp="2026-11-09T18:15:39Z" tests="19" failures="0" errors="0" skipped="0" time="61.453517">
   <properties>
     <property name="commit" value="d291d572cf3c73a8a720774b78482a7c931304ca" />
     <property name="site" value="SAI" />
+    <property name="upstream_source_git_info" value="Git info (develop / d291d572cf3c73a8a720774b78482a7c931304ca)" />
+    <property name="binary_git_info" value="Git info (HEAD / d291d572-modified)" />
+    <property name="binary_modified" value="True" />
     <property name="source_repository" value="https://github.com/lammps/lammps" />
     <property name="test_kind" value="MPI/GPU numerical regression" />
-    <property name="controller_sha" value="1b085218f3521e476b46fc690cd5fadbb4fe007d" />
+    <property name="controller_sha" value="9e798f436f3da0fe144d09dac2bede5931f3062a" />
     <property name="image_sha256" value="6630f4ae4ec0481adb8025127186f49fa4ab22083bc7a8639c11ae25afb3e2f3" />
     <property name="report_url" value="https://stardust0831.github.io/lammps/" />
-    <property name="action_url" value="https://github.com/Stardust0831/lammps/actions/runs/42670631510" />
+    <property name="action_url" value="https://github.com/Stardust0831/lammps/actions/runs/42671424209" />
     <property name="hardware" value="{&quot;compiler&quot;: &quot;Compiler: GNU C++ 14.3.0 with OpenMP 4.5&quot;, &quot;mpi&quot;: &quot;mpirun (Open MPI) 5.0.10\n\nReport bugs to https://www.open-mpi.org/community/help/&quot;, &quot;nodes&quot;: [{&quot;affinity&quot;: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79], &quot;cpu&quot;: &quot;AMD Ryzen Threadripper PRO 5995WX 64-Cores&quot;, &quot;devices&quot;: [{&quot;driver&quot;: &quot;550.163.01&quot;, &quot;index&quot;: &quot;0&quot;, &quot;name&quot;: &quot;Tesla V100-SXM2-16GB&quot;, &quot;uuid&quot;: &quot;GPU-28c688ba-8711-9bd6-120a-f112be7482a8&quot;}, {&quot;driver&quot;: &quot;550.163.01&quot;, &quot;index&quot;: &quot;1&quot;, &quot;name&quot;: &quot;Tesla V100-SXM2-16GB&quot;, &quot;uuid&quot;: &quot;GPU-ac89a1a3-85b0-21a6-201c-98ea8a54c6b5&quot;}, {&quot;driver&quot;: &quot;550.163.01&quot;, &quot;index&quot;: &quot;2&quot;, &quot;name&quot;: &quot;Tesla V100-SXM2-16GB&quot;, &quot;uuid&quot;: &quot;GPU-6011ef91-1bf2-c874-e36d-69f681207e08&quot;}, {&quot;driver&quot;: &quot;550.163.01&quot;, &quot;index&quot;: &quot;3&quot;, &quot;name&quot;: &quot;Tesla V100-SXM2-16GB&quot;, &quot;uuid&quot;: &quot;GPU-c6700d4b-e4f4-7480-a55d-eedca8d40172&quot;}], &quot;logical_cpus&quot;: &quot;128&quot;, &quot;node&quot;: &quot;16v100n83&quot;, &quot;operating_system&quot;: &quot;Linux 16v100n83.mr-sai.ai 5.15.0-100-generic #110-Ubuntu SMP Wed Feb 7 13:27:48 UTC 2024 x86_64&quot;}, {&quot;affinity&quot;: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79], &quot;cpu&quot;: &quot;AMD Ryzen Threadripper PRO 5995WX 64-Cores&quot;, &quot;devices&quot;: [{&quot;driver&quot;: &quot;550.163.01&quot;, &quot;index&quot;: &quot;0&quot;, &quot;name&quot;: &quot;Tesla V100-SXM2-16GB&quot;, &quot;uuid&quot;: &quot;GPU-d5d911e1-81ed-8843-f59e-a715f965b912&quot;}, {&quot;driver&quot;: &quot;550.163.01&quot;, &quot;index&quot;: &quot;1&quot;, &quot;name&quot;: &quot;Tesla V100-SXM2-16GB&quot;, &quot;uuid&quot;: &quot;GPU-2332eb3e-3059-5c23-967f-9c1e208e8aec&quot;}, {&quot;driver&quot;: &quot;550.163.01&quot;, &quot;index&quot;: &quot;2&quot;, &quot;name&quot;: &quot;Tesla V100-SXM2-16GB&quot;, &quot;uuid&quot;: &quot;GPU-92ab2744-f5e7-d114-169b-df9c886b5db9&quot;}, {&quot;driver&quot;: &quot;550.163.01&quot;, &quot;index&quot;: &quot;3&quot;, &quot;name&quot;: &quot;Tesla V100-SXM2-16GB&quot;, &quot;uuid&quot;: &quot;GPU-b0f2db3f-b60b-57fe-843e-3865563ec4e9&quot;}], &quot;logical_cpus&quot;: &quot;128&quot;, &quot;node&quot;: &quot;16v100n84&quot;, &quot;operating_system&quot;: &quot;Linux 16v100n84.mr-sai.ai 5.15.0-100-generic #110-Ubuntu SMP Wed Feb 7 13:27:48 UTC 2024 x86_64&quot;}], &quot;operating_system&quot;: &quot;Linux 16v100n83.mr-sai.ai 5.15.0-100-generic #110-Ubuntu SMP Wed Feb 7 13:27:48 UTC 2024 x86_64&quot;, &quot;partition&quot;: &quot;16V100&quot;, &quot;threads_per_rank&quot;: 1}" />
   </properties>
   <testcase name="provenance" classname="SAI.LAMMPS.MPI.CUDA" time="0">
@@ -20,7 +23,7 @@
   "message": "Git info (HEAD / d291d572-modified)"
 }</system-out>
   </testcase>
-  <testcase name="lj-cpu-1" classname="SAI.LAMMPS.MPI.CUDA" time="2.595383">
+  <testcase name="lj-cpu-1" classname="SAI.LAMMPS.MPI.CUDA" time="2.444356">
     <system-out>Git info (HEAD / d291d572-modified)
 {
   "name": "lj-cpu-1",
@@ -91,50 +94,846 @@
       "source_sha": "d291d572cf3c73a8a720774b78482a7c931304ca"
     }
   ],
-  "seconds": 2.595383
+  "seconds": 2.444356
 }</system-out>
   </testcase>
-  <testcase name="lj-gpu-1" classname="SAI.LAMMPS.MPI.CUDA" time="2.644899">
-    <failure message="missing actual GPU-package execution evidence">missing actual GPU-package execution evidence</failure>
+  <testcase name="lj-gpu-1" classname="SAI.LAMMPS.MPI.CUDA" time="2.492618">
     <system-out>Git info (HEAD / d291d572-modified)
 {
   "name": "lj-gpu-1",
-  "status": "failure",
-  "message": "missing actual GPU-package execution evidence",
-  "seconds": 2.644899
+  "status": "pass",
+  "message": "",
+  "max_errors": {
+    "initial_thermo_max": 0.00013194211533118505,
+    "initial_force_max": 8.576390565256942e-06,
+    "final_thermo_max": 0.00012028168748656753,
+    "final_force_max": 7.455553517832225e-06
+  },
+  "tolerance": {
+    "atol": 2e-05,
+    "rtol": 2e-05
+  },
+  "energy_drift_per_atom": 9.560516801876418e-05,
+  "nodes": [
+    "16v100n83"
+  ],
+  "ranks": [
+    {
+      "affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79
+      ],
+      "cuda_visible_devices": "GPU-28c688ba-8711-9bd6-120a-f112be7482a8",
+      "gpu": {
+        "driver": "550.163.01",
+        "index": "0",
+        "name": "Tesla V100-SXM2-16GB",
+        "uuid": "GPU-28c688ba-8711-9bd6-120a-f112be7482a8"
+      },
+      "image": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/images/lammps/16V100.sif",
+      "local_rank": 0,
+      "node": "16v100n83",
+      "program": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/bin/lammps/lmp",
+      "rank": 0,
+      "source_sha": "d291d572cf3c73a8a720774b78482a7c931304ca"
+    }
+  ],
+  "seconds": 2.492618
 }</system-out>
   </testcase>
-  <testcase name="lj-gpu-2" classname="SAI.LAMMPS.MPI.CUDA" time="3.045378">
-    <failure message="missing actual GPU-package execution evidence">missing actual GPU-package execution evidence</failure>
+  <testcase name="lj-gpu-2" classname="SAI.LAMMPS.MPI.CUDA" time="2.995487">
     <system-out>Git info (HEAD / d291d572-modified)
 {
   "name": "lj-gpu-2",
-  "status": "failure",
-  "message": "missing actual GPU-package execution evidence",
-  "seconds": 3.045378
+  "status": "pass",
+  "message": "",
+  "max_errors": {
+    "initial_thermo_max": 0.00013194211533118505,
+    "initial_force_max": 8.576390565256942e-06,
+    "final_thermo_max": 0.00012028168748656753,
+    "final_force_max": 7.455553517832225e-06
+  },
+  "tolerance": {
+    "atol": 2e-05,
+    "rtol": 2e-05
+  },
+  "energy_drift_per_atom": 9.560516801876418e-05,
+  "nodes": [
+    "16v100n83"
+  ],
+  "ranks": [
+    {
+      "affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79
+      ],
+      "cuda_visible_devices": "GPU-28c688ba-8711-9bd6-120a-f112be7482a8",
+      "gpu": {
+        "driver": "550.163.01",
+        "index": "0",
+        "name": "Tesla V100-SXM2-16GB",
+        "uuid": "GPU-28c688ba-8711-9bd6-120a-f112be7482a8"
+      },
+      "image": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/images/lammps/16V100.sif",
+      "local_rank": 0,
+      "node": "16v100n83",
+      "program": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/bin/lammps/lmp",
+      "rank": 0,
+      "source_sha": "d291d572cf3c73a8a720774b78482a7c931304ca"
+    },
+    {
+      "affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79
+      ],
+      "cuda_visible_devices": "GPU-ac89a1a3-85b0-21a6-201c-98ea8a54c6b5",
+      "gpu": {
+        "driver": "550.163.01",
+        "index": "1",
+        "name": "Tesla V100-SXM2-16GB",
+        "uuid": "GPU-ac89a1a3-85b0-21a6-201c-98ea8a54c6b5"
+      },
+      "image": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/images/lammps/16V100.sif",
+      "local_rank": 1,
+      "node": "16v100n83",
+      "program": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/bin/lammps/lmp",
+      "rank": 1,
+      "source_sha": "d291d572cf3c73a8a720774b78482a7c931304ca"
+    }
+  ],
+  "seconds": 2.995487
 }</system-out>
   </testcase>
-  <testcase name="lj-gpu-4" classname="SAI.LAMMPS.MPI.CUDA" time="3.546651">
-    <failure message="missing actual GPU-package execution evidence">missing actual GPU-package execution evidence</failure>
+  <testcase name="lj-gpu-4" classname="SAI.LAMMPS.MPI.CUDA" time="3.244779">
     <system-out>Git info (HEAD / d291d572-modified)
 {
   "name": "lj-gpu-4",
-  "status": "failure",
-  "message": "missing actual GPU-package execution evidence",
-  "seconds": 3.546651
+  "status": "pass",
+  "message": "",
+  "max_errors": {
+    "initial_thermo_max": 0.00013194211533118505,
+    "initial_force_max": 8.576390565256942e-06,
+    "final_thermo_max": 0.00012028168748656753,
+    "final_force_max": 7.455553517832225e-06
+  },
+  "tolerance": {
+    "atol": 2e-05,
+    "rtol": 2e-05
+  },
+  "energy_drift_per_atom": 9.560516801876418e-05,
+  "nodes": [
+    "16v100n83"
+  ],
+  "ranks": [
+    {
+      "affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79
+      ],
+      "cuda_visible_devices": "GPU-28c688ba-8711-9bd6-120a-f112be7482a8",
+      "gpu": {
+        "driver": "550.163.01",
+        "index": "0",
+        "name": "Tesla V100-SXM2-16GB",
+        "uuid": "GPU-28c688ba-8711-9bd6-120a-f112be7482a8"
+      },
+      "image": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/images/lammps/16V100.sif",
+      "local_rank": 0,
+      "node": "16v100n83",
+      "program": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/bin/lammps/lmp",
+      "rank": 0,
+      "source_sha": "d291d572cf3c73a8a720774b78482a7c931304ca"
+    },
+    {
+      "affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79
+      ],
+      "cuda_visible_devices": "GPU-ac89a1a3-85b0-21a6-201c-98ea8a54c6b5",
+      "gpu": {
+        "driver": "550.163.01",
+        "index": "1",
+        "name": "Tesla V100-SXM2-16GB",
+        "uuid": "GPU-ac89a1a3-85b0-21a6-201c-98ea8a54c6b5"
+      },
+      "image": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/images/lammps/16V100.sif",
+      "local_rank": 1,
+      "node": "16v100n83",
+      "program": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/bin/lammps/lmp",
+      "rank": 1,
+      "source_sha": "d291d572cf3c73a8a720774b78482a7c931304ca"
+    },
+    {
+      "affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79
+      ],
+      "cuda_visible_devices": "GPU-6011ef91-1bf2-c874-e36d-69f681207e08",
+      "gpu": {
+        "driver": "550.163.01",
+        "index": "2",
+        "name": "Tesla V100-SXM2-16GB",
+        "uuid": "GPU-6011ef91-1bf2-c874-e36d-69f681207e08"
+      },
+      "image": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/images/lammps/16V100.sif",
+      "local_rank": 2,
+      "node": "16v100n83",
+      "program": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/bin/lammps/lmp",
+      "rank": 2,
+      "source_sha": "d291d572cf3c73a8a720774b78482a7c931304ca"
+    },
+    {
+      "affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79
+      ],
+      "cuda_visible_devices": "GPU-c6700d4b-e4f4-7480-a55d-eedca8d40172",
+      "gpu": {
+        "driver": "550.163.01",
+        "index": "3",
+        "name": "Tesla V100-SXM2-16GB",
+        "uuid": "GPU-c6700d4b-e4f4-7480-a55d-eedca8d40172"
+      },
+      "image": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/images/lammps/16V100.sif",
+      "local_rank": 3,
+      "node": "16v100n83",
+      "program": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/bin/lammps/lmp",
+      "rank": 3,
+      "source_sha": "d291d572cf3c73a8a720774b78482a7c931304ca"
+    }
+  ],
+  "seconds": 3.244779
 }</system-out>
   </testcase>
-  <testcase name="lj-gpu-8-2nodes" classname="SAI.LAMMPS.MPI.CUDA" time="5.155226">
-    <failure message="missing actual GPU-package execution evidence">missing actual GPU-package execution evidence</failure>
+  <testcase name="lj-gpu-8-2nodes" classname="SAI.LAMMPS.MPI.CUDA" time="4.652951">
     <system-out>Git info (HEAD / d291d572-modified)
 {
   "name": "lj-gpu-8-2nodes",
-  "status": "failure",
-  "message": "missing actual GPU-package execution evidence",
-  "seconds": 5.155226
+  "status": "pass",
+  "message": "",
+  "max_errors": {
+    "initial_thermo_max": 0.00013194211533118505,
+    "initial_force_max": 8.576390565256942e-06,
+    "final_thermo_max": 0.00012028168748656753,
+    "final_force_max": 7.455553517832225e-06
+  },
+  "tolerance": {
+    "atol": 2e-05,
+    "rtol": 2e-05
+  },
+  "energy_drift_per_atom": 9.560516801876418e-05,
+  "nodes": [
+    "16v100n83",
+    "16v100n84"
+  ],
+  "ranks": [
+    {
+      "affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79
+      ],
+      "cuda_visible_devices": "GPU-28c688ba-8711-9bd6-120a-f112be7482a8",
+      "gpu": {
+        "driver": "550.163.01",
+        "index": "0",
+        "name": "Tesla V100-SXM2-16GB",
+        "uuid": "GPU-28c688ba-8711-9bd6-120a-f112be7482a8"
+      },
+      "image": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/images/lammps/16V100.sif",
+      "local_rank": 0,
+      "node": "16v100n83",
+      "program": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/bin/lammps/lmp",
+      "rank": 0,
+      "source_sha": "d291d572cf3c73a8a720774b78482a7c931304ca"
+    },
+    {
+      "affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79
+      ],
+      "cuda_visible_devices": "GPU-ac89a1a3-85b0-21a6-201c-98ea8a54c6b5",
+      "gpu": {
+        "driver": "550.163.01",
+        "index": "1",
+        "name": "Tesla V100-SXM2-16GB",
+        "uuid": "GPU-ac89a1a3-85b0-21a6-201c-98ea8a54c6b5"
+      },
+      "image": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/images/lammps/16V100.sif",
+      "local_rank": 1,
+      "node": "16v100n83",
+      "program": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/bin/lammps/lmp",
+      "rank": 1,
+      "source_sha": "d291d572cf3c73a8a720774b78482a7c931304ca"
+    },
+    {
+      "affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79
+      ],
+      "cuda_visible_devices": "GPU-6011ef91-1bf2-c874-e36d-69f681207e08",
+      "gpu": {
+        "driver": "550.163.01",
+        "index": "2",
+        "name": "Tesla V100-SXM2-16GB",
+        "uuid": "GPU-6011ef91-1bf2-c874-e36d-69f681207e08"
+      },
+      "image": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/images/lammps/16V100.sif",
+      "local_rank": 2,
+      "node": "16v100n83",
+      "program": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/bin/lammps/lmp",
+      "rank": 2,
+      "source_sha": "d291d572cf3c73a8a720774b78482a7c931304ca"
+    },
+    {
+      "affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79
+      ],
+      "cuda_visible_devices": "GPU-c6700d4b-e4f4-7480-a55d-eedca8d40172",
+      "gpu": {
+        "driver": "550.163.01",
+        "index": "3",
+        "name": "Tesla V100-SXM2-16GB",
+        "uuid": "GPU-c6700d4b-e4f4-7480-a55d-eedca8d40172"
+      },
+      "image": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/images/lammps/16V100.sif",
+      "local_rank": 3,
+      "node": "16v100n83",
+      "program": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/bin/lammps/lmp",
+      "rank": 3,
+      "source_sha": "d291d572cf3c73a8a720774b78482a7c931304ca"
+    },
+    {
+      "affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79
+      ],
+      "cuda_visible_devices": "GPU-d5d911e1-81ed-8843-f59e-a715f965b912",
+      "gpu": {
+        "driver": "550.163.01",
+        "index": "0",
+        "name": "Tesla V100-SXM2-16GB",
+        "uuid": "GPU-d5d911e1-81ed-8843-f59e-a715f965b912"
+      },
+      "image": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/images/lammps/16V100.sif",
+      "local_rank": 0,
+      "node": "16v100n84",
+      "program": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/bin/lammps/lmp",
+      "rank": 4,
+      "source_sha": "d291d572cf3c73a8a720774b78482a7c931304ca"
+    },
+    {
+      "affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79
+      ],
+      "cuda_visible_devices": "GPU-2332eb3e-3059-5c23-967f-9c1e208e8aec",
+      "gpu": {
+        "driver": "550.163.01",
+        "index": "1",
+        "name": "Tesla V100-SXM2-16GB",
+        "uuid": "GPU-2332eb3e-3059-5c23-967f-9c1e208e8aec"
+      },
+      "image": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/images/lammps/16V100.sif",
+      "local_rank": 1,
+      "node": "16v100n84",
+      "program": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/bin/lammps/lmp",
+      "rank": 5,
+      "source_sha": "d291d572cf3c73a8a720774b78482a7c931304ca"
+    },
+    {
+      "affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79
+      ],
+      "cuda_visible_devices": "GPU-92ab2744-f5e7-d114-169b-df9c886b5db9",
+      "gpu": {
+        "driver": "550.163.01",
+        "index": "2",
+        "name": "Tesla V100-SXM2-16GB",
+        "uuid": "GPU-92ab2744-f5e7-d114-169b-df9c886b5db9"
+      },
+      "image": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/images/lammps/16V100.sif",
+      "local_rank": 2,
+      "node": "16v100n84",
+      "program": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/bin/lammps/lmp",
+      "rank": 6,
+      "source_sha": "d291d572cf3c73a8a720774b78482a7c931304ca"
+    },
+    {
+      "affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79
+      ],
+      "cuda_visible_devices": "GPU-b0f2db3f-b60b-57fe-843e-3865563ec4e9",
+      "gpu": {
+        "driver": "550.163.01",
+        "index": "3",
+        "name": "Tesla V100-SXM2-16GB",
+        "uuid": "GPU-b0f2db3f-b60b-57fe-843e-3865563ec4e9"
+      },
+      "image": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/images/lammps/16V100.sif",
+      "local_rank": 3,
+      "node": "16v100n84",
+      "program": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/bin/lammps/lmp",
+      "rank": 7,
+      "source_sha": "d291d572cf3c73a8a720774b78482a7c931304ca"
+    }
+  ],
+  "seconds": 4.652951
 }</system-out>
   </testcase>
-  <testcase name="lj-kokkos-1" classname="SAI.LAMMPS.MPI.CUDA" time="2.794781">
+  <testcase name="lj-kokkos-1" classname="SAI.LAMMPS.MPI.CUDA" time="2.894342">
     <system-out>Git info (HEAD / d291d572-modified)
 {
   "name": "lj-kokkos-1",
@@ -144,7 +943,7 @@
     "initial_thermo_max": 6.002665031701326e-11,
     "initial_force_max": 4.593547764386585e-15,
     "final_thermo_max": 1.0550138540565968e-10,
-    "final_force_max": 1.454392162258955e-14
+    "final_force_max": 1.4432899320127035e-14
   },
   "tolerance": {
     "atol": 2e-08,
@@ -205,10 +1004,10 @@
       "source_sha": "d291d572cf3c73a8a720774b78482a7c931304ca"
     }
   ],
-  "seconds": 2.794781
+  "seconds": 2.894342
 }</system-out>
   </testcase>
-  <testcase name="lj-kokkos-2" classname="SAI.LAMMPS.MPI.CUDA" time="3.044837">
+  <testcase name="lj-kokkos-2" classname="SAI.LAMMPS.MPI.CUDA" time="3.094209">
     <system-out>Git info (HEAD / d291d572-modified)
 {
   "name": "lj-kokkos-2",
@@ -216,9 +1015,9 @@
   "message": "",
   "max_errors": {
     "initial_thermo_max": 6.002665031701326e-11,
-    "initial_force_max": 4.399258735077183e-15,
+    "initial_force_max": 4.218847493575595e-15,
     "final_thermo_max": 1.0550138540565968e-10,
-    "final_force_max": 1.4765966227514582e-14
+    "final_force_max": 1.454392162258955e-14
   },
   "tolerance": {
     "atol": 2e-08,
@@ -328,10 +1127,10 @@
       "source_sha": "d291d572cf3c73a8a720774b78482a7c931304ca"
     }
   ],
-  "seconds": 3.044837
+  "seconds": 3.094209
 }</system-out>
   </testcase>
-  <testcase name="lj-kokkos-4" classname="SAI.LAMMPS.MPI.CUDA" time="3.696058">
+  <testcase name="lj-kokkos-4" classname="SAI.LAMMPS.MPI.CUDA" time="3.745768">
     <system-out>Git info (HEAD / d291d572-modified)
 {
   "name": "lj-kokkos-4",
@@ -339,7 +1138,7 @@
   "message": "",
   "max_errors": {
     "initial_thermo_max": 6.002665031701326e-11,
-    "initial_force_max": 4.884981308350689e-15,
+    "initial_force_max": 4.454769886308441e-15,
     "final_thermo_max": 1.0550138540565968e-10,
     "final_force_max": 1.5210055437364645e-14
   },
@@ -549,10 +1348,10 @@
       "source_sha": "d291d572cf3c73a8a720774b78482a7c931304ca"
     }
   ],
-  "seconds": 3.696058
+  "seconds": 3.745768
 }</system-out>
   </testcase>
-  <testcase name="lj-kokkos-8-2nodes" classname="SAI.LAMMPS.MPI.CUDA" time="4.604486">
+  <testcase name="lj-kokkos-8-2nodes" classname="SAI.LAMMPS.MPI.CUDA" time="4.602618">
     <system-out>Git info (HEAD / d291d572-modified)
 {
   "name": "lj-kokkos-8-2nodes",
@@ -560,7 +1359,7 @@
   "message": "",
   "max_errors": {
     "initial_thermo_max": 6.002665031701326e-11,
-    "initial_force_max": 4.121702978920894e-15,
+    "initial_force_max": 4.385380947269368e-15,
     "final_thermo_max": 1.0550138540565968e-10,
     "final_force_max": 1.3877787807814457e-14
   },
@@ -967,10 +1766,10 @@
       "source_sha": "d291d572cf3c73a8a720774b78482a7c931304ca"
     }
   ],
-  "seconds": 4.604486
+  "seconds": 4.602618
 }</system-out>
   </testcase>
-  <testcase name="pppm-cpu-1" classname="SAI.LAMMPS.MPI.CUDA" time="2.544195">
+  <testcase name="pppm-cpu-1" classname="SAI.LAMMPS.MPI.CUDA" time="2.693131">
     <system-out>Git info (HEAD / d291d572-modified)
 {
   "name": "pppm-cpu-1",
@@ -1041,66 +1840,26 @@
       "source_sha": "d291d572cf3c73a8a720774b78482a7c931304ca"
     }
   ],
-  "seconds": 2.544195
+  "seconds": 2.693131
 }</system-out>
   </testcase>
-  <testcase name="pppm-gpu-1" classname="SAI.LAMMPS.MPI.CUDA" time="2.847003">
-    <failure message="missing actual GPU-package execution evidence">missing actual GPU-package execution evidence</failure>
+  <testcase name="pppm-gpu-1" classname="SAI.LAMMPS.MPI.CUDA" time="2.644817">
     <system-out>Git info (HEAD / d291d572-modified)
 {
   "name": "pppm-gpu-1",
-  "status": "failure",
-  "message": "missing actual GPU-package execution evidence",
-  "seconds": 2.847003
-}</system-out>
-  </testcase>
-  <testcase name="pppm-gpu-2" classname="SAI.LAMMPS.MPI.CUDA" time="2.994359">
-    <failure message="missing actual GPU-package execution evidence">missing actual GPU-package execution evidence</failure>
-    <system-out>Git info (HEAD / d291d572-modified)
-{
-  "name": "pppm-gpu-2",
-  "status": "failure",
-  "message": "missing actual GPU-package execution evidence",
-  "seconds": 2.994359
-}</system-out>
-  </testcase>
-  <testcase name="pppm-gpu-4" classname="SAI.LAMMPS.MPI.CUDA" time="3.395508">
-    <failure message="missing actual GPU-package execution evidence">missing actual GPU-package execution evidence</failure>
-    <system-out>Git info (HEAD / d291d572-modified)
-{
-  "name": "pppm-gpu-4",
-  "status": "failure",
-  "message": "missing actual GPU-package execution evidence",
-  "seconds": 3.395508
-}</system-out>
-  </testcase>
-  <testcase name="pppm-gpu-8-2nodes" classname="SAI.LAMMPS.MPI.CUDA" time="4.502835">
-    <failure message="missing actual GPU-package execution evidence">missing actual GPU-package execution evidence</failure>
-    <system-out>Git info (HEAD / d291d572-modified)
-{
-  "name": "pppm-gpu-8-2nodes",
-  "status": "failure",
-  "message": "missing actual GPU-package execution evidence",
-  "seconds": 4.502835
-}</system-out>
-  </testcase>
-  <testcase name="pppm-kokkos-1" classname="SAI.LAMMPS.MPI.CUDA" time="2.844343">
-    <system-out>Git info (HEAD / d291d572-modified)
-{
-  "name": "pppm-kokkos-1",
   "status": "pass",
   "message": "",
   "max_errors": {
-    "initial_thermo_max": 6.184563972055912e-11,
-    "initial_force_max": 4.898859096158503e-15,
-    "final_thermo_max": 1.509761204943061e-10,
-    "final_force_max": 4.871103520542874e-15
+    "initial_thermo_max": 0.00013560513798438478,
+    "initial_force_max": 9.014092469630808e-06,
+    "final_thermo_max": 0.00013633047819894273,
+    "final_force_max": 8.484503579098135e-06
   },
   "tolerance": {
-    "atol": 2e-08,
-    "rtol": 2e-08
+    "atol": 2e-05,
+    "rtol": 2e-05
   },
-  "energy_drift_per_atom": 9.554240423437221e-05,
+  "energy_drift_per_atom": 9.554275623901987e-05,
   "nodes": [
     "16v100n83"
   ],
@@ -1155,26 +1914,26 @@
       "source_sha": "d291d572cf3c73a8a720774b78482a7c931304ca"
     }
   ],
-  "seconds": 2.844343
+  "seconds": 2.644817
 }</system-out>
   </testcase>
-  <testcase name="pppm-kokkos-2" classname="SAI.LAMMPS.MPI.CUDA" time="3.44509">
+  <testcase name="pppm-gpu-2" classname="SAI.LAMMPS.MPI.CUDA" time="2.89394">
     <system-out>Git info (HEAD / d291d572-modified)
 {
-  "name": "pppm-kokkos-2",
+  "name": "pppm-gpu-2",
   "status": "pass",
   "message": "",
   "max_errors": {
-    "initial_thermo_max": 6.366462912410498e-11,
-    "initial_force_max": 4.4825254619240695e-15,
-    "final_thermo_max": 1.4915713109076023e-10,
-    "final_force_max": 7.216449660063518e-15
+    "initial_thermo_max": 0.00013560513798438478,
+    "initial_force_max": 9.014092469630808e-06,
+    "final_thermo_max": 0.00013633047819894273,
+    "final_force_max": 8.484503578903846e-06
   },
   "tolerance": {
-    "atol": 2e-08,
-    "rtol": 2e-08
+    "atol": 2e-05,
+    "rtol": 2e-05
   },
-  "energy_drift_per_atom": 9.554240423437221e-05,
+  "energy_drift_per_atom": 9.554275623901987e-05,
   "nodes": [
     "16v100n83"
   ],
@@ -1278,10 +2037,846 @@
       "source_sha": "d291d572cf3c73a8a720774b78482a7c931304ca"
     }
   ],
-  "seconds": 3.44509
+  "seconds": 2.89394
 }</system-out>
   </testcase>
-  <testcase name="pppm-kokkos-4" classname="SAI.LAMMPS.MPI.CUDA" time="3.6476">
+  <testcase name="pppm-gpu-4" classname="SAI.LAMMPS.MPI.CUDA" time="3.761137">
+    <system-out>Git info (HEAD / d291d572-modified)
+{
+  "name": "pppm-gpu-4",
+  "status": "pass",
+  "message": "",
+  "max_errors": {
+    "initial_thermo_max": 0.00013560513798438478,
+    "initial_force_max": 9.014092469630808e-06,
+    "final_thermo_max": 0.00013633048001793213,
+    "final_force_max": 8.48450357887609e-06
+  },
+  "tolerance": {
+    "atol": 2e-05,
+    "rtol": 2e-05
+  },
+  "energy_drift_per_atom": 9.554275623990804e-05,
+  "nodes": [
+    "16v100n83"
+  ],
+  "ranks": [
+    {
+      "affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79
+      ],
+      "cuda_visible_devices": "GPU-28c688ba-8711-9bd6-120a-f112be7482a8",
+      "gpu": {
+        "driver": "550.163.01",
+        "index": "0",
+        "name": "Tesla V100-SXM2-16GB",
+        "uuid": "GPU-28c688ba-8711-9bd6-120a-f112be7482a8"
+      },
+      "image": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/images/lammps/16V100.sif",
+      "local_rank": 0,
+      "node": "16v100n83",
+      "program": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/bin/lammps/lmp",
+      "rank": 0,
+      "source_sha": "d291d572cf3c73a8a720774b78482a7c931304ca"
+    },
+    {
+      "affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79
+      ],
+      "cuda_visible_devices": "GPU-ac89a1a3-85b0-21a6-201c-98ea8a54c6b5",
+      "gpu": {
+        "driver": "550.163.01",
+        "index": "1",
+        "name": "Tesla V100-SXM2-16GB",
+        "uuid": "GPU-ac89a1a3-85b0-21a6-201c-98ea8a54c6b5"
+      },
+      "image": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/images/lammps/16V100.sif",
+      "local_rank": 1,
+      "node": "16v100n83",
+      "program": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/bin/lammps/lmp",
+      "rank": 1,
+      "source_sha": "d291d572cf3c73a8a720774b78482a7c931304ca"
+    },
+    {
+      "affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79
+      ],
+      "cuda_visible_devices": "GPU-6011ef91-1bf2-c874-e36d-69f681207e08",
+      "gpu": {
+        "driver": "550.163.01",
+        "index": "2",
+        "name": "Tesla V100-SXM2-16GB",
+        "uuid": "GPU-6011ef91-1bf2-c874-e36d-69f681207e08"
+      },
+      "image": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/images/lammps/16V100.sif",
+      "local_rank": 2,
+      "node": "16v100n83",
+      "program": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/bin/lammps/lmp",
+      "rank": 2,
+      "source_sha": "d291d572cf3c73a8a720774b78482a7c931304ca"
+    },
+    {
+      "affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79
+      ],
+      "cuda_visible_devices": "GPU-c6700d4b-e4f4-7480-a55d-eedca8d40172",
+      "gpu": {
+        "driver": "550.163.01",
+        "index": "3",
+        "name": "Tesla V100-SXM2-16GB",
+        "uuid": "GPU-c6700d4b-e4f4-7480-a55d-eedca8d40172"
+      },
+      "image": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/images/lammps/16V100.sif",
+      "local_rank": 3,
+      "node": "16v100n83",
+      "program": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/bin/lammps/lmp",
+      "rank": 3,
+      "source_sha": "d291d572cf3c73a8a720774b78482a7c931304ca"
+    }
+  ],
+  "seconds": 3.761137
+}</system-out>
+  </testcase>
+  <testcase name="pppm-gpu-8-2nodes" classname="SAI.LAMMPS.MPI.CUDA" time="4.252447">
+    <system-out>Git info (HEAD / d291d572-modified)
+{
+  "name": "pppm-gpu-8-2nodes",
+  "status": "pass",
+  "message": "",
+  "max_errors": {
+    "initial_thermo_max": 0.00013560513798438478,
+    "initial_force_max": 9.014092469589174e-06,
+    "final_thermo_max": 0.00013633048001793213,
+    "final_force_max": 8.48450357862629e-06
+  },
+  "tolerance": {
+    "atol": 2e-05,
+    "rtol": 2e-05
+  },
+  "energy_drift_per_atom": 9.554275623990804e-05,
+  "nodes": [
+    "16v100n83",
+    "16v100n84"
+  ],
+  "ranks": [
+    {
+      "affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79
+      ],
+      "cuda_visible_devices": "GPU-28c688ba-8711-9bd6-120a-f112be7482a8",
+      "gpu": {
+        "driver": "550.163.01",
+        "index": "0",
+        "name": "Tesla V100-SXM2-16GB",
+        "uuid": "GPU-28c688ba-8711-9bd6-120a-f112be7482a8"
+      },
+      "image": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/images/lammps/16V100.sif",
+      "local_rank": 0,
+      "node": "16v100n83",
+      "program": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/bin/lammps/lmp",
+      "rank": 0,
+      "source_sha": "d291d572cf3c73a8a720774b78482a7c931304ca"
+    },
+    {
+      "affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79
+      ],
+      "cuda_visible_devices": "GPU-ac89a1a3-85b0-21a6-201c-98ea8a54c6b5",
+      "gpu": {
+        "driver": "550.163.01",
+        "index": "1",
+        "name": "Tesla V100-SXM2-16GB",
+        "uuid": "GPU-ac89a1a3-85b0-21a6-201c-98ea8a54c6b5"
+      },
+      "image": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/images/lammps/16V100.sif",
+      "local_rank": 1,
+      "node": "16v100n83",
+      "program": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/bin/lammps/lmp",
+      "rank": 1,
+      "source_sha": "d291d572cf3c73a8a720774b78482a7c931304ca"
+    },
+    {
+      "affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79
+      ],
+      "cuda_visible_devices": "GPU-6011ef91-1bf2-c874-e36d-69f681207e08",
+      "gpu": {
+        "driver": "550.163.01",
+        "index": "2",
+        "name": "Tesla V100-SXM2-16GB",
+        "uuid": "GPU-6011ef91-1bf2-c874-e36d-69f681207e08"
+      },
+      "image": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/images/lammps/16V100.sif",
+      "local_rank": 2,
+      "node": "16v100n83",
+      "program": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/bin/lammps/lmp",
+      "rank": 2,
+      "source_sha": "d291d572cf3c73a8a720774b78482a7c931304ca"
+    },
+    {
+      "affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79
+      ],
+      "cuda_visible_devices": "GPU-c6700d4b-e4f4-7480-a55d-eedca8d40172",
+      "gpu": {
+        "driver": "550.163.01",
+        "index": "3",
+        "name": "Tesla V100-SXM2-16GB",
+        "uuid": "GPU-c6700d4b-e4f4-7480-a55d-eedca8d40172"
+      },
+      "image": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/images/lammps/16V100.sif",
+      "local_rank": 3,
+      "node": "16v100n83",
+      "program": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/bin/lammps/lmp",
+      "rank": 3,
+      "source_sha": "d291d572cf3c73a8a720774b78482a7c931304ca"
+    },
+    {
+      "affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79
+      ],
+      "cuda_visible_devices": "GPU-d5d911e1-81ed-8843-f59e-a715f965b912",
+      "gpu": {
+        "driver": "550.163.01",
+        "index": "0",
+        "name": "Tesla V100-SXM2-16GB",
+        "uuid": "GPU-d5d911e1-81ed-8843-f59e-a715f965b912"
+      },
+      "image": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/images/lammps/16V100.sif",
+      "local_rank": 0,
+      "node": "16v100n84",
+      "program": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/bin/lammps/lmp",
+      "rank": 4,
+      "source_sha": "d291d572cf3c73a8a720774b78482a7c931304ca"
+    },
+    {
+      "affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79
+      ],
+      "cuda_visible_devices": "GPU-2332eb3e-3059-5c23-967f-9c1e208e8aec",
+      "gpu": {
+        "driver": "550.163.01",
+        "index": "1",
+        "name": "Tesla V100-SXM2-16GB",
+        "uuid": "GPU-2332eb3e-3059-5c23-967f-9c1e208e8aec"
+      },
+      "image": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/images/lammps/16V100.sif",
+      "local_rank": 1,
+      "node": "16v100n84",
+      "program": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/bin/lammps/lmp",
+      "rank": 5,
+      "source_sha": "d291d572cf3c73a8a720774b78482a7c931304ca"
+    },
+    {
+      "affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79
+      ],
+      "cuda_visible_devices": "GPU-92ab2744-f5e7-d114-169b-df9c886b5db9",
+      "gpu": {
+        "driver": "550.163.01",
+        "index": "2",
+        "name": "Tesla V100-SXM2-16GB",
+        "uuid": "GPU-92ab2744-f5e7-d114-169b-df9c886b5db9"
+      },
+      "image": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/images/lammps/16V100.sif",
+      "local_rank": 2,
+      "node": "16v100n84",
+      "program": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/bin/lammps/lmp",
+      "rank": 6,
+      "source_sha": "d291d572cf3c73a8a720774b78482a7c931304ca"
+    },
+    {
+      "affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79
+      ],
+      "cuda_visible_devices": "GPU-b0f2db3f-b60b-57fe-843e-3865563ec4e9",
+      "gpu": {
+        "driver": "550.163.01",
+        "index": "3",
+        "name": "Tesla V100-SXM2-16GB",
+        "uuid": "GPU-b0f2db3f-b60b-57fe-843e-3865563ec4e9"
+      },
+      "image": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/images/lammps/16V100.sif",
+      "local_rank": 3,
+      "node": "16v100n84",
+      "program": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/bin/lammps/lmp",
+      "rank": 7,
+      "source_sha": "d291d572cf3c73a8a720774b78482a7c931304ca"
+    }
+  ],
+  "seconds": 4.252447
+}</system-out>
+  </testcase>
+  <testcase name="pppm-kokkos-1" classname="SAI.LAMMPS.MPI.CUDA" time="2.943699">
+    <system-out>Git info (HEAD / d291d572-modified)
+{
+  "name": "pppm-kokkos-1",
+  "status": "pass",
+  "message": "",
+  "max_errors": {
+    "initial_thermo_max": 6.184563972055912e-11,
+    "initial_force_max": 4.53109771925142e-15,
+    "final_thermo_max": 1.509761204943061e-10,
+    "final_force_max": 7.327471962526033e-15
+  },
+  "tolerance": {
+    "atol": 2e-08,
+    "rtol": 2e-08
+  },
+  "energy_drift_per_atom": 9.554240423437221e-05,
+  "nodes": [
+    "16v100n83"
+  ],
+  "ranks": [
+    {
+      "affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79
+      ],
+      "cuda_visible_devices": "GPU-28c688ba-8711-9bd6-120a-f112be7482a8",
+      "gpu": {
+        "driver": "550.163.01",
+        "index": "0",
+        "name": "Tesla V100-SXM2-16GB",
+        "uuid": "GPU-28c688ba-8711-9bd6-120a-f112be7482a8"
+      },
+      "image": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/images/lammps/16V100.sif",
+      "local_rank": 0,
+      "node": "16v100n83",
+      "program": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/bin/lammps/lmp",
+      "rank": 0,
+      "source_sha": "d291d572cf3c73a8a720774b78482a7c931304ca"
+    }
+  ],
+  "seconds": 2.943699
+}</system-out>
+  </testcase>
+  <testcase name="pppm-kokkos-2" classname="SAI.LAMMPS.MPI.CUDA" time="3.295362">
+    <system-out>Git info (HEAD / d291d572-modified)
+{
+  "name": "pppm-kokkos-2",
+  "status": "pass",
+  "message": "",
+  "max_errors": {
+    "initial_thermo_max": 6.366462912410498e-11,
+    "initial_force_max": 4.704570066849101e-15,
+    "final_thermo_max": 1.509761204943061e-10,
+    "final_force_max": 6.8833827526759706e-15
+  },
+  "tolerance": {
+    "atol": 2e-08,
+    "rtol": 2e-08
+  },
+  "energy_drift_per_atom": 9.554240423526039e-05,
+  "nodes": [
+    "16v100n83"
+  ],
+  "ranks": [
+    {
+      "affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79
+      ],
+      "cuda_visible_devices": "GPU-28c688ba-8711-9bd6-120a-f112be7482a8",
+      "gpu": {
+        "driver": "550.163.01",
+        "index": "0",
+        "name": "Tesla V100-SXM2-16GB",
+        "uuid": "GPU-28c688ba-8711-9bd6-120a-f112be7482a8"
+      },
+      "image": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/images/lammps/16V100.sif",
+      "local_rank": 0,
+      "node": "16v100n83",
+      "program": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/bin/lammps/lmp",
+      "rank": 0,
+      "source_sha": "d291d572cf3c73a8a720774b78482a7c931304ca"
+    },
+    {
+      "affinity": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79
+      ],
+      "cuda_visible_devices": "GPU-ac89a1a3-85b0-21a6-201c-98ea8a54c6b5",
+      "gpu": {
+        "driver": "550.163.01",
+        "index": "1",
+        "name": "Tesla V100-SXM2-16GB",
+        "uuid": "GPU-ac89a1a3-85b0-21a6-201c-98ea8a54c6b5"
+      },
+      "image": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/images/lammps/16V100.sif",
+      "local_rank": 1,
+      "node": "16v100n83",
+      "program": "/home/stardust/sai-hpc-software/sif-beta/runtimes/daily-20261109-42531616265-1-lammps/bin/lammps/lmp",
+      "rank": 1,
+      "source_sha": "d291d572cf3c73a8a720774b78482a7c931304ca"
+    }
+  ],
+  "seconds": 3.295362
+}</system-out>
+  </testcase>
+  <testcase name="pppm-kokkos-4" classname="SAI.LAMMPS.MPI.CUDA" time="3.545527">
     <system-out>Git info (HEAD / d291d572-modified)
 {
   "name": "pppm-kokkos-4",
@@ -1289,9 +2884,9 @@
   "message": "",
   "max_errors": {
     "initial_thermo_max": 6.184563972055912e-11,
-    "initial_force_max": 4.704570066849101e-15,
+    "initial_force_max": 4.697631172945194e-15,
     "final_thermo_max": 1.509761204943061e-10,
-    "final_force_max": 6.8833827526759706e-15
+    "final_force_max": 7.327471962526033e-15
   },
   "tolerance": {
     "atol": 2e-08,
@@ -1499,10 +3094,10 @@
       "source_sha": "d291d572cf3c73a8a720774b78482a7c931304ca"
     }
   ],
-  "seconds": 3.6476
+  "seconds": 3.545527
 }</system-out>
   </testcase>
-  <testcase name="pppm-kokkos-8-2nodes" classname="SAI.LAMMPS.MPI.CUDA" time="5.205027">
+  <testcase name="pppm-kokkos-8-2nodes" classname="SAI.LAMMPS.MPI.CUDA" time="5.256329">
     <system-out>Git info (HEAD / d291d572-modified)
 {
   "name": "pppm-kokkos-8-2nodes",
@@ -1512,7 +3107,7 @@
     "initial_thermo_max": 6.366462912410498e-11,
     "initial_force_max": 4.565792188770956e-15,
     "final_thermo_max": 1.4915713109076023e-10,
-    "final_force_max": 6.8833827526759706e-15
+    "final_force_max": 6.619704784327496e-15
   },
   "tolerance": {
     "atol": 2e-08,
@@ -1917,7 +3512,7 @@
       "source_sha": "d291d572cf3c73a8a720774b78482a7c931304ca"
     }
   ],
-  "seconds": 5.205027
+  "seconds": 5.256329
 }</system-out>
   </testcase>
 </testsuite>
