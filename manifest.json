@@ -1,0 +1,35 @@
+{
+  "files": {
+    "accounting.json": "f4771838df5c37000ba18845b3452deb50955114ba2ef8324fe6a8c93e414ea6",
+    "allocation.txt": "b5d47c557cd4f16411d3a4d8084410110ca1ab297ad4fe6269d814b2e0f84afd",
+    "control/common.py": "59fcc06d0f4cfe9079016714ff706a58f9fbcf7fef09c80bf0c3b96b74096aa4",
+    "control/endpoint.py": "2ca07f528077c3f912106f8e09f4f92bff2014d25ed1a284d2bdc980158aaf47",
+    "control/site.json": "5dd55220cda68776a917152769df8fb72c0c0438ad95a31e04db39a2049acd62",
+    "control/suite.py": "204251d9a86ebe06d499f3dfc3924272ff73ae6f8db9ee43a01cc1588e928735",
+    "job.sbatch": "0ed31caf85805019f187ed41375a56f24b4f7ea2ecaac8f887c13142bf85905c",
+    "modules.txt": "cd0f02a6ae9ab830e7935e08c802aa5dd3b2c87b4b86a786a4ae0868b2bbab30",
+    "plan.json": "caa38f131a45f16dac7b767be2bb2ad6e83ae7ac23d5a6af9b2f735d922bda2b",
+    "preflight.log": "368bfb3ee796704bc5bff24550bd5023bb1dd45630ef0b95a689f17d361db2ec",
+    "results/cases.json": "ab053a33c49b963735e1ce1979ce0d5e1de7a23b9c3f1c09d94f911fe785811f",
+    "results/index.html": "970a06326f46863af720f406f6f71a1c70ab7c69726295e1cd5be3b8cf7074a3",
+    "results/junit.xml": "04ce7502e7b1e52d82b8a4ae4433e69bbfaeb085ba90b7b0192b638374a86291",
+    "results/summary.json": "ae7aed617bb9242e02973d9ade854e6eff23927deaef2781d915d6b9fb10fc2b",
+    "slurm-2332327.log": "2f4452add1693659042235682596309986aa2fcd1a6faaf1ef48d585bb54438f",
+    "submission.json": "929754455d214e9438930c0f37cd029df633a8caaecf314e240497ba3824c842"
+  },
+  "raw_bytes": 14567,
+  "raw_sha256": "ab282c60ba4a6cb06a2333d3f8c29b0ed0f162963e6d4bad90722b660396da55",
+  "slurm": [
+    "2332327",
+    "FAILED",
+    "1:0",
+    "16V100",
+    "proj-sai-hpc-software",
+    "/org/org-open-sai/proj-sai-hpc-software/lammps-daily-tester/runs/github-42670094705-1",
+    "00:00:09",
+    "16v100n[81,83]",
+    "billing=1200,cpu=64,gres/gpu=8,mem=120G,node=2",
+    "00:00:00"
+  ],
+  "source_sha": "d291d572cf3c73a8a720774b78482a7c931304ca"
+}

@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite name="SAI MPI CUDA regression" timestamp="2026-11-09T18:01:11Z" tests="1" failures="0" errors="1" skipped="0" time="0">
+  <properties>
+    <property name="commit" value="d291d572cf3c73a8a720774b78482a7c931304ca" />
+    <property name="site" value="SAI" />
+    <property name="source_repository" value="https://github.com/lammps/lammps" />
+    <property name="test_kind" value="MPI/GPU numerical regression" />
+    <property name="controller_sha" value="b4e1b3c0c76b0f6a696a39213dee7d2aaa87df83" />
+    <property name="image_sha256" value="6630f4ae4ec0481adb8025127186f49fa4ab22083bc7a8639c11ae25afb3e2f3" />
+    <property name="report_url" value="https://stardust0831.github.io/lammps/" />
+    <property name="action_url" value="https://github.com/Stardust0831/lammps/actions/runs/42670094705" />
+    <property name="hardware" value="{}" />
+  </properties>
+  <testcase name="infrastructure" classname="SAI.LAMMPS.MPI.CUDA" time="0">
+    <error message="command exited 1: srun: fatal: --gpus-per-node and --gres=gpu are mutually exclusive.&#10;">command exited 1: srun: fatal: --gpus-per-node and --gres=gpu are mutually exclusive.
+</error>
+    <system-out>
+{
+  "name": "infrastructure",
+  "status": "error",
+  "seconds": 0,
+  "message": "command exited 1: srun: fatal: --gpus-per-node and --gres=gpu are mutually exclusive.\n"
+}</system-out>
+  </testcase>
+</testsuite>

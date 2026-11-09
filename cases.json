@@ -1,0 +1,8 @@
+[
+  {
+    "message": "command exited 1: srun: fatal: --gpus-per-node and --gres=gpu are mutually exclusive.\n",
+    "name": "infrastructure",
+    "seconds": 0,
+    "status": "error"
+  }
+]
