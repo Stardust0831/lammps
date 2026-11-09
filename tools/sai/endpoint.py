@@ -56,7 +56,7 @@ def batch(plan, config, directory):
 #SBATCH --nodes=2
 #SBATCH --ntasks=8
 #SBATCH --ntasks-per-node=4
-#SBATCH --gpus-per-node=4
+#SBATCH --gres=gpu:4
 #SBATCH --time=00:{config['minutes']:02d}:00
 #SBATCH --chdir={directory}
 #SBATCH --output={directory}/slurm-%j.log
