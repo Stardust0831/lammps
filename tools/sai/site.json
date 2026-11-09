@@ -1,0 +1,14 @@
+{
+  "account": "proj-sai-hpc-software",
+  "root": "/org/org-open-sai/proj-sai-hpc-software/lammps-daily-tester",
+  "module_root": "/home/stardust/sai-hpc-software/modulefiles/apps",
+  "beta_root": "/home/stardust/sai-hpc-software/sif-beta",
+  "partition": "16V100",
+  "qos": "flood-gpu",
+  "nodes": 2,
+  "gpus_per_node": 2,
+  "minutes": 20,
+  "repository": "Stardust0831/lammps",
+  "report_url": "https://stardust0831.github.io/lammps/",
+  "report_branch": "sai-multigpu-reports"
+}
