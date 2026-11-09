@@ -28,6 +28,8 @@ def remote(*arguments, binary=False):
         try:
             result = subprocess.run(command, capture_output=True, timeout=180)
             if result.returncode:
+                if result.returncode != 255:
+                    raise ValueError(result.stderr.decode(errors="replace"))
                 raise RuntimeError(result.stderr.decode(errors="replace"))
             return result.stdout if binary else json.loads(result.stdout)
         except (subprocess.TimeoutExpired, RuntimeError) as exc:

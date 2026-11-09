@@ -14,8 +14,8 @@ LAMMPS sources or rebuild dependencies.
 
 ## Tests
 
-One job requests two nodes with two V100 GPUs per node in the `16V100`
-partition. Host Open MPI launches the accepted executable through its existing
+One job requests two nodes with four V100 GPUs per node in the `16V100`
+partition, matching the site's per-node GPU allocation rules. Host Open MPI launches the accepted executable through its existing
 Apptainer wrapper. Every rank records its node, CPU affinity and allocated GPU
 UUID; GPU masks are obtained independently on each node through Slurm.
 
@@ -23,12 +23,12 @@ For each of two deterministic, perturbed 2048-atom periodic systems (LJ and
 LJ/Coulomb with PPPM), the suite runs:
 
 - A single-rank CPU reference, with GPUs still visible.
-- GPU-package CUDA with one GPU, two GPUs on one node, and four on two nodes,
+- GPU-package CUDA with one, two and four GPUs on one node, and eight on two nodes,
   explicitly using `pppm/gpu` for the charged fixture.
-- Kokkos CUDA with the same three layouts, including device communication and
+- Kokkos CUDA with the same four layouts, including device communication and
   CUDA-aware MPI. The PPPM case explicitly selects `pppm/kk` and cuFFT.
 
-The 14 executions compare initial and final energy, pressure tensor and every
+The 18 executions compare initial and final energy, pressure tensor and every
 force component, with 20 NVE steps and a fixed energy-drift gate. One further
 check validates image provenance and the executable's Git banner. Accelerator
 styles are selected explicitly; missing styles cannot silently fall back.

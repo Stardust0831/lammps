@@ -60,7 +60,7 @@ def reports(run, cases, machine=None, version="", banner=""):
                    controller_sha=plan["controller_sha"], controller_digest=plan["control_digest"],
                    image_sha256=plan["image_sha256"], recipe_sha256=plan["recipe_sha256"],
                    slurm_job=plan.get("job"), scope="LJ and PPPM CPU/GPU numerical comparisons; "
-                   "1 GPU, 2 GPUs on one node, and 4 GPUs on two nodes. "
+                   "1, 2 and 4 GPUs on one node, and 8 GPUs on two nodes. "
                    "Timings are diagnostic, not a scaling benchmark.")
     suite = ET.Element("testsuite", name="SAI MPI CUDA regression", timestamp=now,
                        tests=str(len(cases)), failures=str(failed), errors=str(errors),

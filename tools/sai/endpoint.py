@@ -54,9 +54,9 @@ def batch(plan, config, directory):
 #SBATCH --qos={config['qos']}
 #SBATCH --account={config['account']}
 #SBATCH --nodes=2
-#SBATCH --ntasks=4
-#SBATCH --ntasks-per-node=2
-#SBATCH --gpus-per-node=2
+#SBATCH --ntasks=8
+#SBATCH --ntasks-per-node=4
+#SBATCH --gpus-per-node=4
 #SBATCH --time=00:{config['minutes']:02d}:00
 #SBATCH --chdir={directory}
 #SBATCH --output={directory}/slurm-%j.log
@@ -174,8 +174,13 @@ def start(config, run_id, source_sha, controller_sha, force):
         script.write_text(batch(plan, config, directory))
         subprocess.run(["bash", "-n", str(script)], check=True)
         # Hold until the job number is durable; a restarted relay resumes it.
-        submitted = subprocess.check_output(["sbatch", "--hold", "--parsable", str(script)],
-                                            cwd=directory, text=True).strip().split(";")[0]
+        submission = subprocess.run(["sbatch", "--hold", "--parsable", str(script)],
+                                    cwd=directory, text=True, capture_output=True)
+        write(directory / "submission.json", dict(returncode=submission.returncode,
+              stdout=submission.stdout, stderr=submission.stderr))
+        if submission.returncode:
+            raise RuntimeError("Slurm submission failed: " + submission.stderr)
+        submitted = submission.stdout.strip().split(";")[0]
         checked(submitted, r"[0-9]+", "Slurm job ID")
         plan["job"] = submitted
         write(directory / "plan.json", plan)

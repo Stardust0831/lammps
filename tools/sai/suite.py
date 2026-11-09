@@ -16,9 +16,9 @@ import time
 from common import digest, read, reports, write
 
 MODES = (("cpu-1", "cpu", 1, 1), ("gpu-1", "gpu", 1, 1),
-         ("gpu-2", "gpu", 1, 2), ("gpu-4-2nodes", "gpu", 2, 2),
+         ("gpu-2", "gpu", 1, 2), ("gpu-4", "gpu", 1, 4), ("gpu-8-2nodes", "gpu", 2, 4),
          ("kokkos-1", "kokkos", 1, 1), ("kokkos-2", "kokkos", 1, 2),
-         ("kokkos-4-2nodes", "kokkos", 2, 2))
+         ("kokkos-4", "kokkos", 1, 4), ("kokkos-8-2nodes", "kokkos", 2, 4))
 ATOMS = 2048
 
 
@@ -59,8 +59,8 @@ def node_info(run):
             raise RuntimeError("cannot resolve allocated GPU " + visible)
         index, uuid, name, driver = matches[0]
         devices.append(dict(index=index, uuid=uuid, name=name, driver=driver))
-    if len(devices) != 2:
-        raise RuntimeError("expected exactly two allocated GPUs per node")
+    if len(devices) != 4:
+        raise RuntimeError("expected exactly four allocated GPUs per node")
     cpu = subprocess.check_output(["lscpu", "-J"], text=True)
     fields = {r["field"].rstrip(":"): r["data"] for r in json.loads(cpu)["lscpu"]}
     write(Path(run) / "nodes" / (node + ".json"), dict(node=node, devices=devices,
@@ -214,7 +214,7 @@ def run_suite(run):
             raise RuntimeError("loaded module has a different source commit")
         if digest(os.environ["SAI_SIF_LAMMPS_IMAGE"]) != plan["image_sha256"]:
             raise RuntimeError("accepted image bytes changed")
-        execute(["srun", "--nodes=2", "--ntasks=2", "--ntasks-per-node=1", "--gres=gpu:2",
+        execute(["srun", "--nodes=2", "--ntasks=2", "--ntasks-per-node=1", "--gres=gpu:4",
                  "--export=ALL", "/usr/bin/python3", "-B", str(run / "control/suite.py"),
                  "node", str(run)], run / "preflight.log")
         machines = [read(p) for p in sorted((run / "nodes").glob("*.json"))]
