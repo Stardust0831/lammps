@@ -113,7 +113,8 @@ def status(directory, config):
         cases = read(cases_path)
         cases.append(dict(name="slurm-accounting", status="error", seconds=0,
                           message="unexpected Slurm state or allocation: " + " | ".join(row)))
-        result = reports(directory, cases, result["machine"], result["version"])
+        result = reports(directory, cases, result["machine"], result["version"],
+                         result.get("binary_git_info", result["version"]))
     final_record = dict(run_id=plan["run_id"], job=job, terminal=True,
                         state=row[1], source_sha=plan["source_sha"], status=result["status"],
                         action_url=plan["action_url"], completed_at=result["date"],

@@ -11,6 +11,9 @@ the current upstream `develop` SHA and waits until the accepted image matches
 it. The exact image, recipe and controller hashes are recorded. The image
 includes the site's existing DeePMD integration; this tester does not modify
 LAMMPS sources or rebuild dependencies.
+The executable reports `-modified` for that integration. Reports retain the
+verbatim binary banner and flag this explicitly; this is a test of the site's
+accepted build of the recorded upstream revision.
 
 ## Tests
 
@@ -52,8 +55,11 @@ Summary fields `date`, `commit`, `branch`, `version`, `compiler`,
 interface. Additional fields describe hardware, allocation and provenance.
 JUnit contains failures and infrastructure errors as well as passes. The
 publisher commits XML, JSON and HTML together, including failed completed
-runs. GitHub Pages is deployed explicitly through Actions. The Git banner in JUnit lets the upstream importer detect a mixed read
-across report updates.
+runs. GitHub Pages is deployed explicitly through Actions. JUnit records a
+normalized upstream ref as `upstream_source_git_info`, followed by the actual
+`binary_git_info`. The upstream importer can parse the full source SHA from
+the former and detect a mixed read across report updates, even when the
+binary's detached-HEAD banner contains a bare hash with `-modified`.
 
 The existing upstream importer can read the public pair without source edits:
 

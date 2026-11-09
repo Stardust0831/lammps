@@ -59,6 +59,7 @@ def reports(run, cases, machine=None, version="", banner=""):
                    source_repository="https://github.com/lammps/lammps",
                    controller_sha=plan["controller_sha"], controller_digest=plan["control_digest"],
                    image_sha256=plan["image_sha256"], recipe_sha256=plan["recipe_sha256"],
+                   binary_git_info=banner, binary_modified="-modified" in banner,
                    slurm_job=plan.get("job"), scope="LJ and PPPM CPU/GPU numerical comparisons; "
                    "1, 2 and 4 GPUs on one node, and 8 GPUs on two nodes. "
                    "Timings are diagnostic, not a scaling benchmark.")
@@ -67,6 +68,8 @@ def reports(run, cases, machine=None, version="", banner=""):
                        skipped="0", time=str(sum(c.get("seconds", 0) for c in cases)))
     properties = ET.SubElement(suite, "properties")
     for key, value in (("commit", plan["source_sha"]), ("site", "SAI"),
+                       ("upstream_source_git_info", "Git info (develop / " + plan["source_sha"] + ")"),
+                       ("binary_git_info", banner), ("binary_modified", summary["binary_modified"]),
                        ("source_repository", summary["source_repository"]),
                        ("test_kind", "MPI/GPU numerical regression"),
                        ("controller_sha", plan["controller_sha"]),

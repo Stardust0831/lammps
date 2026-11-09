@@ -195,8 +195,11 @@ def verify(case, reference, backend, nodes, per_node):
         if len(selected) != per_node or len({r["gpu"]["uuid"] for r in selected}) != per_node:
             raise AssertionError("MPI ranks do not map to distinct allocated GPUs")
     screen = (case / "screen.txt").read_text()
-    if backend == "gpu" and "GPU Time Info" not in screen:
-        raise AssertionError("missing actual GPU-package execution evidence")
+    if backend == "gpu":
+        if "Using acceleration for" not in screen or "Device Time Info" not in screen:
+            raise AssertionError("missing actual GPU-package execution evidence")
+        if case.name.startswith("pppm-") and not re.search(r"Device Time Info[^\n]*for kspace", screen):
+            raise AssertionError("missing GPU PPPM execution evidence")
     if backend == "kokkos" and not re.search(r"KOKKOS mode.*enabled", screen, re.I):
         raise AssertionError("missing Kokkos execution evidence")
     return dict(max_errors=deltas, tolerance=tolerance, energy_drift_per_atom=drift,
@@ -242,6 +245,10 @@ def run_suite(run):
         if not banner or not any(plan["source_sha"][:n] in banner for n in range(7, 41)):
             raise RuntimeError("executable Git banner does not match the requested develop commit")
         version = banner
+        for expected in ("GPU package API: CUDA", "GPU package precision: mixed",
+                         "KOKKOS package API: CUDA", "KOKKOS package precision: double"):
+            if expected not in help_text:
+                raise RuntimeError("unexpected build configuration: missing " + expected)
         compiler = re.search(r"^Compiler:.*$", help_text, re.M)
         if compiler:
             machine["compiler"] = compiler.group(0)
@@ -259,7 +266,7 @@ def run_suite(run):
                 (case / "in.lmp").write_text(deck(kind, backend))
                 arguments = []
                 if backend == "gpu":
-                    arguments = ["-pk", "gpu", "1", "neigh", "yes", "split", "1.0"]
+                    arguments = ["-pk", "gpu", "1", "neigh", "yes"]
                 if backend == "kokkos":
                     arguments = ["-k", "on", "g", "1", "-sf", "kk", "-pk", "kokkos", "neigh", "full",
                                  "comm", "device", "gpu/aware", "on"]
