@@ -41,6 +41,23 @@ and `2e-8` for double-precision Kokkos. NVE total-energy drift must be at most
 the report. These are targeted numerical integration tests, not the complete
 LAMMPS unit test suite or a performance/scaling benchmark.
 
+## Verified example
+
+The [first successful end-to-end run](https://github.com/Stardust0831/lammps/actions/runs/42671424209/attempts/2)
+tested upstream commit `d291d572cf3c73a8a720774b78482a7c931304ca`: all 19
+checks passed. Slurm job `2332512` used eight V100 GPUs on `16v100n83` and
+`16v100n84`, finished in 73 seconds, and exited `0:0`. An
+[immutable copy of that report](https://github.com/Stardust0831/lammps/tree/531f9018150c14b35d80175a10e7e30fe2ba1a36)
+includes 209 files of hashed raw evidence.
+
+The unmodified `fetch_unittest.py` and `generator/build_site.py` from
+`lammps/lammps-test-results` commit `954defea44c3b90ed0a30e6899d6e975bf5574f1`
+successfully imported the public URLs below and generated dashboard pages
+with 19 passes, zero failures, zero errors and zero skips. A second import
+archived no additional run. A separate
+[unchanged-commit workflow run](https://github.com/Stardust0831/lammps/actions/runs/42672966585)
+submitted no GPU job and left the published report commit unchanged.
+
 ## Published interface
 
 - HTML: <https://stardust0831.github.io/lammps/>
