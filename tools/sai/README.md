@@ -44,6 +44,16 @@ LAMMPS unit test suite or a performance/scaling benchmark.
 
 ## Verified example
 
+The [clean rerun](https://github.com/Stardust0831/lammps/actions/runs/42760147255)
+completed the full runner-to-Slurm-to-publication path with 19/19 checks
+passing. Slurm job `2341678` ran on two nodes in 71 seconds with
+`UCX_TLS=^cuda_ipc`. All 18 case logs are free of UCX errors; all 63 rank
+records carry the declared transport setting. Its
+[immutable report](https://github.com/Stardust0831/lammps/tree/5f02b22e47ad64cc5d2388ffd81274addf2f91a1)
+retains 209 files of hashed raw evidence. This rerun used the newer accepted
+daily image of the same upstream commit; performance experiments keep their
+separate image pin.
+
 The [first completed end-to-end run](https://github.com/Stardust0831/lammps/actions/runs/42671424209/attempts/2)
 tested upstream commit `d291d572cf3c73a8a720774b78482a7c931304ca`. Slurm job
 `2332512` used eight V100 GPUs and exited `0:0`; all 19 numerical/provenance
