@@ -1,0 +1,14 @@
+{
+  "W.snapcoeff": {
+    "url": "https://raw.githubusercontent.com/UKNNSS-Benchmarks/uknnss-benchmark-lammps/affa74adb7ada59ae0a28fe045a5141becdb3f4c/benchmarks/common/2J8_W.SNAP/W.snapcoeff",
+    "sha256": "b3ade502ae0a2a9ac150a35a6b9778fbb84e74988b41cd3f2608981f99e3e6aa"
+  },
+  "W.snapparam": {
+    "url": "https://raw.githubusercontent.com/UKNNSS-Benchmarks/uknnss-benchmark-lammps/affa74adb7ada59ae0a28fe045a5141becdb3f4c/benchmarks/common/2J8_W.SNAP/W.snapparam",
+    "sha256": "b877d2fd438a8f5b9ed362c5a5fc4d1a665d108b2439759267347cab95632a3f"
+  },
+  "data.spce": {
+    "url": "https://raw.githubusercontent.com/lammps/lammps/d291d572cf3c73a8a720774b78482a7c931304ca/bench/POTENTIALS/data.spce",
+    "sha256": "8d29107350821ecd7813eecf35882f2de239013e39524cde054048f755490101"
+  }
+}

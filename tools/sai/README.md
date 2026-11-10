@@ -133,3 +133,67 @@ Run the local negative tests with:
 ```bash
 python3 -B -m unittest discover -s tools/sai -p 'test_*.py' -v
 ```
+
+## Multi-node performance experiments
+
+`submit_performance.py` provides an operator-triggered scaling experiment on
+the same accepted image. It is separate from the hourly regression trigger.
+The [input provenance](benchmarks/README.md) describes the tungsten SNAP and
+SPC/E water models and their numerical controls.
+
+Run a two-node pilot from a checkout on SAI:
+
+```bash
+python3 -B tools/sai/submit_performance.py \
+  /org/org-open-sai/proj-sai-hpc-software/lammps-performance/runs/pilot-UNIQUE \
+  --nodes 2 --profile pilot
+```
+
+Once that run passes, use its timings to choose the measurement length:
+
+```bash
+python3 -B tools/sai/submit_performance.py \
+  /org/org-open-sai/proj-sai-hpc-software/lammps-performance/runs/scaling-UNIQUE \
+  --nodes 8 --profile scaling \
+  --calibration /org/org-open-sai/proj-sai-hpc-software/lammps-performance/runs/pilot-UNIQUE/performance.json
+```
+
+The script freezes its controller, input hashes and module generation before
+submitting a held job, records the job number, then releases it. Existing run
+directories are never overwritten. A 32-GPU run uses the project's permitted
+`huge-gpu` QoS because `rush-gpu` allows at most 16 GPUs per user/job. All runs
+have a 45-minute limit, and an individual process has a 20-minute limit.
+
+The scaling matrix uses four GPUs per node and 1/2/4/8 nodes. Strong scaling
+keeps 2,097,152 W atoms or 972,000 water atoms fixed. Weak scaling starts from
+524,288 W atoms or 121,500 water atoms on four GPUs, then increases the atom
+count with the number of GPUs. Each point has 100 warmup steps and three
+timed segments, with fixed steps within a series. CPU/GPU numerical checks
+precede the large runs at every layout. Per-node GPU telemetry and every
+rank's GPU UUID and CPU binding accompany the raw logs.
+
+The launcher uses host MPI with `ppr:4:node:pe=4`, matching the site's
+four physical cores per GPU, and one OpenMP thread per rank for Kokkos CUDA.
+The initial pilot used a single physical core per rank; its purpose is sizing
+and calibration. Scaling comparisons use the same final mapping throughout.
+The jobs request four GPUs on each 16-GPU node without exclusive-node access,
+so the results can contain interference from other jobs.
+
+After copying a completed run and its Slurm accounting to an analysis host,
+`report_performance.py` validates the completion record and frozen inputs,
+then writes CSV, Markdown, PNG/SVG curves and the upstream performance JSON:
+
+```bash
+python3 -B tools/sai/report_performance.py /path/to/copied/run \
+  --accounting /path/to/accounting.json --output /path/to/report
+```
+
+Only the report generator needs Matplotlib. The cluster and VM controllers
+use Python's standard library. The report uses median timings with sample
+ranges; the upstream dashboard currently chooses the best sample from the
+same published measurements. Large-run finite-state checks and short CPU
+force comparisons do not establish a converged production trajectory.
+The raw timing sections are retained for diagnosis, but asynchronous CUDA
+execution can charge GPU waits to `Comm` or another later section. Follow
+the Kokkos guide's `CUDA_LAUNCH_BLOCKING=1` advice in a separate diagnostic
+run before attributing those sections to a specific bottleneck.
