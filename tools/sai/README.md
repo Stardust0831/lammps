@@ -197,3 +197,22 @@ The raw timing sections are retained for diagnosis, but asynchronous CUDA
 execution can charge GPU waits to `Comm` or another later section. Follow
 the Kokkos guide's `CUDA_LAUNCH_BLOCKING=1` advice in a separate diagnostic
 run before attributing those sections to a specific bottleneck.
+
+The [2026-11-10 trial](https://github.com/Stardust0831/lammps/tree/sai-multigpu-reports/performance/20261110)
+completed all 16 performance points and eight CPU/GPU numerical checks on
+eight nodes with 32 V100 GPUs. Slurm job `2338108` exited `0:0` in 23m43s.
+From four to 32 GPUs, the fixed-size SNAP and water cases sped up by 6.88x
+and 3.33x; their weak-scaling efficiencies were 96.0% and 57.5%. These are
+three-sample measurements within one allocation, with ranges in the report.
+
+The unmodified upstream performance importer can read the public result:
+
+```bash
+python3 tools/fetch_performance.py --datadir /path/to/separate-test-data \
+  --machine sai-multinode \
+  --url https://raw.githubusercontent.com/Stardust0831/lammps/sai-multigpu-reports/performance/20261110/performance-summary.json
+```
+
+The optional reporter argument `--build-summary` supplies compiler metadata
+from an earlier run only if both the image SHA-256 and source commit match.
+The supplied record and its origin are retained with the performance report.

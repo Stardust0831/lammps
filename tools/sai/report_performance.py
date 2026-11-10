@@ -10,7 +10,7 @@ import statistics
 from common import digest, read, write
 
 
-def build_report(run, accounting, output):
+def build_report(run, accounting, output, build_summary=None):
     result = read(run / "performance.json")
     plan = result["plan"]
     if result["status"] != "PASS":
@@ -55,6 +55,15 @@ def build_report(run, accounting, output):
                    reporter_sha256=digest(Path(__file__)),
                    sample_policy="Three sequential segments after warmup; SAI plots use medians and min/max ranges. "
                    "The upstream dashboard currently selects the best sample.", results={})
+    if build_summary is not None:
+        build = read(build_summary)
+        if build["image_sha256"] != plan["image_sha256"] or build["commit"] != plan["source_sha"]:
+            raise ValueError("build metadata belongs to a different image or source")
+        summary["compiler"] = build["compiler"]
+        summary["build_metadata_origin"] = build["action_url"]
+        summary["build_metadata_sha256"] = digest(build_summary)
+        write(output / "build-summary.json", build)
+    summary["gpu_driver"] = ", ".join(sorted({d["driver"] for m in result["hardware"] for d in m["devices"]}))
     table = []
     for row in records:
         median = statistics.median(row["loop_seconds"])
@@ -99,12 +108,14 @@ def build_report(run, accounting, output):
                 hi = [base / r["min_seconds"] - r["relative_speedup"] for r in selected]
                 ax.plot(x, [n / x[0] for n in x], "--", color="gray", label="Ideal")
                 ax.set_ylabel("Speedup relative to 4 GPUs")
+                ax.set_ylim(0, max(x) / min(x) * 1.06)
             else:
                 y = [r["efficiency"] * 100 for r in selected]
                 lo = [r["efficiency"] * 100 - base / r["max_seconds"] * 100 for r in selected]
                 hi = [base / r["min_seconds"] * 100 - r["efficiency"] * 100 for r in selected]
                 ax.axhline(100, ls="--", color="gray", label="Ideal")
                 ax.set_ylabel("Weak-scaling efficiency (%)")
+                ax.set_ylim(0, 105)
             ax.errorbar(x, y, yerr=[lo, hi], fmt="o-", capsize=4, label="Median; min/max samples")
             ax.set_xticks(x)
             ax.set_xlabel("V100 GPUs (4 per node)")
@@ -158,5 +169,6 @@ if __name__ == "__main__":
     parser.add_argument("run", type=Path)
     parser.add_argument("--accounting", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--build-summary", type=Path, help="Earlier build metadata with the identical image checksum")
     args = parser.parse_args()
-    build_report(args.run, read(args.accounting), args.output)
+    build_report(args.run, read(args.accounting), args.output, args.build_summary)
