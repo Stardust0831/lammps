@@ -136,7 +136,8 @@ def build_report(run, accounting, output, build_summary=None):
             ax.set_title(("Tungsten SNAP" if kind == "snap" else "SPC/E water + PPPM") + " - " + series)
             ax.grid(alpha=.25)
             ax.legend(fontsize=8)
-    fig.suptitle("SAI LAMMPS Kokkos CUDA scaling - " + plan["source_sha"][:12])
+    setting = ", ".join(k + "=" + v for k, v in plan.get("runtime_environment", {}).items()) or "Site UCX settings"
+    fig.suptitle("SAI LAMMPS Kokkos CUDA scaling - " + plan["source_sha"][:12] + "\n" + setting)
     fig.savefig(output / "scaling.png", dpi=180)
     fig.savefig(output / "scaling.svg")
     plt.close(fig)
@@ -236,7 +237,14 @@ def compare_topologies(run, reference_run, output):
         for j, series in enumerate(("strong", "weak")):
             selected = sorted((r for r in rows if r["kind"] == kind and r["series"] == series), key=lambda r: r["gpus"])
             ax = axes[i, j]
-            for prefix, label in (("previous", "Four GPUs per node"), ("current", "Up to 16 GPUs per node")):
+            labels = []
+            for prefix, experiment, layout in (("previous", reference, "4 GPUs/node"), ("current", current, "Up to 16 GPUs/node")):
+                environment = experiment["plan"].get("runtime_environment", {})
+                label = "CUDA IPC disabled" if environment.get("UCX_TLS") == "^cuda_ipc" else "site UCX settings"
+                if environment and environment.get("UCX_TLS") != "^cuda_ipc":
+                    label = ", ".join(k + "=" + v for k, v in environment.items())
+                labels.append((prefix, layout + "; " + label))
+            for prefix, label in labels:
                 medians = [r[prefix + "_median"] for r in selected]
                 low = [r[prefix + "_median"] - min(r[prefix + "_seconds"]) for r in selected]
                 high = [max(r[prefix + "_seconds"]) - r[prefix + "_median"] for r in selected]
@@ -247,7 +255,7 @@ def compare_topologies(run, reference_run, output):
             ax.set_title(("Tungsten SNAP" if kind == "snap" else "SPC/E water + PPPM") + " - " + series)
             ax.grid(alpha=.25)
             ax.legend(fontsize=8)
-    fig.suptitle("SAI LAMMPS node layout comparison - " + current["plan"]["source_sha"][:12])
+    fig.suptitle("SAI LAMMPS node layout and communication settings - " + current["plan"]["source_sha"][:12])
     fig.savefig(output / "topology-comparison.png", dpi=180)
     fig.savefig(output / "topology-comparison.svg")
     plt.close(fig)
