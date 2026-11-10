@@ -1,0 +1,23 @@
+{
+  "upstream_repository": "https://github.com/lammps/lammps-test-results",
+  "upstream_commit": "954defea44c3b90ed0a30e6899d6e975bf5574f1",
+  "importer": "tools/fetch_performance.py",
+  "generator": "generator/build_site.py",
+  "unmodified": true,
+  "result": "PASS",
+  "imports": {
+    "sai-fullnode-noipc": {
+      "records": 16,
+      "failed": 0,
+      "source_url": "https://raw.githubusercontent.com/Stardust0831/lammps/ae78bd70318cb4f9f7abd2933c7d3f1bf3d087b1/performance/20261110-fullnode/performance-summary.json"
+    },
+    "sai-withdrawn-4pernode": {
+      "records": 16,
+      "failed": 16,
+      "source_url": "https://raw.githubusercontent.com/Stardust0831/lammps/ae78bd70318cb4f9f7abd2933c7d3f1bf3d087b1/performance/20261110/performance-summary.json"
+    }
+  },
+  "generated_performance_page_sha256": "574f3a84d2077c54ea68e96fe3b3aa065ce0b2068cdfbb6b58831043de19e57e",
+  "scope": "The accepted full-node run imports as 16 valid records. All 16 records from the withdrawn baseline import as errors and are excluded from successful timing scores. This verifies import compatibility, not registration on the central dashboard.",
+  "sample_policy": "Upstream chooses the best sample; this report uses medians and min/max ranges."
+}

@@ -1,0 +1,29 @@
+{
+  "report_commit": "ae78bd70318cb4f9f7abd2933c7d3f1bf3d087b1",
+  "checks": [
+    {
+      "file": "manifest.json",
+      "sha256": "ea1a783beee4587d55ae63f7052dbacce50c9e2b44a05a6b2465f52c0b040f64",
+      "bytes": 64729,
+      "status": "PASS"
+    },
+    {
+      "file": "raw.tar.gz",
+      "sha256": "7364639759099889607f0f9f0f78985df677f2586bb6ec378fe435d217ecd552",
+      "bytes": 6873726,
+      "status": "PASS"
+    },
+    {
+      "file": "performance-summary.json",
+      "sha256": "1494edb62fd88737eec2be568eff86e056fab24a00c87692120bbb2b7951b93d",
+      "bytes": 11359,
+      "status": "PASS"
+    },
+    {
+      "file": "log-validation.json",
+      "sha256": "3c3ecfcd34d6766a83982db4234f6da8dbdb30ccc519bd3003d4c8ef938dc3d4",
+      "bytes": 1250,
+      "status": "PASS"
+    }
+  ]
+}
