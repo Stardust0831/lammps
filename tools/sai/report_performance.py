@@ -31,6 +31,11 @@ def build_report(run, accounting, output, build_summary=None):
     for row in records:
         if len(row["loop_seconds"]) != row["repeats"] or not all(math.isfinite(t) and t > 0 for t in row["loop_seconds"]):
             raise ValueError("invalid measured samples")
+        if row["gpus"] != row["nodes"] * row.get("gpus_per_node", 4):
+            raise ValueError("GPU count does not match node layout")
+    if "reference_sha256" in plan:
+        if digest(run / "reference-performance.json") != plan["reference_sha256"]:
+            raise ValueError("reference experiment changed")
     energy_checks = {}
     for kind in ("snap", "spce"):
         energies = [r["states"]["initial"]["values"][0] for r in records
@@ -48,9 +53,11 @@ def build_report(run, accounting, output, build_summary=None):
     summary = dict(date=result["finished_at"], commit=plan["source_sha"], branch="develop",
                    version=banner.group(1),
                    compiler="See accepted image build provenance", operating_system=result["hardware"][0]["operating_system"],
-                   cpu=result["hardware"][0]["cpu"], gpus="V100-SXM2-16GB; four per node", mpi=result["mpi"],
+                   cpu=result["hardware"][0]["cpu"],
+                   gpus="V100-SXM2-16GB; " + str(plan.get("allocation_gpus_per_node", 4)) + " allocated per node",
+                   mpi=result["mpi"],
                    url="https://github.com/Stardust0831/lammps/tree/sai-multigpu-reports/performance/"
-                   + result["finished_at"][:10].replace("-", ""),
+                   + output.name,
                    image_sha256=plan["image_sha256"], binary_modified="-modified" in banner.group(1),
                    reporter_sha256=digest(Path(__file__)),
                    sample_policy="Three sequential segments after warmup; SAI plots use medians and min/max ranges. "
@@ -67,12 +74,14 @@ def build_report(run, accounting, output, build_summary=None):
     table = []
     for row in records:
         median = statistics.median(row["loop_seconds"])
-        baseline = next(r for r in records if r["kind"] == row["kind"] and r["series"] == row["series"] and r["nodes"] == 1)
+        baseline = min((r for r in records if r["kind"] == row["kind"] and r["series"] == row["series"]),
+                       key=lambda r: r["gpus"])
         base_time = statistics.median(baseline["loop_seconds"])
         speedup = base_time / median
-        efficiency = speedup / row["nodes"] if row["series"] == "strong" else speedup
+        efficiency = speedup * baseline["gpus"] / row["gpus"] if row["series"] == "strong" else speedup
         table.append(dict(case=row["name"], series=row["series"], atoms=row["natoms"],
-                          gpus=row["gpus"], steps=row["steps"], median_seconds=median,
+                          gpus=row["gpus"], nodes=row["nodes"], gpus_per_node=row.get("gpus_per_node", 4),
+                          steps=row["steps"], median_seconds=median,
                           min_seconds=min(row["loop_seconds"]), max_seconds=max(row["loop_seconds"]),
                           ns_per_day=86400 / median * row["steps"] * (0.5e-6 if row["kind"] == "snap" else 2e-6),
                           relative_speedup=speedup, efficiency=efficiency,
@@ -81,6 +90,7 @@ def build_report(run, accounting, output, build_summary=None):
               precision="double", package="kokkos", api="cuda", category="kokkos-cuda",
               flags="newton on neigh half comm device gpu/aware on", ranks=row["gpus"],
               threads=1, gpus=row["gpus"], natoms=row["natoms"], steps=row["steps"],
+              nodes=row["nodes"], gpus_per_node=row.get("gpus_per_node", 4),
               samples=row["atom_steps_per_second"], loop_time=row["loop_seconds"], status="ok")
     write(output / "performance-summary.json", summary)
     write(output / "performance.json", result)
@@ -117,8 +127,9 @@ def build_report(run, accounting, output, build_summary=None):
                 ax.set_ylabel("Weak-scaling efficiency (%)")
                 ax.set_ylim(0, 105)
             ax.errorbar(x, y, yerr=[lo, hi], fmt="o-", capsize=4, label="Median; min/max samples")
-            ax.set_xticks(x)
-            ax.set_xlabel("V100 GPUs (4 per node)")
+            ax.set_xticks(x, [str(r["gpus"]) + "\n" + str(r["nodes"]) + "x" + str(r["gpus_per_node"])
+                             for r in selected])
+            ax.set_xlabel("V100 GPUs (nodes x GPUs per node)")
             ax.set_title(("Tungsten SNAP" if kind == "snap" else "SPC/E water + PPPM") + " - " + series)
             ax.grid(alpha=.25)
             ax.legend(fontsize=8)
@@ -126,7 +137,7 @@ def build_report(run, accounting, output, build_summary=None):
     fig.savefig(output / "scaling.png", dpi=180)
     fig.savefig(output / "scaling.svg")
     plt.close(fig)
-    gpu_hours = float(accounting["ElapsedRaw"]) * plan["nodes"] * 4 / 3600
+    gpu_hours = float(accounting["ElapsedRaw"]) * plan["nodes"] * plan.get("allocation_gpus_per_node", 4) / 3600
     lines = ["# SAI LAMMPS multi-node performance trial", "",
              "![Scaling curves](scaling.png)", "",
              "Source: `" + plan["source_sha"] + "`. Accepted site image with existing DeePMD integration; "
@@ -134,7 +145,7 @@ def build_report(run, accounting, output, build_summary=None):
              "Slurm job `" + plan["job"] + "`: `" + accounting["State"] + "`, exit `" + accounting["ExitCode"]
              + "`, " + accounting["Elapsed"] + ", " + f"{gpu_hours:.2f} allocated GPU-hours. "
              "This includes reserved GPUs while smaller layouts run.", "",
-             "One MPI rank per GPU, four GPUs per node, one OpenMP thread per rank. "
+             "One MPI rank per GPU, with the node layout recorded in the table, and one OpenMP thread per rank. "
              "MPI binds each rank to four physical cores, following the site's one-rank-per-GPU mapping. "
              "Three consecutive timed segments follow 100 warmup steps. Times exclude setup; "
              "full process wall times remain in the CSV and raw evidence. Nodes were not reserved exclusively.", "",
@@ -143,11 +154,11 @@ def build_report(run, accounting, output, build_summary=None):
              "The LAMMPS Kokkos guide recommends CUDA_LAUNCH_BLOCKING=1 for accurate section timings; "
              "that diagnostic mode was not used here because it changes execution performance. "
              "The curves use complete loop times.", "",
-             "| Case | Atoms | GPUs | Steps/sample | Median s | Min-max s | Strong speedup / weak efficiency |",
+             "| Case | Atoms | Nodes x GPUs/node | Steps/sample | Median s | Min-max s | Strong speedup / weak efficiency |",
              "|---|---:|---:|---:|---:|---:|---:|"]
     for row in table:
         metric = f"{row['relative_speedup']:.2f}x" if row["series"] == "strong" else f"{row['efficiency'] * 100:.1f}%"
-        lines.append(f"| {row['case']} | {row['atoms']} | {row['gpus']} | {row['steps']} | "
+        lines.append(f"| {row['case']} | {row['atoms']} | {row['nodes']}x{row['gpus_per_node']} | {row['steps']} | "
                      f"{row['median_seconds']:.3f} | {row['min_seconds']:.3f}-{row['max_seconds']:.3f} | {metric} |")
     lines += ["", f"All {len(gates)} small-system CPU/GPU numerical checks passed. "
               "These compare initial and 10-step energy, pressure tensor and every atomic force. "
@@ -164,11 +175,101 @@ def build_report(run, accounting, output, build_summary=None):
     return table
 
 
+def compare_topologies(run, reference_run, output):
+    """Compare identical input decks and image bytes across two allocations."""
+    current, reference = read(run / "performance.json"), read(reference_run / "performance.json")
+    if current["status"] != "PASS" or reference["status"] != "PASS":
+        raise ValueError("both topology experiments must pass")
+    if current["plan"].get("reference_sha256") != digest(reference_run / "performance.json"):
+        raise ValueError("comparison is not the frozen reference experiment")
+    for key in ("image_sha256", "source_sha", "recipe_sha256", "partition"):
+        if current["plan"][key] != reference["plan"][key]:
+            raise ValueError("comparison differs in " + key)
+    if current["mpi"] != reference["mpi"]:
+        raise ValueError("comparison used a different host MPI version")
+    for key in ("cpu",):
+        if {r[key] for r in current["hardware"]} != {r[key] for r in reference["hardware"]}:
+            raise ValueError("comparison used different hardware")
+    for key in ("name", "driver"):
+        if ({d[key] for r in current["hardware"] for d in r["devices"]}
+                != {d[key] for r in reference["hardware"] for d in r["devices"]}):
+            raise ValueError("comparison used different GPU model or driver")
+    old = {r["name"]: r for r in reference["measurements"]}
+    rows = []
+    for after in current["measurements"]:
+        before = old[after["name"]]
+        for key in ("kind", "series", "dims", "steps", "warmup", "repeats", "natoms", "gpus"):
+            if before[key] != after[key]:
+                raise ValueError("comparison changed " + key)
+        for filename in ("in.lmp", "W.snapcoeff", "W.snapparam") if after["kind"] == "snap" else ("in.lmp", "data.spce"):
+            if digest(run / "cases" / after["name"] / filename) != digest(reference_run / "cases" / after["name"] / filename):
+                raise ValueError("comparison changed the actual input: " + filename)
+        delta = abs(before["states"]["initial"]["values"][0] - after["states"]["initial"]["values"][0])
+        if not math.isfinite(delta) or delta > 1e-6:
+            raise ValueError("initial potential energy differs between experiments")
+        rows.append(dict(case=after["name"], kind=after["kind"], series=after["series"], gpus=after["gpus"],
+                         previous_layout=f"{before['nodes']}x{before.get('gpus_per_node', 4)}",
+                         current_layout=f"{after['nodes']}x{after.get('gpus_per_node', 4)}",
+                         previous_seconds=before["loop_seconds"], current_seconds=after["loop_seconds"],
+                         previous_median=statistics.median(before["loop_seconds"]),
+                         current_median=statistics.median(after["loop_seconds"]),
+                         speedup=statistics.median(before["loop_seconds"]) / statistics.median(after["loop_seconds"]),
+                         initial_pe_per_atom_difference=delta))
+    limitations = ("Independent allocations at different times, with different node placement and contention. "
+                  "The current allocation reserves all 16 GPUs per node, including during smaller cases; "
+                  "the reference reserves four per node. The current run also verifies CPU-local GPU selection; "
+                  "the reference used allocated GPU index order and did not record NUMA locality. "
+                  "Ratios include these effects and do not isolate node count alone. "
+                  "Error bars show the range of three sequential samples, not confidence intervals.")
+    write(output / "topology-comparison.json", dict(reference_job=reference["plan"]["job"],
+          current_job=current["plan"]["job"], limitations=limitations, results=rows))
+    import matplotlib.pyplot as plt
+    fig, axes = plt.subplots(2, 2, figsize=(11, 8), constrained_layout=True)
+    for i, kind in enumerate(("snap", "spce")):
+        for j, series in enumerate(("strong", "weak")):
+            selected = [r for r in rows if r["kind"] == kind and r["series"] == series]
+            ax = axes[i, j]
+            for prefix, label in (("previous", "Four GPUs per node"), ("current", "Up to 16 GPUs per node")):
+                medians = [r[prefix + "_median"] for r in selected]
+                low = [r[prefix + "_median"] - min(r[prefix + "_seconds"]) for r in selected]
+                high = [max(r[prefix + "_seconds"]) - r[prefix + "_median"] for r in selected]
+                ax.errorbar([r["gpus"] for r in selected], medians, yerr=[low, high], fmt="o-", capsize=4, label=label)
+            ax.set_xticks([r["gpus"] for r in selected])
+            ax.set_xlabel("Total V100 GPUs")
+            ax.set_ylabel("Seconds per measured segment")
+            ax.set_title(("Tungsten SNAP" if kind == "snap" else "SPC/E water + PPPM") + " - " + series)
+            ax.grid(alpha=.25)
+            ax.legend(fontsize=8)
+    fig.suptitle("SAI LAMMPS node layout comparison - " + current["plan"]["source_sha"][:12])
+    fig.savefig(output / "topology-comparison.png", dpi=180)
+    fig.savefig(output / "topology-comparison.svg")
+    plt.close(fig)
+    lines = ["", "## Comparison with the four-GPU-per-node trial", "",
+             "![Node layout comparison](topology-comparison.png)", "", limitations, "",
+             "The SIF hash, source, compiler recipe, host MPI version, GPU/CPU models and GPU driver match. "
+             "Every compared input deck and model/data file is byte-identical. "
+             "Initial potential energies agree within 1e-6 per atom.", "",
+             "| Case | Previous layout | Current layout | Previous median s | Current median s | Ratio |",
+             "|---|---:|---:|---:|---:|---:|"]
+    for r in rows:
+        lines.append(f"| {r['case']} | {r['previous_layout']} | {r['current_layout']} | "
+                     f"{r['previous_median']:.3f} | {r['current_median']:.3f} | {r['speedup']:.3f}x |")
+    lines += ["", "A ratio above one means the current run was faster. "
+              "The 1x4 repeat is a baseline check for allocation-to-allocation variation.", "",
+              "[Exact comparison samples](topology-comparison.json)", ""]
+    with (output / "README.md").open("a") as stream:
+        stream.write("\n".join(lines))
+    return rows
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("run", type=Path)
     parser.add_argument("--accounting", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--build-summary", type=Path, help="Earlier build metadata with the identical image checksum")
+    parser.add_argument("--reference-run", type=Path, help="Archived reference run for the topology comparison")
     args = parser.parse_args()
     build_report(args.run, read(args.accounting), args.output, args.build_summary)
+    if args.reference_run is not None:
+        compare_topologies(args.run, args.reference_run, args.output)

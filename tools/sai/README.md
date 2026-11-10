@@ -18,7 +18,8 @@ accepted build of the recorded upstream revision.
 ## Tests
 
 One job requests two nodes with four V100 GPUs per node in the `16V100`
-partition, matching the site's per-node GPU allocation rules. Host Open MPI launches the accepted executable through its existing
+partition. Each physical node has 16 GPUs; the small regression suite uses a
+subset to exercise cross-node communication. Host Open MPI launches the accepted executable through its existing
 Apptainer wrapper. Every rank records its node, CPU affinity and allocated GPU
 UUID; GPU masks are obtained independently on each node through Slurm.
 
@@ -179,6 +180,28 @@ and calibration. Scaling comparisons use the same final mapping throughout.
 The jobs request four GPUs on each 16-GPU node without exclusive-node access,
 so the results can contain interference from other jobs.
 
+To compare that layout with full nodes, reuse the completed scaling experiment:
+
+```bash
+python3 -B tools/sai/submit_performance.py \
+  /org/org-open-sai/proj-sai-hpc-software/lammps-performance/runs/topology-UNIQUE \
+  --nodes 2 --profile topology \
+  --reference /org/org-open-sai/proj-sai-hpc-software/lammps-performance/runs/scaling-UNIQUE/performance.json
+```
+
+This requests two nodes with 16 GPUs each. The measurement layouts are 1x4,
+1x8, 1x16 and 2x16 (nodes x GPUs per node). It pins the reference image and
+module, copies the same sizes, timesteps, warmup and sample counts, and freezes
+the reference record. Every layout receives CPU/GPU force and thermo checks.
+The rank count, device masks, CPU binding, GPU topology and actual allocation
+are recorded. In this mode, GPUs are ordered by their PCI CPU-locality groups
+to match sequential MPI core binding. Every rank checks that its bound CPUs
+are local to its selected GPU before starting LAMMPS. This matters when GPU
+indices run in the opposite order to CPU NUMA domains. The allocation retains
+all 32 GPUs while smaller cases run;
+GPU-hour accounting includes that idle capacity. This manual mode does not
+change the small scheduled regression suite.
+
 After copying a completed run and its Slurm accounting to an analysis host,
 `report_performance.py` validates the completion record and frozen inputs,
 then writes CSV, Markdown, PNG/SVG curves and the upstream performance JSON:
@@ -187,6 +210,13 @@ then writes CSV, Markdown, PNG/SVG curves and the upstream performance JSON:
 python3 -B tools/sai/report_performance.py /path/to/copied/run \
   --accounting /path/to/accounting.json --output /path/to/report
 ```
+
+For a topology run, add `--reference-run /path/to/copied/scaling-run` to produce
+comparison tables and plots. It checks identical image bytes, CPU/GPU models,
+GPU driver, actual input decks and model/data files before comparing timings.
+Use the intended publication directory name for `--output`, because its last
+component becomes the public report URL. Separate allocations can differ in
+placement and contention; the repeated 1x4 point helps expose that variation.
 
 Only the report generator needs Matplotlib. The cluster and VM controllers
 use Python's standard library. The report uses median timings with sample

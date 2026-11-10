@@ -43,7 +43,7 @@ def execute(argv, output, *, cwd=None, timeout=240):
     return time.monotonic() - started
 
 
-def node_info(run):
+def node_info(run, expected_gpus=4):
     """One Slurm step per node records its own allocated GPU mask."""
     node = socket.gethostname().split(".")[0]
     mask = os.environ.get("CUDA_VISIBLE_DEVICES", "")
@@ -59,8 +59,8 @@ def node_info(run):
             raise RuntimeError("cannot resolve allocated GPU " + visible)
         index, uuid, name, driver = matches[0]
         devices.append(dict(index=index, uuid=uuid, name=name, driver=driver))
-    if len(devices) != 4:
-        raise RuntimeError("expected exactly four allocated GPUs per node")
+    if len(devices) != expected_gpus:
+        raise RuntimeError(f"expected exactly {expected_gpus} allocated GPUs per node")
     cpu = subprocess.check_output(["lscpu", "-J"], text=True)
     fields = {r["field"].rstrip(":"): r["data"] for r in json.loads(cpu)["lscpu"]}
     write(Path(run) / "nodes" / (node + ".json"), dict(node=node, devices=devices,

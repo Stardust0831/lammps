@@ -15,6 +15,33 @@ from common import digest, read, stamp, write
 from suite import compare, execute, node_info, rank
 
 
+def layout_sizes(layout):
+    """Old plans list node counts; new plans also specify ranks per node."""
+    nodes, per_node = (layout, 4) if isinstance(layout, int) else (layout["nodes"], layout["gpus_per_node"])
+    if nodes not in (1, 2, 4, 8) or per_node not in (4, 8, 16):
+        raise ValueError("unsupported GPU layout")
+    return nodes, per_node
+
+
+def cpu_list(text):
+    cpus = set()
+    for item in text.strip().split(","):
+        ends = item.split("-")
+        if len(ends) > 2 or not all(v.isdigit() for v in ends):
+            raise ValueError("invalid CPU locality list")
+        first, last = int(ends[0]), int(ends[-1])
+        if first > last:
+            raise ValueError("reversed CPU locality range")
+        cpus.update(range(first, last + 1))
+    return sorted(cpus)
+
+
+def local_device_order(devices, locality):
+    """Match sequential MPI core binding to GPU CPU-locality groups."""
+    result = [dict(device, local_cpus=cpu_list(locality[device["index"]])) for device in devices]
+    return sorted(result, key=lambda device: (min(device["local_cpus"]), int(device["index"])))
+
+
 def input_text(kind, dims, backend, steps=100, warmup=100, repeats=3, seed=None, gate=False):
     """Explicit device styles prevent suffix fallback for measured operations."""
     suffix = "/kk" if backend == "kokkos" else ""
@@ -155,8 +182,9 @@ def run_benchmarks(directory):
             if digest(run / "control/benchmarks" / name) != entry["sha256"]:
                 raise ValueError("input checksum changed: " + name)
         count = plan["nodes"]
+        allocated_per_node = plan.get("allocation_gpus_per_node", 4)
         srun = ["srun", f"--nodes={count}", f"--ntasks={count}", "--ntasks-per-node=1",
-                "--gres=gpu:4", "--export=ALL", "/usr/bin/python3", "-B",
+                f"--gres=gpu:{allocated_per_node}", "--export=ALL", "/usr/bin/python3", "-B",
                 str(run / "control/performance.py")]
         execute(srun + ["node", str(run)], run / "preflight.log")
         machines = [read(p) for p in sorted((run / "nodes").glob("*.json"))]
@@ -171,7 +199,10 @@ def run_benchmarks(directory):
                                      stderr=subprocess.STDOUT)
         lmp = shutil.which("lmp")
 
-        def launch(name, kind, dims, count, steps=100, warmup=100, repeats=3, backend="kokkos", seed=None, gate=False):
+        def launch(name, kind, dims, count, steps=100, warmup=100, repeats=3, backend="kokkos", seed=None, gate=False, per_node=4):
+            per_node = 1 if backend == "cpu" else per_node
+            if count > len(nodes) or per_node > allocated_per_node:
+                raise ValueError("layout exceeds allocation")
             case = run / "cases" / name
             case.mkdir(parents=True)
             for filename in (("W.snapcoeff", "W.snapparam") if kind == "snap" else ("data.spce",)):
@@ -179,7 +210,6 @@ def run_benchmarks(directory):
             if seed:
                 shutil.copyfile(seed, case / Path(seed).name)
             (case / "in.lmp").write_text(input_text(kind, dims, backend, steps, warmup, repeats, seed, gate))
-            per_node = 1 if backend == "cpu" else 4
             selected = nodes[:count]
             args = [] if backend == "cpu" else ["-k", "on", "g", "1", "-sf", "kk", "-pk", "kokkos",
                     "neigh", "half", "newton", "on", "comm", "device", "gpu/aware", "on"]
@@ -206,7 +236,8 @@ def run_benchmarks(directory):
             for node in selected:
                 rows = [r for r in ranks if r["node"] == node]
                 if (len(rows) != per_node or len({r["gpu"]["uuid"] for r in rows}) != per_node
-                        or len({tuple(r["affinity"]) for r in rows}) != per_node):
+                        or len(set().union(*(set(r["affinity"]) for r in rows)))
+                        != sum(len(r["affinity"]) for r in rows)):
                     raise ValueError("GPU or CPU rank mapping overlaps")
             return case, text, state, wall
 
@@ -217,31 +248,34 @@ def run_benchmarks(directory):
             ref, _, ref_state, _ = launch(kind + "-cpu-reference", kind, dims, 1,
                                           backend="cpu", seed=seed, gate=True)
             tolerance = dict(atol=2e-6, rtol=2e-7)
-            for count in plan["layouts"]:
-                case, _, state, wall = launch(f"{kind}-gate-{4 * count}gpu", kind, dims, count,
-                                             seed=seed, gate=True)
+            for layout in plan["layouts"]:
+                count, per_node = layout_sizes(layout)
+                case, _, state, wall = launch(f"{kind}-gate-{per_node * count}gpu", kind, dims, count,
+                                             seed=seed, gate=True, per_node=per_node)
                 deltas = {}
                 for phase in ("initial", "final"):
                     deltas[phase + "_thermo_max"] = compare(ref_state[phase]["values"], state[phase]["values"], **tolerance)
                     natoms = state[phase]["natoms"]
                     deltas[phase + "_force_max"] = compare(dump_forces(ref / (phase + ".dump"), natoms),
                                                            dump_forces(case / (phase + ".dump"), natoms), **tolerance)
-                gates.append(dict(case=case.name, status="PASS", tolerance=tolerance, differences=deltas, wall_seconds=wall))
+                gates.append(dict(case=case.name, status="PASS", nodes=count, gpus_per_node=per_node,
+                                  tolerance=tolerance, differences=deltas, wall_seconds=wall))
                 write(run / "performance.json", result)
                 print("NUMERICAL", case.name, deltas, flush=True)
 
         for spec in plan["benchmarks"]:
             kind, dims, count = spec["kind"], spec["dims"], spec["nodes"]
+            per_node = spec.get("gpus_per_node", 4)
             name = spec["name"]
-            print("MEASURING", name, dims, count * 4, flush=True)
+            print("MEASURING", name, dims, count * per_node, flush=True)
             case, text, state, wall = launch(name, kind, dims, count, steps=spec["steps"],
-                                            warmup=spec["warmup"], repeats=spec["repeats"])
+                                            warmup=spec["warmup"], repeats=spec["repeats"], per_node=per_node)
             natoms = state["initial"]["natoms"]
             timings = measured_loops(text, spec["steps"], spec["repeats"], natoms)
             temperature = state["final"]["values"][3]
             if not (400 < temperature < 1200 if kind == "snap" else 150 < temperature < 450):
                 raise ValueError("temperature outside predeclared stability bounds")
-            records.append(dict(spec, status="PASS", natoms=natoms, gpus=count * 4,
+            records.append(dict(spec, status="PASS", natoms=natoms, gpus=count * per_node,
                                 loop_seconds=timings, median_seconds=statistics.median(timings),
                                 atom_steps_per_second=[natoms * spec["steps"] / t for t in timings],
                                 wall_seconds=wall, states=state,
@@ -267,10 +301,37 @@ def run_benchmarks(directory):
 
 if __name__ == "__main__":
     if sys.argv[1] == "node":
-        node_info(sys.argv[2])
+        directory = Path(sys.argv[2])
+        plan = read(directory / "plan.json")
+        node_info(directory, plan.get("allocation_gpus_per_node", 4))
+        node = socket.gethostname().split(".")[0]
+        for label, argv in (("gpu-topology", ["nvidia-smi", "topo", "-m"]),
+                            ("cpu-topology", ["lscpu", "-e=CPU,CORE,SOCKET,NODE"])):
+            execute(argv, directory / "nodes" / (node + "-" + label + ".txt"))
+        if plan.get("gpu_assignment") == "cpu-local":
+            buses = subprocess.check_output(["nvidia-smi", "--query-gpu=index,pci.bus_id",
+                                             "--format=csv,noheader,nounits"], text=True)
+            locality = {}
+            for line in buses.splitlines():
+                index, bus_id = (part.strip() for part in line.split(","))
+                domain, bus, device = bus_id.lower().split(":")
+                address = f"{int(domain, 16):04x}:{bus}:{device}"
+                locality[index] = (Path("/sys/bus/pci/devices") / address / "local_cpulist").read_text()
+            path = directory / "nodes" / (node + ".json")
+            info = read(path)
+            info["allocated_device_order"] = [d["index"] for d in info["devices"]]
+            info["devices"] = local_device_order(info["devices"], locality)
+            write(path, info)
     elif sys.argv[1] == "monitor":
         monitor(sys.argv[2])
     elif sys.argv[1] == "rank":
+        directory = Path(sys.argv[2])
+        if read(directory / "plan.json").get("gpu_assignment") == "cpu-local":
+            node = socket.gethostname().split(".")[0]
+            info = read(directory / "nodes" / (node + ".json"))
+            device = info["devices"][int(os.environ["OMPI_COMM_WORLD_LOCAL_RANK"])]
+            if not set(os.sched_getaffinity(0)).issubset(device["local_cpus"]):
+                raise RuntimeError("MPI CPU binding does not match selected GPU locality")
         rank(*sys.argv[2:5], sys.argv[5:])
     elif sys.argv[1] == "run":
         raise SystemExit(run_benchmarks(sys.argv[2]))
