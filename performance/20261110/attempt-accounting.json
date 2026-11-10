@@ -1,0 +1,62 @@
+[
+  {
+    "JobIDRaw": "2337925",
+    "JobName": "sai-lmp-pilot",
+    "State": "FAILED",
+    "ExitCode": "1:0",
+    "Partition": "16V100",
+    "QOS": "rush-gpu",
+    "Account": "proj-sai-hpc-software",
+    "WorkDir": "/org/org-open-sai/proj-sai-hpc-software/lammps-performance/runs/pilot-20261110-a",
+    "Elapsed": "00:00:08",
+    "ElapsedRaw": "8",
+    "NodeList": "16v100n[53-54]",
+    "AllocTRES": "billing=1200,cpu=64,gres/gpu=8,mem=120G,node=2",
+    "TotalCPU": "00:00:00"
+  },
+  {
+    "JobIDRaw": "2337956",
+    "JobName": "sai-lmp-pilot",
+    "State": "FAILED",
+    "ExitCode": "1:0",
+    "Partition": "16V100",
+    "QOS": "rush-gpu",
+    "Account": "proj-sai-hpc-software",
+    "WorkDir": "/org/org-open-sai/proj-sai-hpc-software/lammps-performance/runs/pilot-20261110-b",
+    "Elapsed": "00:00:25",
+    "ElapsedRaw": "25",
+    "NodeList": "16v100n[53-54]",
+    "AllocTRES": "billing=1200,cpu=64,gres/gpu=8,mem=120G,node=2",
+    "TotalCPU": "00:00:00"
+  },
+  {
+    "JobIDRaw": "2338037",
+    "JobName": "sai-lmp-pilot",
+    "State": "COMPLETED",
+    "ExitCode": "0:0",
+    "Partition": "16V100",
+    "QOS": "rush-gpu",
+    "Account": "proj-sai-hpc-software",
+    "WorkDir": "/org/org-open-sai/proj-sai-hpc-software/lammps-performance/runs/pilot-20261110-c",
+    "Elapsed": "00:02:30",
+    "ElapsedRaw": "150",
+    "NodeList": "16v100n[65-66]",
+    "AllocTRES": "billing=1200,cpu=64,gres/gpu=8,mem=120G,node=2",
+    "TotalCPU": "00:00:00"
+  },
+  {
+    "JobIDRaw": "2338108",
+    "JobName": "sai-lmp-scaling",
+    "State": "COMPLETED",
+    "ExitCode": "0:0",
+    "Partition": "16V100",
+    "QOS": "huge-gpu",
+    "Account": "proj-sai-hpc-software",
+    "WorkDir": "/org/org-open-sai/proj-sai-hpc-software/lammps-performance/runs/scaling-20261110-b",
+    "Elapsed": "00:23:43",
+    "ElapsedRaw": "1423",
+    "NodeList": "16v100n[40,55,61,65,69,73,77,82]",
+    "AllocTRES": "billing=4800,cpu=256,gres/gpu=32,mem=480G,node=8",
+    "TotalCPU": "00:00:00"
+  }
+]
