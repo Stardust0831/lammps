@@ -2,6 +2,7 @@
 """Operator-only submission of a frozen, bounded performance experiment."""
 import argparse
 from pathlib import Path
+import shlex
 import shutil
 import subprocess
 
@@ -41,12 +42,20 @@ def main():
     parser.add_argument("--profile", choices=("pilot", "scaling", "topology"), default="pilot")
     parser.add_argument("--calibration", type=Path)
     parser.add_argument("--reference", type=Path, help="Completed scaling performance.json to reproduce on full nodes")
+    parser.add_argument("--only", nargs="+", help="Run only the named performance points; numerical checks remain enabled")
+    parser.add_argument("--first", nargs="+", help="Run the named performance points before the rest")
+    parser.add_argument("--ucx-cuda-ipc-cache", choices=("y", "n"), help="Explicit UCX IPC mapping cache setting for this experiment")
+    parser.add_argument("--ucx-whole-allocation", choices=("on", "off", "auto"), help="Explicit UCX whole CUDA allocation registration setting")
+    parser.add_argument("--disable-cuda-ipc", action="store_true", help="Exclude the CUDA IPC transport for diagnosis")
+    parser.add_argument("--qos", choices=("rush-gpu", "huge-gpu"))
     args = parser.parse_args()
     source = Path(__file__).resolve().parent
     config = read(source / "site.json")
     allocated_per_node = 16 if args.profile == "topology" else 4
     if args.nodes * allocated_per_node > 16:
         config["qos"] = "huge-gpu"
+    if args.qos:
+        config["qos"] = args.qos
     directory = args.directory.resolve()
     if not directory.is_relative_to(Path(config["root"]).parent / "lammps-performance"):
         raise ValueError("performance runs must use the project performance directory")
@@ -96,6 +105,22 @@ def main():
                     benchmarks.append(dict(name=f"{kind}-{series}-{nodes * 4}gpu", kind=kind,
                                            dims=dims, nodes=nodes, steps=steps if series == "weak" else max(100, steps // 4),
                                            warmup=100, repeats=3, series=series))
+    if args.only:
+        if not set(args.only).issubset({r["name"] for r in benchmarks}):
+            raise ValueError("unknown requested performance point")
+        benchmarks = [r for r in benchmarks if r["name"] in args.only]
+    if args.first:
+        if not set(args.first).issubset({r["name"] for r in benchmarks}):
+            raise ValueError("unknown priority performance point")
+        priority = {name: index for index, name in enumerate(args.first)}
+        benchmarks.sort(key=lambda row: priority.get(row["name"], len(priority)))
+    runtime_environment = {}
+    if args.ucx_cuda_ipc_cache is not None:
+        runtime_environment["UCX_CUDA_IPC_CACHE"] = args.ucx_cuda_ipc_cache
+    if args.ucx_whole_allocation is not None:
+        runtime_environment["UCX_CUDA_COPY_REG_WHOLE_ALLOC"] = args.ucx_whole_allocation
+    if args.disable_cuda_ipc:
+        runtime_environment["UCX_TLS"] = "^cuda_ipc"
     directory.mkdir(parents=True, exist_ok=False)
     (directory / "scratch").mkdir(mode=0o700)
     (directory / "control").mkdir()
@@ -108,6 +133,7 @@ def main():
               for p in sorted((directory / "control").rglob("*")) if p.is_file()}
     plan = dict(selected, created_at=stamp(), profile=args.profile, nodes=args.nodes,
                 allocation_gpus_per_node=allocated_per_node,
+                runtime_environment=runtime_environment,
                 layouts=layouts, benchmarks=benchmarks, partition=config["partition"],
                 account=config["account"], qos=config["qos"], control_files=hashes,
                 numerical_scope="10-step CPU/Kokkos force and thermo comparisons; large NVT finite-state checks",
@@ -125,6 +151,9 @@ def main():
     job = job.replace("#SBATCH --ntasks-per-node=4", f"#SBATCH --ntasks-per-node={allocated_per_node}")
     job = job.replace("#SBATCH --gres=gpu:4", f"#SBATCH --gres=gpu:{allocated_per_node}")
     job = job.replace("control/suite.py", "control/performance.py")
+    if runtime_environment:
+        exports = "\n".join("export " + key + "=" + shlex.quote(value) for key, value in runtime_environment.items())
+        job = job.replace("exec /usr/bin/python3", exports + "\nexec /usr/bin/python3")
     path = directory / "job.sbatch"
     path.write_text(job)
     subprocess.run(["bash", "-n", str(path)], check=True)

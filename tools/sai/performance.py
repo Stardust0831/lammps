@@ -174,6 +174,9 @@ def run_benchmarks(directory):
     try:
         if os.environ.get("SLURM_JOB_ID") != plan["job"]:
             raise ValueError("not in the assigned Slurm job")
+        for key, value in plan.get("runtime_environment", {}).items():
+            if os.environ.get(key) != value:
+                raise ValueError("wrong runtime setting: " + key)
         if os.environ["SAI_SIF_LAMMPS_SOURCE"] != plan["source_sha"]:
             raise ValueError("wrong source module")
         if digest(os.environ["SAI_SIF_LAMMPS_IMAGE"]) != plan["image_sha256"]:
@@ -219,7 +222,8 @@ def run_benchmarks(directory):
                     "ppr:" + str(per_node) + ":node:pe=4", "--bind-to", "core", "/usr/bin/python3", "-B",
                     str(run / "control/performance.py"), "rank", str(run), str(case), lmp, *args]
             write(case / "command.json", argv)
-            wall = execute(argv, case / "screen.txt", cwd=case, timeout=1200)
+            wall = execute(argv, case / "screen.txt", cwd=case, timeout=1200,
+                           fatal_pattern=r"\bUCX\s+ERROR\b|cuIpcOpenMemHandle\(\) failed")
             text = (case / "screen.txt").read_text()
             if backend == "kokkos":
                 if "KOKKOS mode with" not in text or "/kk" not in text:

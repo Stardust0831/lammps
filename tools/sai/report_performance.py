@@ -59,6 +59,7 @@ def build_report(run, accounting, output, build_summary=None):
                    url="https://github.com/Stardust0831/lammps/tree/sai-multigpu-reports/performance/"
                    + output.name,
                    image_sha256=plan["image_sha256"], binary_modified="-modified" in banner.group(1),
+                   runtime_environment=plan.get("runtime_environment", {}),
                    reporter_sha256=digest(Path(__file__)),
                    sample_policy="Three sequential segments after warmup; SAI plots use medians and min/max ranges. "
                    "The upstream dashboard currently selects the best sample.", results={})
@@ -88,7 +89,8 @@ def build_report(run, accounting, output, build_summary=None):
                           full_process_seconds=row["wall_seconds"]))
         summary["results"][row["name"]] = dict(input=row["kind"], size=str(row["natoms"]),
               precision="double", package="kokkos", api="cuda", category="kokkos-cuda",
-              flags="newton on neigh half comm device gpu/aware on", ranks=row["gpus"],
+              flags="newton on neigh half comm device gpu/aware on "
+              + " ".join(k + "=" + v for k, v in plan.get("runtime_environment", {}).items()), ranks=row["gpus"],
               threads=1, gpus=row["gpus"], natoms=row["natoms"], steps=row["steps"],
               nodes=row["nodes"], gpus_per_node=row.get("gpus_per_node", 4),
               samples=row["atom_steps_per_second"], loop_time=row["loop_seconds"], status="ok")
@@ -108,7 +110,8 @@ def build_report(run, accounting, output, build_summary=None):
     fig, axes = plt.subplots(2, 2, figsize=(11, 8), constrained_layout=True)
     for rowid, kind in enumerate(("snap", "spce")):
         for colid, series in enumerate(("strong", "weak")):
-            selected = [r for r in table if r["case"].startswith(kind + "-") and r["series"] == series]
+            selected = sorted((r for r in table if r["case"].startswith(kind + "-") and r["series"] == series),
+                              key=lambda r: r["gpus"])
             ax = axes[rowid, colid]
             x = [r["gpus"] for r in selected]
             base = selected[0]["median_seconds"]
@@ -145,6 +148,7 @@ def build_report(run, accounting, output, build_summary=None):
              "Slurm job `" + plan["job"] + "`: `" + accounting["State"] + "`, exit `" + accounting["ExitCode"]
              + "`, " + accounting["Elapsed"] + ", " + f"{gpu_hours:.2f} allocated GPU-hours. "
              "This includes reserved GPUs while smaller layouts run.", "",
+             "Explicit runtime settings: `" + str(plan.get("runtime_environment", {})) + "`.", "",
              "One MPI rank per GPU, with the node layout recorded in the table, and one OpenMP thread per rank. "
              "MPI binds each rank to four physical cores, following the site's one-rank-per-GPU mapping. "
              "Three consecutive timed segments follow 100 warmup steps. Times exclude setup; "
@@ -156,7 +160,7 @@ def build_report(run, accounting, output, build_summary=None):
              "The curves use complete loop times.", "",
              "| Case | Atoms | Nodes x GPUs/node | Steps/sample | Median s | Min-max s | Strong speedup / weak efficiency |",
              "|---|---:|---:|---:|---:|---:|---:|"]
-    for row in table:
+    for row in sorted(table, key=lambda r: (r["case"].split("-")[0], r["gpus"], r["series"])):
         metric = f"{row['relative_speedup']:.2f}x" if row["series"] == "strong" else f"{row['efficiency'] * 100:.1f}%"
         lines.append(f"| {row['case']} | {row['atoms']} | {row['nodes']}x{row['gpus_per_node']} | {row['steps']} | "
                      f"{row['median_seconds']:.3f} | {row['min_seconds']:.3f}-{row['max_seconds']:.3f} | {metric} |")
@@ -219,15 +223,18 @@ def compare_topologies(run, reference_run, output):
                   "The current allocation reserves all 16 GPUs per node, including during smaller cases; "
                   "the reference reserves four per node. The current run also verifies CPU-local GPU selection; "
                   "the reference used allocated GPU index order and did not record NUMA locality. "
+                  "Runtime environment overrides are recorded separately for both experiments. "
                   "Ratios include these effects and do not isolate node count alone. "
                   "Error bars show the range of three sequential samples, not confidence intervals.")
     write(output / "topology-comparison.json", dict(reference_job=reference["plan"]["job"],
-          current_job=current["plan"]["job"], limitations=limitations, results=rows))
+          current_job=current["plan"]["job"], limitations=limitations, results=rows,
+          reference_environment=reference["plan"].get("runtime_environment", {}),
+          current_environment=current["plan"].get("runtime_environment", {})))
     import matplotlib.pyplot as plt
     fig, axes = plt.subplots(2, 2, figsize=(11, 8), constrained_layout=True)
     for i, kind in enumerate(("snap", "spce")):
         for j, series in enumerate(("strong", "weak")):
-            selected = [r for r in rows if r["kind"] == kind and r["series"] == series]
+            selected = sorted((r for r in rows if r["kind"] == kind and r["series"] == series), key=lambda r: r["gpus"])
             ax = axes[i, j]
             for prefix, label in (("previous", "Four GPUs per node"), ("current", "Up to 16 GPUs per node")):
                 medians = [r[prefix + "_median"] for r in selected]
@@ -251,7 +258,7 @@ def compare_topologies(run, reference_run, output):
              "Initial potential energies agree within 1e-6 per atom.", "",
              "| Case | Previous layout | Current layout | Previous median s | Current median s | Ratio |",
              "|---|---:|---:|---:|---:|---:|"]
-    for r in rows:
+    for r in sorted(rows, key=lambda r: (r["kind"], r["gpus"], r["series"])):
         lines.append(f"| {r['case']} | {r['previous_layout']} | {r['current_layout']} | "
                      f"{r['previous_median']:.3f} | {r['current_median']:.3f} | {r['speedup']:.3f}x |")
     lines += ["", "A ratio above one means the current run was faster. "

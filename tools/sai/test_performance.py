@@ -1,12 +1,25 @@
 #!/usr/bin/env python3
 """Reject incomplete timings and silently changed numerical evidence."""
 import unittest
+from pathlib import Path
+import sys
+import tempfile
+import time
 
 from performance import cpu_list, input_text, layout_sizes, local_device_order, measured_loops, states
 from submit_performance import topology_benchmarks
+from suite import execute
 
 
 class PerformanceGates(unittest.TestCase):
+    def test_ucx_errors_stop_the_run(self):
+        with tempfile.TemporaryDirectory() as directory:
+            started = time.monotonic()
+            with self.assertRaisesRegex(RuntimeError, "fatal communication error"):
+                execute([sys.executable, "-u", "-c", "import time; print('UCX ERROR resource already mapped'); time.sleep(30)"],
+                        Path(directory) / "screen.txt", timeout=20, fatal_pattern=r"UCX\s+ERROR")
+            self.assertLess(time.monotonic() - started, 5)
+
     def test_gpu_numbering_does_not_determine_cpu_locality(self):
         devices = [dict(index=str(i), uuid="gpu-" + str(i)) for i in range(16)]
         locality = {str(i): f"{(3 - i // 4) * 16}-{(4 - i // 4) * 16 - 1}" for i in range(16)}

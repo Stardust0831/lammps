@@ -202,6 +202,26 @@ all 32 GPUs while smaller cases run;
 GPU-hour accounting includes that idle capacity. This manual mode does not
 change the small scheduled regression suite.
 
+For a targeted diagnosis, `--only spce-strong-16gpu` limits performance work
+while retaining the numerical checks. `--ucx-cuda-ipc-cache n` explicitly
+disables UCX's CUDA IPC mapping cache for that experiment. The plan and rank
+records retain this setting, and the runtime forwards it into the SIF. This
+is an experimental override, not a site-wide default. Comparisons must state
+when their communication settings differ. UCX errors terminate an experiment
+promptly and cannot be accepted as successful timings.
+
+Other diagnostic options are `--ucx-whole-allocation on` and
+`--disable-cuda-ipc` (sets `UCX_TLS=^cuda_ipc`). The latter retains GPU
+calculation but changes the communication transport and can reduce throughput.
+`--first` lists points to run first without dropping the rest; `--qos` selects
+one of the project's two supported GPU queues. In the 2026-11-10 full-node
+trial, UCX 1.20.0 reported `cuIpcOpenMemHandle(): resource already mapped`
+during PPPM reinitialization. Cache-off and whole-allocation registration
+did not resolve the error. Disabling CUDA IPC passed the isolated 16-GPU
+water test. Upstream [UCX PR #11216](https://github.com/openucx/ucx/pull/11216)
+addresses the same error class and was still open when checked. This does not
+establish that the proposed upstream patch fixes this particular workload.
+
 After copying a completed run and its Slurm accounting to an analysis host,
 `report_performance.py` validates the completion record and frozen inputs,
 then writes CSV, Markdown, PNG/SVG curves and the upstream performance JSON:

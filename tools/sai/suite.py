@@ -22,21 +22,45 @@ MODES = (("cpu-1", "cpu", 1, 1), ("gpu-1", "gpu", 1, 1),
 ATOMS = 2048
 
 
-def execute(argv, output, *, cwd=None, timeout=240):
+def execute(argv, output, *, cwd=None, timeout=240, fatal_pattern=None):
     started = time.monotonic()
     with Path(output).open("w") as stream:
         process = subprocess.Popen(argv, stdout=stream, stderr=subprocess.STDOUT,
                                    cwd=cwd, start_new_session=True)
+        failure = None
         try:
-            result = process.wait(timeout=timeout)
-        except subprocess.TimeoutExpired:
-            os.killpg(process.pid, signal.SIGTERM)
+            if fatal_pattern is None:
+                result = process.wait(timeout=timeout)
+            else:
+                while True:
+                    if time.monotonic() - started >= timeout:
+                        raise subprocess.TimeoutExpired(argv, timeout)
+                    with Path(output).open("rb") as log:
+                        log.seek(max(0, Path(output).stat().st_size - 16384))
+                        tail = log.read().decode(errors="replace")
+                    if re.search(fatal_pattern, tail):
+                        raise RuntimeError("fatal communication error: " + tail[-1600:])
+                    try:
+                        result = process.wait(timeout=1)
+                        break
+                    except subprocess.TimeoutExpired:
+                        continue
+        except (subprocess.TimeoutExpired, RuntimeError) as exc:
+            failure = exc
+            try:
+                os.killpg(process.pid, signal.SIGTERM)
+            except ProcessLookupError:
+                pass
             try:
                 process.wait(timeout=10)
             except subprocess.TimeoutExpired:
                 os.killpg(process.pid, signal.SIGKILL)
                 process.wait()
-            raise RuntimeError("command timed out; see " + str(output)) from None
+        if failure is not None:
+            reason = "command timed out" if isinstance(failure, subprocess.TimeoutExpired) else str(failure)
+            raise RuntimeError(reason + "; see " + str(output)) from None
+    if fatal_pattern and re.search(fatal_pattern, Path(output).read_text(errors="replace")):
+        raise RuntimeError("fatal communication error; see " + str(output))
     if result:
         tail = Path(output).read_text(errors="replace")[-1600:]
         raise RuntimeError("command exited " + str(result) + ": " + tail)
@@ -81,6 +105,7 @@ def rank(run, case, program, arguments):
         node=node, rank=global_rank, local_rank=local_rank, gpu=selected,
         affinity=sorted(os.sched_getaffinity(0)), cuda_visible_devices=selected["uuid"],
         source_sha=os.environ["SAI_SIF_LAMMPS_SOURCE"],
+        ucx_environment={k: v for k, v in os.environ.items() if k.startswith("UCX_")},
         image=os.environ["SAI_SIF_LAMMPS_IMAGE"], program=program))
     os.execv(program, [program, *arguments])
 
