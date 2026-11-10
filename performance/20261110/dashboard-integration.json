@@ -1,0 +1,15 @@
+{
+  "upstream_repository": "https://github.com/lammps/lammps-test-results",
+  "upstream_commit": "954defea44c3b90ed0a30e6899d6e975bf5574f1",
+  "public_summary_url": "https://raw.githubusercontent.com/Stardust0831/lammps/sai-multigpu-reports/performance/20261110/performance-summary.json",
+  "imported_benchmarks": 16,
+  "failed_benchmarks": 0,
+  "generated_pages": [
+    "index.html",
+    "performance.html",
+    "trends.html"
+  ],
+  "verified_public_raw_files": 591,
+  "controller_and_reporter_commit": "6d1986efa03c41853ebaded9f52f19f03d95607b",
+  "upstream_source_modifications": false
+}

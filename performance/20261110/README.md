@@ -36,3 +36,7 @@ All 8 small-system CPU/GPU numerical checks passed. These compare initial and 10
 The existing upstream performance importer accepts the JSON. Its current display uses the best sample; this report uses medians and shows every sample range. These are adapted W SNAP and standard SPC/E inputs, not formal UK procurement results.
 
 The earlier two-node [pilot measurements](pilot-performance.json) and [pilot raw evidence](pilot-raw.tar.gz) selected the sizes and step counts. [All attempt accounting](attempt-accounting.json) includes the two early harness failures. Total allocation, including the pilot and those failures, was 13.06 GPU-hours.
+
+The unmodified upstream importer and site generator at `954defea44c3b90ed0a30e6899d6e975bf5574f1` imported all 16 public measurements with zero failures and generated the performance page. All 591 files in the public raw archive passed their SHA-256 checks. [Integration receipt](dashboard-integration.json).
+
+[Scripts and reproduction instructions](https://github.com/Stardust0831/lammps/tree/6d1986efa03c41853ebaded9f52f19f03d95607b/tools/sai).
