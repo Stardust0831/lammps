@@ -102,6 +102,9 @@ or upstream message is made by this fork.
 scratch live in `/org/org-open-sai/proj-sai-hpc-software/lammps-daily-tester`,
 charged to `proj-sai-hpc-software`. Existing accepted images remain read-only at
 their published paths. No software is installed into `/opt`.
+Submissions explicitly select the existing project group with `sg` before
+calling `sbatch`. The plan records the caller's group IDs and the selected
+submission group, so filesystem access at job startup can be audited.
 
 Install the four files listed in `common.CONTROL_FILES` into the site's
 `control/` directory. The VM holds a dedicated SSH key whose authorized-key

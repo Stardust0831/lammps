@@ -22,6 +22,15 @@ def checked(value, expression, description):
     return value
 
 
+def submission_command(config, script):
+    command = ["sbatch", "--hold", "--parsable", str(script)]
+    group = config.get("submission_group")
+    if group:
+        checked(group, r"[A-Za-z0-9_.-]+", "submission group")
+        command = ["sg", group, "-c", shlex.join(command)]
+    return command
+
+
 def snapshot(config):
     module_root = Path(config["module_root"])
     module = (module_root / "lammps/develop-beta-later").resolve(strict=True)
@@ -174,13 +183,15 @@ def start(config, run_id, source_sha, controller_sha, force):
                   if run_id.startswith("github-") else "https://github.com/" + config["repository"])
         plan = dict(selected, run_id=run_id, controller_sha=controller_sha,
                     action_url=action, report_url=config["report_url"], partition=config["partition"],
-                    runtime_environment=config.get("runtime_environment", {}), created_at=stamp())
+                    runtime_environment=config.get("runtime_environment", {}), created_at=stamp(),
+                    submission_group=config.get("submission_group"),
+                    submitter_identity=dict(uid=os.getuid(), gid=os.getgid(), groups=os.getgroups()))
         write(directory / "plan.json", plan)
         script = directory / "job.sbatch"
         script.write_text(batch(plan, config, directory))
         subprocess.run(["bash", "-n", str(script)], check=True)
         # Hold until the job number is durable; a restarted relay resumes it.
-        submission = subprocess.run(["sbatch", "--hold", "--parsable", str(script)],
+        submission = subprocess.run(submission_command(config, script), stdin=subprocess.DEVNULL,
                                     cwd=directory, text=True, capture_output=True)
         write(directory / "submission.json", dict(returncode=submission.returncode,
               stdout=submission.stdout, stderr=submission.stderr))

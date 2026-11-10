@@ -1,5 +1,6 @@
 {
   "account": "proj-sai-hpc-software",
+  "submission_group": "proj-sai-hpc-software",
   "root": "/org/org-open-sai/proj-sai-hpc-software/lammps-daily-tester",
   "module_root": "/home/stardust/sai-hpc-software/modulefiles/apps",
   "beta_root": "/home/stardust/sai-hpc-software/sif-beta",
