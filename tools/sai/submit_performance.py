@@ -2,7 +2,6 @@
 """Operator-only submission of a frozen, bounded performance experiment."""
 import argparse
 from pathlib import Path
-import shlex
 import shutil
 import subprocess
 
@@ -151,9 +150,6 @@ def main():
     job = job.replace("#SBATCH --ntasks-per-node=4", f"#SBATCH --ntasks-per-node={allocated_per_node}")
     job = job.replace("#SBATCH --gres=gpu:4", f"#SBATCH --gres=gpu:{allocated_per_node}")
     job = job.replace("control/suite.py", "control/performance.py")
-    if runtime_environment:
-        exports = "\n".join("export " + key + "=" + shlex.quote(value) for key, value in runtime_environment.items())
-        job = job.replace("exec /usr/bin/python3", exports + "\nexec /usr/bin/python3")
     path = directory / "job.sbatch"
     path.write_text(job)
     subprocess.run(["bash", "-n", str(path)], check=True)

@@ -48,6 +48,10 @@ def snapshot(config):
 
 def batch(plan, config, directory):
     quote = shlex.quote
+    environment = plan.get("runtime_environment", {})
+    if any(key not in ("UCX_TLS", "UCX_CUDA_IPC_CACHE", "UCX_CUDA_COPY_REG_WHOLE_ALLOC") for key in environment):
+        raise ValueError("unsupported runtime setting")
+    exports = "\n".join("export " + key + "=" + quote(value) for key, value in environment.items())
     return f'''#!/bin/bash
 #SBATCH --job-name=sai-lammps-test
 #SBATCH --partition={config['partition']}
@@ -79,6 +83,7 @@ module use {quote(plan['module_root'])}
 module load {quote(plan['fixed_module'])}
 module -t list > modules.txt 2>&1
 scontrol show job -d "$SLURM_JOB_ID" > allocation.txt
+{exports}
 exec /usr/bin/python3 -B {quote(str(directory / 'control/suite.py'))} run {quote(str(directory))}
 '''
 
@@ -169,7 +174,7 @@ def start(config, run_id, source_sha, controller_sha, force):
                   if run_id.startswith("github-") else "https://github.com/" + config["repository"])
         plan = dict(selected, run_id=run_id, controller_sha=controller_sha,
                     action_url=action, report_url=config["report_url"], partition=config["partition"],
-                    created_at=stamp())
+                    runtime_environment=config.get("runtime_environment", {}), created_at=stamp())
         write(directory / "plan.json", plan)
         script = directory / "job.sbatch"
         script.write_text(batch(plan, config, directory))

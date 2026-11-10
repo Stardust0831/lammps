@@ -20,9 +20,10 @@ MODES = (("cpu-1", "cpu", 1, 1), ("gpu-1", "gpu", 1, 1),
          ("kokkos-1", "kokkos", 1, 1), ("kokkos-2", "kokkos", 1, 2),
          ("kokkos-4", "kokkos", 1, 4), ("kokkos-8-2nodes", "kokkos", 2, 4))
 ATOMS = 2048
+COMMUNICATION_ERROR = r"\bUCX\s+ERROR\b|cuIpcOpenMemHandle\(\) failed"
 
 
-def execute(argv, output, *, cwd=None, timeout=240, fatal_pattern=None):
+def execute(argv, output, *, cwd=None, timeout=240, fatal_pattern=COMMUNICATION_ERROR):
     started = time.monotonic()
     with Path(output).open("w") as stream:
         process = subprocess.Popen(argv, stdout=stream, stderr=subprocess.STDOUT,
@@ -238,6 +239,9 @@ def run_suite(run):
     if os.environ.get("SLURM_JOB_ID") != plan["job"]:
         raise RuntimeError("not inside the assigned Slurm job")
     try:
+        for key, value in plan.get("runtime_environment", {}).items():
+            if os.environ.get(key) != value:
+                raise RuntimeError("wrong runtime setting: " + key)
         if os.environ["SAI_SIF_LAMMPS_SOURCE"] != plan["source_sha"]:
             raise RuntimeError("loaded module has a different source commit")
         if digest(os.environ["SAI_SIF_LAMMPS_IMAGE"]) != plan["image_sha256"]:

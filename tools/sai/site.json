@@ -8,6 +8,7 @@
   "nodes": 2,
   "gpus_per_node": 4,
   "minutes": 20,
+  "runtime_environment": {"UCX_TLS": "^cuda_ipc"},
   "repository": "Stardust0831/lammps",
   "report_url": "https://stardust0831.github.io/lammps/",
   "report_branch": "sai-multigpu-reports"

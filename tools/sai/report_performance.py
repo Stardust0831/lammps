@@ -8,6 +8,24 @@ import re
 import statistics
 
 from common import digest, read, write
+from suite import COMMUNICATION_ERROR
+
+
+def validate_case_logs(run, result):
+    """Old success flags alone do not exclude communication errors in logs."""
+    names = [kind + suffix for kind in ("snap", "spce") for suffix in ("-fixture", "-cpu-reference")]
+    names += [row["case"] for row in result["numerical_checks"]]
+    names += [row["name"] for row in result["measurements"]]
+    checked = []
+    for name in names:
+        path = run / "cases" / name / "screen.txt"
+        text = path.read_text()
+        if re.search(COMMUNICATION_ERROR, text):
+            raise ValueError("communication error in " + str(path))
+        if "Total wall time:" not in text:
+            raise ValueError("missing clean LAMMPS exit in " + str(path))
+        checked.append(str(path.relative_to(run)))
+    return dict(status="PASS", logs=checked, communication_error_pattern=COMMUNICATION_ERROR)
 
 
 def build_report(run, accounting, output, build_summary=None):
@@ -28,6 +46,7 @@ def build_report(run, accounting, output, build_summary=None):
     records = result["measurements"]
     if [r["name"] for r in records] != [r["name"] for r in plan["benchmarks"]]:
         raise ValueError("missing or reordered measurements")
+    log_checks = validate_case_logs(run, result)
     for row in records:
         if len(row["loop_seconds"]) != row["repeats"] or not all(math.isfinite(t) and t > 0 for t in row["loop_seconds"]):
             raise ValueError("invalid measured samples")
@@ -98,6 +117,7 @@ def build_report(run, accounting, output, build_summary=None):
     write(output / "performance.json", result)
     write(output / "accounting.json", accounting)
     write(output / "large-system-checks.json", energy_checks)
+    write(output / "log-validation.json", log_checks)
     write(output / "table.json", table)
     with (output / "table.csv").open("w", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=list(table[0]))
@@ -185,6 +205,8 @@ def compare_topologies(run, reference_run, output):
     current, reference = read(run / "performance.json"), read(reference_run / "performance.json")
     if current["status"] != "PASS" or reference["status"] != "PASS":
         raise ValueError("both topology experiments must pass")
+    validate_case_logs(run, current)
+    validate_case_logs(reference_run, reference)
     if current["plan"].get("reference_sha256") != digest(reference_run / "performance.json"):
         raise ValueError("comparison is not the frozen reference experiment")
     for key in ("image_sha256", "source_sha", "recipe_sha256", "partition"):
@@ -270,7 +292,7 @@ def compare_topologies(run, reference_run, output):
         lines.append(f"| {r['case']} | {r['previous_layout']} | {r['current_layout']} | "
                      f"{r['previous_median']:.3f} | {r['current_median']:.3f} | {r['speedup']:.3f}x |")
     lines += ["", "A ratio above one means the current run was faster. "
-              "The 1x4 repeat is a baseline check for allocation-to-allocation variation.", "",
+              "The 1x4 repeat includes allocation variation and any difference in runtime settings.", "",
               "[Exact comparison samples](topology-comparison.json)", ""]
     with (output / "README.md").open("a") as stream:
         stream.write("\n".join(lines))

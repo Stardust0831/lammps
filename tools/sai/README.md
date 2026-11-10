@@ -44,17 +44,20 @@ LAMMPS unit test suite or a performance/scaling benchmark.
 
 ## Verified example
 
-The [first successful end-to-end run](https://github.com/Stardust0831/lammps/actions/runs/42671424209/attempts/2)
-tested upstream commit `d291d572cf3c73a8a720774b78482a7c931304ca`: all 19
-checks passed. Slurm job `2332512` used eight V100 GPUs on `16v100n83` and
-`16v100n84`, finished in 73 seconds, and exited `0:0`. An
+The [first completed end-to-end run](https://github.com/Stardust0831/lammps/actions/runs/42671424209/attempts/2)
+tested upstream commit `d291d572cf3c73a8a720774b78482a7c931304ca`. Slurm job
+`2332512` used eight V100 GPUs and exited `0:0`; all 19 numerical/provenance
+checks originally passed. A subsequent raw-log audit found CUDA IPC errors
+in six Kokkos cases, so that original success verdict is withdrawn. An
 [immutable copy of that report](https://github.com/Stardust0831/lammps/tree/531f9018150c14b35d80175a10e7e30fe2ba1a36)
-includes 209 files of hashed raw evidence.
+includes 209 files of unchanged raw evidence. Numerical agreement and a zero
+exit code alone do not make a run with communication errors acceptable.
 
 The unmodified `fetch_unittest.py` and `generator/build_site.py` from
 `lammps/lammps-test-results` commit `954defea44c3b90ed0a30e6899d6e975bf5574f1`
 successfully imported the public URLs below and generated dashboard pages
-with 19 passes, zero failures, zero errors and zero skips. A second import
+with the original 19-pass verdict. This verified the import interface, not
+the now-withdrawn execution acceptance. A second import
 archived no additional run. A separate
 [unchanged-commit workflow run](https://github.com/Stardust0831/lammps/actions/runs/42672966585)
 submitted no GPU job and left the published report commit unchanged.
@@ -123,6 +126,12 @@ remain visible in Actions and leave the previous explicitly dated report intact.
 Completed results remain resumable until the report push is acknowledged, so
 a connection loss during publication does not discard a completed test.
 Acknowledgement happens after both the report-branch push and Pages deployment.
+
+The site configuration now records `UCX_TLS=^cuda_ipc` for the small scheduled
+suite. It disables the problematic CUDA IPC transport while retaining GPU
+calculation. Reports and per-rank records disclose this setting. All test
+launches fail on UCX errors even if LAMMPS later returns zero. This setting
+does not modify public modules, MPI installations or the accepted image.
 
 Remote runs and failed attempts are retained. Inspect `plan.json`,
 `slurm-*.log`, `accounting.json`, `results/cases.json` and `results/manifest.json`
@@ -218,12 +227,14 @@ one of the project's two supported GPU queues. In the 2026-11-10 full-node
 trial, UCX 1.20.0 reported `cuIpcOpenMemHandle(): resource already mapped`
 during PPPM reinitialization. Cache-off and whole-allocation registration
 did not resolve the error. Disabling CUDA IPC passed the isolated 16-GPU
-water test. Upstream [UCX PR #11216](https://github.com/openucx/ucx/pull/11216)
+water test and the complete 1x4/1x8/1x16/2x16 matrix. Upstream
+[UCX PR #11216](https://github.com/openucx/ucx/pull/11216)
 addresses the same error class and was still open when checked. This does not
 establish that the proposed upstream patch fixes this particular workload.
 
 After copying a completed run and its Slurm accounting to an analysis host,
-`report_performance.py` validates the completion record and frozen inputs,
+`report_performance.py` validates the completion record, frozen inputs and
+every fixture, numerical-gate and performance log for clean exits and UCX errors,
 then writes CSV, Markdown, PNG/SVG curves and the upstream performance JSON:
 
 ```bash
@@ -248,19 +259,21 @@ execution can charge GPU waits to `Comm` or another later section. Follow
 the Kokkos guide's `CUDA_LAUNCH_BLOCKING=1` advice in a separate diagnostic
 run before attributing those sections to a specific bottleneck.
 
-The [2026-11-10 trial](https://github.com/Stardust0831/lammps/tree/sai-multigpu-reports/performance/20261110)
-completed all 16 performance points and eight CPU/GPU numerical checks on
-eight nodes with 32 V100 GPUs. Slurm job `2338108` exited `0:0` in 23m43s.
-From four to 32 GPUs, the fixed-size SNAP and water cases sped up by 6.88x
-and 3.33x; their weak-scaling efficiencies were 96.0% and 57.5%. These are
-three-sample measurements within one allocation, with ranges in the report.
+The [2026-11-10 full-node trial](https://github.com/Stardust0831/lammps/tree/sai-multigpu-reports/performance/20261110-fullnode)
+completed all 16 performance points and eight CPU/GPU numerical checks.
+Slurm job `2340456` allocated two nodes with 16 V100 GPUs each and exited
+`0:0` in 29m30s. All 28 case logs are free of UCX errors with CUDA IPC disabled.
+The earlier four-GPU-per-node job `2338108` had communication errors despite
+its original success flag; it is retained as diagnostic evidence, not an
+accepted baseline. Neither its timing ratios nor cancelled default-transport
+attempts establish the isolated performance cost of this workaround.
 
 The unmodified upstream performance importer can read the public result:
 
 ```bash
 python3 tools/fetch_performance.py --datadir /path/to/separate-test-data \
-  --machine sai-multinode \
-  --url https://raw.githubusercontent.com/Stardust0831/lammps/sai-multigpu-reports/performance/20261110/performance-summary.json
+  --machine sai-fullnode-noipc \
+  --url https://raw.githubusercontent.com/Stardust0831/lammps/sai-multigpu-reports/performance/20261110-fullnode/performance-summary.json
 ```
 
 The optional reporter argument `--build-summary` supplies compiler metadata

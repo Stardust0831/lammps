@@ -59,6 +59,7 @@ def reports(run, cases, machine=None, version="", banner=""):
                    source_repository="https://github.com/lammps/lammps",
                    controller_sha=plan["controller_sha"], controller_digest=plan["control_digest"],
                    image_sha256=plan["image_sha256"], recipe_sha256=plan["recipe_sha256"],
+                   runtime_environment=plan.get("runtime_environment", {}),
                    binary_git_info=banner, binary_modified="-modified" in banner,
                    slurm_job=plan.get("job"), scope="LJ and PPPM CPU/GPU numerical comparisons; "
                    "1, 2 and 4 GPUs on one node, and 8 GPUs on two nodes. "
@@ -74,6 +75,7 @@ def reports(run, cases, machine=None, version="", banner=""):
                        ("test_kind", "MPI/GPU numerical regression"),
                        ("controller_sha", plan["controller_sha"]),
                        ("image_sha256", plan["image_sha256"]),
+                       ("runtime_environment", json.dumps(plan.get("runtime_environment", {}), sort_keys=True)),
                        ("report_url", plan["report_url"]),
                        ("action_url", plan["action_url"]),
                        ("hardware", json.dumps(machine or {}, sort_keys=True))):
@@ -98,7 +100,8 @@ def reports(run, cases, machine=None, version="", banner=""):
               "<h1>SAI LAMMPS multi-GPU tests: " + summary["status"] + "</h1>"
               "<p>Develop commit <a href='https://github.com/lammps/lammps/commit/" + plan["source_sha"]
               + "'>" + plan["source_sha"] + "</a><br>Completed: " + now + "</p>"
-              "<p>" + html.escape(summary["scope"]) + "</p><p>"
+              "<p>" + html.escape(summary["scope"]) + "</p><p>Runtime settings: "
+              + html.escape(json.dumps(summary["runtime_environment"], sort_keys=True)) + "</p><p>"
               "<a href='junit.xml'>JUnit XML</a> | <a href='summary.json'>Summary JSON</a> | "
               "<a href='raw.tar.gz'>Raw inputs and outputs</a> | "
               "<a href='manifest.json'>File hashes</a> | <a href='" + html.escape(plan["action_url"])

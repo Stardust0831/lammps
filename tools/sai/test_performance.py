@@ -9,15 +9,29 @@ import time
 from performance import cpu_list, input_text, layout_sizes, local_device_order, measured_loops, states
 from submit_performance import topology_benchmarks
 from suite import execute
+from report_performance import validate_case_logs
 
 
 class PerformanceGates(unittest.TestCase):
+    def test_old_success_flag_does_not_hide_communication_errors(self):
+        result = dict(status="PASS", numerical_checks=[dict(case="spce-gate-16gpu")], measurements=[])
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            for name in ("snap-fixture", "snap-cpu-reference", "spce-fixture", "spce-cpu-reference", "spce-gate-16gpu"):
+                path = root / "cases" / name / "screen.txt"
+                path.parent.mkdir(parents=True)
+                path.write_text("Total wall time: 0:00:01\n")
+            self.assertEqual(validate_case_logs(root, result)["status"], "PASS")
+            path.write_text("UCX ERROR cuIpcOpenMemHandle() failed: resource already mapped\nTotal wall time: 0:00:01\n")
+            with self.assertRaisesRegex(ValueError, "communication error"):
+                validate_case_logs(root, result)
+
     def test_ucx_errors_stop_the_run(self):
         with tempfile.TemporaryDirectory() as directory:
             started = time.monotonic()
             with self.assertRaisesRegex(RuntimeError, "fatal communication error"):
                 execute([sys.executable, "-u", "-c", "import time; print('UCX ERROR resource already mapped'); time.sleep(30)"],
-                        Path(directory) / "screen.txt", timeout=20, fatal_pattern=r"UCX\s+ERROR")
+                        Path(directory) / "screen.txt", timeout=20)
             self.assertLess(time.monotonic() - started, 5)
 
     def test_gpu_numbering_does_not_determine_cpu_locality(self):
