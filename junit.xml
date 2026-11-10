@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<testsuite name="SAI MPI CUDA regression" timestamp="2026-11-10T04:52:14Z" tests="1" failures="0" errors="1" skipped="0" time="0">
+<testsuite name="SAI MPI CUDA regression" timestamp="2026-11-10T04:56:27Z" tests="1" failures="0" errors="1" skipped="0" time="0">
   <properties>
     <property name="commit" value="d291d572cf3c73a8a720774b78482a7c931304ca" />
     <property name="site" value="SAI" />
@@ -16,13 +16,13 @@
     <property name="hardware" value="{}" />
   </properties>
   <testcase name="infrastructure" classname="SAI.LAMMPS.MPI.CUDA" time="0">
-    <error message="Slurm ended before producing results: 2341350 | FAILED | 0:53 | 16V100 | proj-sai-hpc-software | /org/org-open-sai/proj-sai-hpc-software/lammps-daily-tester/runs/github-42758460901-1 | 00:00:00 | 16v100n[53-54] | billing=1200,cpu=64,gres/gpu=8,mem=120G,node=2 | 00:00:00">Slurm ended before producing results: 2341350 | FAILED | 0:53 | 16V100 | proj-sai-hpc-software | /org/org-open-sai/proj-sai-hpc-software/lammps-daily-tester/runs/github-42758460901-1 | 00:00:00 | 16v100n[53-54] | billing=1200,cpu=64,gres/gpu=8,mem=120G,node=2 | 00:00:00</error>
+    <error message="Slurm ended before producing results: 2341496 | FAILED | 0:53 | 16V100 | proj-sai-hpc-software | /org/org-open-sai/proj-sai-hpc-software/lammps-daily-tester/runs/github-42758460901-2 | 00:00:00 | 16v100n[53-54] | billing=1200,cpu=64,gres/gpu=8,mem=120G,node=2 | 00:00:00">Slurm ended before producing results: 2341496 | FAILED | 0:53 | 16V100 | proj-sai-hpc-software | /org/org-open-sai/proj-sai-hpc-software/lammps-daily-tester/runs/github-42758460901-2 | 00:00:00 | 16v100n[53-54] | billing=1200,cpu=64,gres/gpu=8,mem=120G,node=2 | 00:00:00</error>
     <system-out>
 {
   "name": "infrastructure",
   "status": "error",
   "seconds": 0,
-  "message": "Slurm ended before producing results: 2341350 | FAILED | 0:53 | 16V100 | proj-sai-hpc-software | /org/org-open-sai/proj-sai-hpc-software/lammps-daily-tester/runs/github-42758460901-1 | 00:00:00 | 16v100n[53-54] | billing=1200,cpu=64,gres/gpu=8,mem=120G,node=2 | 00:00:00"
+  "message": "Slurm ended before producing results: 2341496 | FAILED | 0:53 | 16V100 | proj-sai-hpc-software | /org/org-open-sai/proj-sai-hpc-software/lammps-daily-tester/runs/github-42758460901-2 | 00:00:00 | 16v100n[53-54] | billing=1200,cpu=64,gres/gpu=8,mem=120G,node=2 | 00:00:00"
 }</system-out>
   </testcase>
 </testsuite>

@@ -1,6 +1,6 @@
 [
   {
-    "message": "Slurm ended before producing results: 2341350 | FAILED | 0:53 | 16V100 | proj-sai-hpc-software | /org/org-open-sai/proj-sai-hpc-software/lammps-daily-tester/runs/github-42758460901-1 | 00:00:00 | 16v100n[53-54] | billing=1200,cpu=64,gres/gpu=8,mem=120G,node=2 | 00:00:00",
+    "message": "Slurm ended before producing results: 2341496 | FAILED | 0:53 | 16V100 | proj-sai-hpc-software | /org/org-open-sai/proj-sai-hpc-software/lammps-daily-tester/runs/github-42758460901-2 | 00:00:00 | 16v100n[53-54] | billing=1200,cpu=64,gres/gpu=8,mem=120G,node=2 | 00:00:00",
     "name": "infrastructure",
     "seconds": 0,
     "status": "error"
