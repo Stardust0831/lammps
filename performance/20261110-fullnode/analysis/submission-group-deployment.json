@@ -1,0 +1,9 @@
+{
+  "backup": "/org/org-open-sai/proj-sai-hpc-software/lammps-daily-tester/control-backups/20261110-submission-group",
+  "installed": {
+    "common.py": "f528382234323bb5ec45f14843c9a5a1ee25b6c879766be7c7f05b9ab0f50a90",
+    "endpoint.py": "661f965eb16ee6714394e146bdba6bcb1c73518427eba4be478704387b34390e",
+    "site.json": "19f7020cb76b908bfe1fe158c9a19af61d8993fbdf544aa35ec92c68ce9e96b9",
+    "suite.py": "a45461e3c0f8bb2ab2c006e122adf5a91da4438442169cd7a6630d93da95c0fb"
+  }
+}

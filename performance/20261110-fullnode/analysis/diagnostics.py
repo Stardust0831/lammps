@@ -126,7 +126,7 @@ lines += ['', 'No reliable water overhead can be calculated from the default-tra
           'GPUs by CPU locality rather than assuming full-node GPU indices follow CPU core order. '
           'Every GPU rank has four physical CPU cores with disjoint affinity and a unique GPU UUID; '
           'the two-node cases use all 32 physical GPUs. See [placement validation](placement-validation.json).', '',
-          f'All attempts in this follow-up used **{total_hours:.2f} allocated GPU-hours**, '
+          f'The six performance and communication attempts listed below used **{total_hours:.2f} allocated GPU-hours**, '
           'including cancelled runs, failed probes and reserved GPUs during smaller layouts.', '',
           '| Job | Run | State | Elapsed | Allocated GPU-hours |', '|---|---|---|---:|---:|']
 for row in accounting:

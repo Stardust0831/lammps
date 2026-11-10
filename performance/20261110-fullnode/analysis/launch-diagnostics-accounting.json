@@ -1,0 +1,68 @@
+[
+  {
+    "JobIDRaw": "2341350",
+    "JobName": "sai-lammps-test",
+    "Group": "stardust",
+    "GID": "1478400690",
+    "State": "FAILED",
+    "ExitCode": "0:53",
+    "ElapsedRaw": "0",
+    "NodeList": "16v100n[53-54]",
+    "AllocTRES": "billing=1200,cpu=64,gres/gpu=8,mem=120G,node=2"
+  },
+  {
+    "JobIDRaw": "2341496",
+    "JobName": "sai-lammps-test",
+    "Group": "stardust",
+    "GID": "1478400690",
+    "State": "FAILED",
+    "ExitCode": "0:53",
+    "ElapsedRaw": "0",
+    "NodeList": "16v100n[53-54]",
+    "AllocTRES": "billing=1200,cpu=64,gres/gpu=8,mem=120G,node=2"
+  },
+  {
+    "JobIDRaw": "2341533",
+    "JobName": "sai-lmp-group-probe",
+    "Group": "proj-sai-hpc-software",
+    "GID": "1478400848",
+    "State": "COMPLETED",
+    "ExitCode": "0:0",
+    "ElapsedRaw": "0",
+    "NodeList": "16v100n16",
+    "AllocTRES": "billing=600,cpu=32,gres/gpu=4,mem=60G,node=1"
+  },
+  {
+    "JobIDRaw": "2341589",
+    "JobName": "sai-lmp-gid-user",
+    "Group": "stardust",
+    "GID": "1478400690",
+    "State": "COMPLETED",
+    "ExitCode": "0:0",
+    "ElapsedRaw": "1",
+    "NodeList": "16v100n53",
+    "AllocTRES": "billing=600,cpu=32,gres/gpu=4,mem=60G,node=1"
+  },
+  {
+    "JobIDRaw": "2341590",
+    "JobName": "sai-lmp-gid-project",
+    "Group": "proj-sai-hpc-software",
+    "GID": "1478400848",
+    "State": "COMPLETED",
+    "ExitCode": "0:0",
+    "ElapsedRaw": "0",
+    "NodeList": "16v100n53",
+    "AllocTRES": "billing=600,cpu=32,gres/gpu=4,mem=60G,node=1"
+  },
+  {
+    "JobIDRaw": "2341612",
+    "JobName": "sai-lmp-batch-probe",
+    "Group": "proj-sai-hpc-software",
+    "GID": "1478400848",
+    "State": "COMPLETED",
+    "ExitCode": "0:0",
+    "ElapsedRaw": "0",
+    "NodeList": "16v100n[53-54]",
+    "AllocTRES": "billing=1200,cpu=64,gres/gpu=8,mem=120G,node=2"
+  }
+]

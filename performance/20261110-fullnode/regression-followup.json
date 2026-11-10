@@ -1,0 +1,64 @@
+{
+  "status": "PASS",
+  "action_url": "https://github.com/Stardust0831/lammps/actions/runs/42760147255",
+  "action_conclusion": "success",
+  "source_sha": "d291d572cf3c73a8a720774b78482a7c931304ca",
+  "controller_sha": "7270875f83bf9e564a47b44c53d5dab1e4231c92",
+  "image_sha256": "8528e503c25f567dc0d165378991c15043cb36244059a4b99f3ac54d11062bdd",
+  "runtime_environment": {
+    "UCX_TLS": "^cuda_ipc"
+  },
+  "slurm": [
+    "2341678",
+    "COMPLETED",
+    "0:0",
+    "16V100",
+    "proj-sai-hpc-software",
+    "/org/org-open-sai/proj-sai-hpc-software/lammps-daily-tester/runs/github-42760147255-1",
+    "00:01:11",
+    "16v100n[53-54]",
+    "billing=1200,cpu=64,gres/gpu=8,mem=120G,node=2",
+    "00:00:00"
+  ],
+  "numerical_and_provenance_checks": 19,
+  "verified_raw_files": 209,
+  "clean_case_logs": 18,
+  "rank_environment_records": 63,
+  "raw_sha256": "80bc1b956f3231465109af86f0077cc6fda1532471a03611bed4cc005a4d47e4",
+  "immutable_report": "https://github.com/Stardust0831/lammps/tree/5f02b22e47ad64cc5d2388ffd81274addf2f91a1",
+  "submitter_identity": {
+    "gid": 1478400690,
+    "groups": [
+      1478400304,
+      1478400690,
+      1478400848
+    ],
+    "uid": 1478400690
+  },
+  "submission_group": "proj-sai-hpc-software",
+  "scope": "This short regression uses the newer accepted daily image of the same upstream commit. It is separate from the frozen performance image.",
+  "startup_diagnosis": "The two earlier workflow attempts exited 0:53 before creating a batch log. Explicit project-group submission succeeded. Same-node minimal probes also succeeded with the user group, so the exclusive cause of the earlier startup failures is not established.",
+  "pages_verification": {
+    "url": "https://stardust0831.github.io/lammps/",
+    "status": "PASS",
+    "workflow_run": "42760147255"
+  },
+  "remote_publication_acknowledged": true,
+  "upstream_dashboard_import": {
+    "upstream_commit": "954defea44c3b90ed0a30e6899d6e975bf5574f1",
+    "unmodified": true,
+    "importer": "tools/fetch_unittest.py",
+    "generator": "generator/build_site.py",
+    "counts": {
+      "tests": 19,
+      "passed": 19,
+      "failed": 0,
+      "error": 0,
+      "runtest": 0,
+      "skipped": 0,
+      "time": 59.63117700000001,
+      "timeout": 0
+    },
+    "scope": "Verified with the unmodified upstream importer and generator in a separate local data directory; not registration on the central dashboard."
+  }
+}

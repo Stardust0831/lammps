@@ -56,7 +56,7 @@ The earlier [four-GPU-per-node report](../20261110/README.md) from job `2338108`
 
 The tested nodes contain four separate four-GPU NVLink groups. The launcher selects GPUs by CPU locality rather than assuming full-node GPU indices follow CPU core order. Every GPU rank has four physical CPU cores with disjoint affinity and a unique GPU UUID; the two-node cases use all 32 physical GPUs. See [placement validation](placement-validation.json).
 
-All attempts in this follow-up used **33.11 allocated GPU-hours**, including cancelled runs, failed probes and reserved GPUs during smaller layouts.
+The six performance and communication attempts listed below used **33.11 allocated GPU-hours**, including cancelled runs, failed probes and reserved GPUs during smaller layouts.
 
 | Job | Run | State | Elapsed | Allocated GPU-hours |
 |---|---|---|---:|---:|
@@ -68,3 +68,11 @@ All attempts in this follow-up used **33.11 allocated GPU-hours**, including can
 | 2340456 | topology-noipc-20261110-a ([raw](raw.tar.gz)) | COMPLETED | 00:29:30 | 15.73 |
 
 [Diagnostic data and accounting](diagnostics.json). The raw archives retain failed/cancelled status and operator explanations. [UCX PR #11216](https://github.com/openucx/ucx/pull/11216) addresses the same error class; its patch was not applied or tested here.
+
+## Clean automatic regression follow-up
+
+The [follow-up workflow](https://github.com/Stardust0831/lammps/actions/runs/42760147255) completed submission, computation, report publication and Pages deployment. Slurm job `2341678` passed 19/19 numerical/provenance checks in 71 seconds on two nodes with four GPUs each. All 18 case logs are free of UCX errors, and all 63 rank records contain `UCX_TLS=^cuda_ipc`. This separate short regression used the newer accepted daily image of the same upstream commit; the performance matrix above retains its original image pin.
+
+The earlier two workflow attempts ended with Slurm `0:53` before creating a batch log. The successful workflow explicitly selected the project group for submission. Minimal same-node probes succeeded under both the user and project groups, so those probes do not establish the exclusive cause of the earlier startup failures. The tester now records submission identity and fails on communication errors even if LAMMPS returns zero.
+
+[Verified follow-up receipt](regression-followup.json) | [Immutable regression raw report](https://github.com/Stardust0831/lammps/tree/5f02b22e47ad64cc5d2388ffd81274addf2f91a1) | [Launch diagnosis and accounting](analysis/launch-diagnostics-accounting.json) | [Performance dashboard import verification](dashboard-integration.json)

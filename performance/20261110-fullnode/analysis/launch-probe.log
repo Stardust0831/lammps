@@ -1,0 +1,2 @@
+srun: error: ERROR: SAI GPU policy: GPUs per node must be divisible by 4 for QOS rush-gpu; requested 1. Change the GPU count or select a permitted QOS for this count.
+srun: error: Unable to allocate resources: Invalid generic resource (gres) specification
