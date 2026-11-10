@@ -1,0 +1,74 @@
+{
+  "job": "2338108",
+  "original_status": "PASS",
+  "revised_acceptance": "WITHDRAWN",
+  "errors": [
+    {
+      "path": "cases/snap-strong-32gpu/screen.txt",
+      "errors": 28,
+      "first_error": "[1794278445.836943] [16v100n55:2884040:0]  cuda_ipc_cache.c:211  UCX  ERROR cuIpcOpenMemHandle() failed: resource already mapped"
+    },
+    {
+      "path": "cases/spce-gate-16gpu/screen.txt",
+      "errors": 32,
+      "first_error": "[1794277852.311871] [16v100n40:3767110:0]  cuda_ipc_cache.c:211  UCX  ERROR cuIpcOpenMemHandle() failed: resource already mapped"
+    },
+    {
+      "path": "cases/spce-gate-32gpu/screen.txt",
+      "errors": 2,
+      "first_error": "[1794277858.178063] [16v100n82:79299:0]  cuda_ipc_cache.c:211  UCX  ERROR cuIpcOpenMemHandle() failed: resource already mapped"
+    },
+    {
+      "path": "cases/spce-gate-4gpu/screen.txt",
+      "errors": 4,
+      "first_error": "[1794277841.908083] [16v100n40:3766655:0]  cuda_ipc_cache.c:211  UCX  ERROR cuIpcOpenMemHandle() failed: resource already mapped"
+    },
+    {
+      "path": "cases/spce-gate-8gpu/screen.txt",
+      "errors": 7,
+      "first_error": "[1794277846.947380] [16v100n55:2881998:0]  cuda_ipc_cache.c:211  UCX  ERROR cuIpcOpenMemHandle() failed: resource already mapped"
+    },
+    {
+      "path": "cases/spce-strong-16gpu/screen.txt",
+      "errors": 35,
+      "first_error": "[1794278920.961026] [16v100n55:2885305:0]  cuda_ipc_cache.c:211  UCX  ERROR cuIpcOpenMemHandle() failed: resource already mapped"
+    },
+    {
+      "path": "cases/spce-strong-32gpu/screen.txt",
+      "errors": 109,
+      "first_error": "[1794279062.184803] [16v100n61:4060454:0]  cuda_ipc_cache.c:211  UCX  ERROR cuIpcOpenMemHandle() failed: resource already mapped"
+    },
+    {
+      "path": "cases/spce-strong-4gpu/screen.txt",
+      "errors": 9,
+      "first_error": "[1794278619.117453] [16v100n40:3770425:0]  cuda_ipc_cache.c:211  UCX  ERROR cuIpcOpenMemHandle() failed: resource already mapped"
+    },
+    {
+      "path": "cases/spce-strong-8gpu/screen.txt",
+      "errors": 11,
+      "first_error": "[1794278760.320277] [16v100n55:2884684:0]  cuda_ipc_cache.c:211  UCX  ERROR cuIpcOpenMemHandle() failed: resource already mapped"
+    },
+    {
+      "path": "cases/spce-weak-16gpu/screen.txt",
+      "errors": 61,
+      "first_error": "[1794278968.164876] [16v100n55:2885570:0]  cuda_ipc_cache.c:211  UCX  ERROR cuIpcOpenMemHandle() failed: resource already mapped"
+    },
+    {
+      "path": "cases/spce-weak-32gpu/screen.txt",
+      "errors": 104,
+      "first_error": "[1794279099.276052] [16v100n77:1751855:0]  cuda_ipc_cache.c:211  UCX  ERROR cuIpcOpenMemHandle() failed: resource already mapped"
+    },
+    {
+      "path": "cases/spce-weak-4gpu/screen.txt",
+      "errors": 17,
+      "first_error": "[1794278686.213966] [16v100n40:3770844:0]  cuda_ipc_cache.c:211  UCX  ERROR cuIpcOpenMemHandle() failed: resource already mapped"
+    },
+    {
+      "path": "cases/spce-weak-8gpu/screen.txt",
+      "errors": 43,
+      "first_error": "[1794278831.228797] [16v100n55:2885017:0]  cuda_ipc_cache.c:211  UCX  ERROR cuIpcOpenMemHandle() failed: resource already mapped"
+    }
+  ],
+  "matched_input_decks": 16,
+  "replacement": "../20261110-fullnode/README.md"
+}

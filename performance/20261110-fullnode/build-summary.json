@@ -1,0 +1,167 @@
+{
+  "action_url": "https://github.com/Stardust0831/lammps/actions/runs/42671424209",
+  "binary_git_info": "Git info (HEAD / d291d572-modified)",
+  "binary_modified": true,
+  "branch": "develop",
+  "commit": "d291d572cf3c73a8a720774b78482a7c931304ca",
+  "compiler": "Compiler: GNU C++ 14.3.0 with OpenMP 4.5",
+  "controller_digest": "c0b7f21a3312a805f2279d90ab19d2d2d2b03db55d6c50f8d995bdbf7ec6cbd0",
+  "controller_sha": "9e798f436f3da0fe144d09dac2bede5931f3062a",
+  "date": "2026-11-09T18:15:39Z",
+  "errors": 0,
+  "failures": 0,
+  "image_sha256": "6630f4ae4ec0481adb8025127186f49fa4ab22083bc7a8639c11ae25afb3e2f3",
+  "machine": {
+    "compiler": "Compiler: GNU C++ 14.3.0 with OpenMP 4.5",
+    "mpi": "mpirun (Open MPI) 5.0.10\n\nReport bugs to https://www.open-mpi.org/community/help/",
+    "nodes": [
+      {
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          64,
+          65,
+          66,
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79
+        ],
+        "cpu": "AMD Ryzen Threadripper PRO 5995WX 64-Cores",
+        "devices": [
+          {
+            "driver": "550.163.01",
+            "index": "0",
+            "name": "Tesla V100-SXM2-16GB",
+            "uuid": "GPU-28c688ba-8711-9bd6-120a-f112be7482a8"
+          },
+          {
+            "driver": "550.163.01",
+            "index": "1",
+            "name": "Tesla V100-SXM2-16GB",
+            "uuid": "GPU-ac89a1a3-85b0-21a6-201c-98ea8a54c6b5"
+          },
+          {
+            "driver": "550.163.01",
+            "index": "2",
+            "name": "Tesla V100-SXM2-16GB",
+            "uuid": "GPU-6011ef91-1bf2-c874-e36d-69f681207e08"
+          },
+          {
+            "driver": "550.163.01",
+            "index": "3",
+            "name": "Tesla V100-SXM2-16GB",
+            "uuid": "GPU-c6700d4b-e4f4-7480-a55d-eedca8d40172"
+          }
+        ],
+        "logical_cpus": "128",
+        "node": "16v100n83",
+        "operating_system": "Linux 16v100n83.mr-sai.ai 5.15.0-100-generic #110-Ubuntu SMP Wed Feb 7 13:27:48 UTC 2024 x86_64"
+      },
+      {
+        "affinity": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          64,
+          65,
+          66,
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79
+        ],
+        "cpu": "AMD Ryzen Threadripper PRO 5995WX 64-Cores",
+        "devices": [
+          {
+            "driver": "550.163.01",
+            "index": "0",
+            "name": "Tesla V100-SXM2-16GB",
+            "uuid": "GPU-d5d911e1-81ed-8843-f59e-a715f965b912"
+          },
+          {
+            "driver": "550.163.01",
+            "index": "1",
+            "name": "Tesla V100-SXM2-16GB",
+            "uuid": "GPU-2332eb3e-3059-5c23-967f-9c1e208e8aec"
+          },
+          {
+            "driver": "550.163.01",
+            "index": "2",
+            "name": "Tesla V100-SXM2-16GB",
+            "uuid": "GPU-92ab2744-f5e7-d114-169b-df9c886b5db9"
+          },
+          {
+            "driver": "550.163.01",
+            "index": "3",
+            "name": "Tesla V100-SXM2-16GB",
+            "uuid": "GPU-b0f2db3f-b60b-57fe-843e-3865563ec4e9"
+          }
+        ],
+        "logical_cpus": "128",
+        "node": "16v100n84",
+        "operating_system": "Linux 16v100n84.mr-sai.ai 5.15.0-100-generic #110-Ubuntu SMP Wed Feb 7 13:27:48 UTC 2024 x86_64"
+      }
+    ],
+    "operating_system": "Linux 16v100n83.mr-sai.ai 5.15.0-100-generic #110-Ubuntu SMP Wed Feb 7 13:27:48 UTC 2024 x86_64",
+    "partition": "16V100",
+    "threads_per_rank": 1
+  },
+  "operating_system": "Linux 16v100n83.mr-sai.ai 5.15.0-100-generic #110-Ubuntu SMP Wed Feb 7 13:27:48 UTC 2024 x86_64",
+  "passed": 19,
+  "recipe_sha256": "1e5c234055c22e7d737701631507471b494d9d4d3599c31bfc3eb80bf4f4f8e4",
+  "run_id": "github-42671424209-2",
+  "scope": "LJ and PPPM CPU/GPU numerical comparisons; 1, 2 and 4 GPUs on one node, and 8 GPUs on two nodes. Timings are diagnostic, not a scaling benchmark.",
+  "skipped": 0,
+  "slurm_job": "2332512",
+  "source_repository": "https://github.com/lammps/lammps",
+  "status": "PASS",
+  "tests": 19,
+  "url": "https://stardust0831.github.io/lammps/",
+  "version": "Git info (HEAD / d291d572-modified)"
+}

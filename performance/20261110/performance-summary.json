@@ -35,9 +35,10 @@
         25735431.45140013
       ],
       "size": "2097152",
-      "status": "ok",
+      "status": "error",
       "steps": 100,
-      "threads": 1
+      "threads": 1,
+      "acceptance_reason": "UCX errors in 13 raw case logs, including four water numerical gates. The original validator missed these errors."
     },
     "snap-strong-32gpu": {
       "api": "cuda",
@@ -60,9 +61,10 @@
         46834427.620706595
       ],
       "size": "2097152",
-      "status": "ok",
+      "status": "error",
       "steps": 100,
-      "threads": 1
+      "threads": 1,
+      "acceptance_reason": "UCX errors in 13 raw case logs, including four water numerical gates. The original validator missed these errors."
     },
     "snap-strong-4gpu": {
       "api": "cuda",
@@ -85,9 +87,10 @@
         6798428.402857921
       ],
       "size": "2097152",
-      "status": "ok",
+      "status": "error",
       "steps": 100,
-      "threads": 1
+      "threads": 1,
+      "acceptance_reason": "UCX errors in 13 raw case logs, including four water numerical gates. The original validator missed these errors."
     },
     "snap-strong-8gpu": {
       "api": "cuda",
@@ -110,9 +113,10 @@
         13344226.82905102
       ],
       "size": "2097152",
-      "status": "ok",
+      "status": "error",
       "steps": 100,
-      "threads": 1
+      "threads": 1,
+      "acceptance_reason": "UCX errors in 13 raw case logs, including four water numerical gates. The original validator missed these errors."
     },
     "snap-weak-16gpu": {
       "api": "cuda",
@@ -135,9 +139,10 @@
         25528714.679164324
       ],
       "size": "2097152",
-      "status": "ok",
+      "status": "error",
       "steps": 400,
-      "threads": 1
+      "threads": 1,
+      "acceptance_reason": "UCX errors in 13 raw case logs, including four water numerical gates. The original validator missed these errors."
     },
     "snap-weak-32gpu": {
       "api": "cuda",
@@ -160,9 +165,10 @@
         50345442.65128645
       ],
       "size": "4194304",
-      "status": "ok",
+      "status": "error",
       "steps": 400,
-      "threads": 1
+      "threads": 1,
+      "acceptance_reason": "UCX errors in 13 raw case logs, including four water numerical gates. The original validator missed these errors."
     },
     "snap-weak-4gpu": {
       "api": "cuda",
@@ -185,9 +191,10 @@
         6556816.938310359
       ],
       "size": "524288",
-      "status": "ok",
+      "status": "error",
       "steps": 400,
-      "threads": 1
+      "threads": 1,
+      "acceptance_reason": "UCX errors in 13 raw case logs, including four water numerical gates. The original validator missed these errors."
     },
     "snap-weak-8gpu": {
       "api": "cuda",
@@ -210,9 +217,10 @@
         12904518.407758148
       ],
       "size": "1048576",
-      "status": "ok",
+      "status": "error",
       "steps": 400,
-      "threads": 1
+      "threads": 1,
+      "acceptance_reason": "UCX errors in 13 raw case logs, including four water numerical gates. The original validator missed these errors."
     },
     "spce-strong-16gpu": {
       "api": "cuda",
@@ -235,9 +243,10 @@
         97336270.77909073
       ],
       "size": "972000",
-      "status": "ok",
+      "status": "error",
       "steps": 1250,
-      "threads": 1
+      "threads": 1,
+      "acceptance_reason": "UCX errors in 13 raw case logs, including four water numerical gates. The original validator missed these errors."
     },
     "spce-strong-32gpu": {
       "api": "cuda",
@@ -260,9 +269,10 @@
         131852533.52201448
       ],
       "size": "972000",
-      "status": "ok",
+      "status": "error",
       "steps": 1250,
-      "threads": 1
+      "threads": 1,
+      "acceptance_reason": "UCX errors in 13 raw case logs, including four water numerical gates. The original validator missed these errors."
     },
     "spce-strong-4gpu": {
       "api": "cuda",
@@ -285,9 +295,10 @@
         39572551.305894196
       ],
       "size": "972000",
-      "status": "ok",
+      "status": "error",
       "steps": 1250,
-      "threads": 1
+      "threads": 1,
+      "acceptance_reason": "UCX errors in 13 raw case logs, including four water numerical gates. The original validator missed these errors."
     },
     "spce-strong-8gpu": {
       "api": "cuda",
@@ -310,9 +321,10 @@
         56940936.08087019
       ],
       "size": "972000",
-      "status": "ok",
+      "status": "error",
       "steps": 1250,
-      "threads": 1
+      "threads": 1,
+      "acceptance_reason": "UCX errors in 13 raw case logs, including four water numerical gates. The original validator missed these errors."
     },
     "spce-weak-16gpu": {
       "api": "cuda",
@@ -335,9 +347,10 @@
         84510862.94981168
       ],
       "size": "486000",
-      "status": "ok",
+      "status": "error",
       "steps": 5000,
-      "threads": 1
+      "threads": 1,
+      "acceptance_reason": "UCX errors in 13 raw case logs, including four water numerical gates. The original validator missed these errors."
     },
     "spce-weak-32gpu": {
       "api": "cuda",
@@ -360,9 +373,10 @@
         131945462.54214926
       ],
       "size": "972000",
-      "status": "ok",
+      "status": "error",
       "steps": 5000,
-      "threads": 1
+      "threads": 1,
+      "acceptance_reason": "UCX errors in 13 raw case logs, including four water numerical gates. The original validator missed these errors."
     },
     "spce-weak-4gpu": {
       "api": "cuda",
@@ -385,9 +399,10 @@
         28657417.67183837
       ],
       "size": "121500",
-      "status": "ok",
+      "status": "error",
       "steps": 5000,
-      "threads": 1
+      "threads": 1,
+      "acceptance_reason": "UCX errors in 13 raw case logs, including four water numerical gates. The original validator missed these errors."
     },
     "spce-weak-8gpu": {
       "api": "cuda",
@@ -410,12 +425,16 @@
         44938251.51366086
       ],
       "size": "243000",
-      "status": "ok",
+      "status": "error",
       "steps": 5000,
-      "threads": 1
+      "threads": 1,
+      "acceptance_reason": "UCX errors in 13 raw case logs, including four water numerical gates. The original validator missed these errors."
     }
   },
   "sample_policy": "Three sequential segments after warmup; SAI plots use medians and min/max ranges. The upstream dashboard currently selects the best sample.",
   "url": "https://github.com/Stardust0831/lammps/tree/sai-multigpu-reports/performance/20261110",
-  "version": "30 Sep 2026 - Development - d291d572-modified"
+  "version": "30 Sep 2026 - Development - d291d572-modified",
+  "acceptance": "WITHDRAWN",
+  "acceptance_reason": "UCX errors in 13 raw case logs, including four water numerical gates. The original validator missed these errors.",
+  "replacement_url": "https://github.com/Stardust0831/lammps/tree/sai-multigpu-reports/performance/20261110-fullnode"
 }

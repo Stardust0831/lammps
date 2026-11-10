@@ -11,5 +11,6 @@
   ],
   "verified_public_raw_files": 591,
   "controller_and_reporter_commit": "6d1986efa03c41853ebaded9f52f19f03d95607b",
-  "upstream_source_modifications": false
+  "upstream_source_modifications": false,
+  "acceptance_correction": "The historical import succeeded, but execution acceptance is withdrawn. See acceptance-correction.json."
 }

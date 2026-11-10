@@ -1,0 +1,456 @@
+{
+  "binary_modified": true,
+  "branch": "develop",
+  "build_metadata_origin": "https://github.com/Stardust0831/lammps/actions/runs/42671424209",
+  "build_metadata_sha256": "a49e338b391eb65328e13eefe90940f79fc12ae8eaeb2beeb4485fbe85d2036a",
+  "commit": "d291d572cf3c73a8a720774b78482a7c931304ca",
+  "compiler": "Compiler: GNU C++ 14.3.0 with OpenMP 4.5",
+  "cpu": "AMD Ryzen Threadripper PRO 5995WX 64-Cores",
+  "date": "2026-11-10T04:37:00Z",
+  "gpu_driver": "550.163.01",
+  "gpus": "V100-SXM2-16GB; 16 allocated per node",
+  "image_sha256": "6630f4ae4ec0481adb8025127186f49fa4ab22083bc7a8639c11ae25afb3e2f3",
+  "mpi": "mpirun (Open MPI) 5.0.10\n\nReport bugs to https://www.open-mpi.org/community/help/",
+  "operating_system": "Linux 16v100n53.mr-sai.ai 5.15.0-100-generic #110-Ubuntu SMP Wed Feb 7 13:27:48 UTC 2024 x86_64",
+  "reporter_sha256": "1de4762572dc3ece4e35b184daab59443a5ae4dd3d9db97b8911fe33c42210bc",
+  "results": {
+    "snap-strong-16gpu": {
+      "api": "cuda",
+      "category": "kokkos-cuda",
+      "flags": "newton on neigh half comm device gpu/aware on UCX_TLS=^cuda_ipc",
+      "gpus": 16,
+      "gpus_per_node": 16,
+      "input": "snap",
+      "loop_time": [
+        8.66278,
+        8.7091,
+        8.62883
+      ],
+      "natoms": 2097152,
+      "nodes": 1,
+      "package": "kokkos",
+      "precision": "double",
+      "ranks": 16,
+      "samples": [
+        24208764.392031197,
+        24080008.267214753,
+        24304013.40622077
+      ],
+      "size": "2097152",
+      "status": "ok",
+      "steps": 100,
+      "threads": 1
+    },
+    "snap-strong-32gpu": {
+      "api": "cuda",
+      "category": "kokkos-cuda",
+      "flags": "newton on neigh half comm device gpu/aware on UCX_TLS=^cuda_ipc",
+      "gpus": 32,
+      "gpus_per_node": 16,
+      "input": "snap",
+      "loop_time": [
+        5.12847,
+        4.7896,
+        4.85905
+      ],
+      "natoms": 2097152,
+      "nodes": 2,
+      "package": "kokkos",
+      "precision": "double",
+      "ranks": 32,
+      "samples": [
+        40892351.910023846,
+        43785535.326540835,
+        43159712.2894393
+      ],
+      "size": "2097152",
+      "status": "ok",
+      "steps": 100,
+      "threads": 1
+    },
+    "snap-strong-4gpu": {
+      "api": "cuda",
+      "category": "kokkos-cuda",
+      "flags": "newton on neigh half comm device gpu/aware on UCX_TLS=^cuda_ipc",
+      "gpus": 4,
+      "gpus_per_node": 4,
+      "input": "snap",
+      "loop_time": [
+        30.8268,
+        30.6678,
+        30.7492
+      ],
+      "natoms": 2097152,
+      "nodes": 1,
+      "package": "kokkos",
+      "precision": "double",
+      "ranks": 4,
+      "samples": [
+        6803015.557891186,
+        6838286.411154371,
+        6820183.939744774
+      ],
+      "size": "2097152",
+      "status": "ok",
+      "steps": 100,
+      "threads": 1
+    },
+    "snap-strong-8gpu": {
+      "api": "cuda",
+      "category": "kokkos-cuda",
+      "flags": "newton on neigh half comm device gpu/aware on UCX_TLS=^cuda_ipc",
+      "gpus": 8,
+      "gpus_per_node": 8,
+      "input": "snap",
+      "loop_time": [
+        15.8482,
+        15.8338,
+        15.8178
+      ],
+      "natoms": 2097152,
+      "nodes": 1,
+      "package": "kokkos",
+      "precision": "double",
+      "ranks": 8,
+      "samples": [
+        13232745.67458765,
+        13244780.153848097,
+        13258177.496238414
+      ],
+      "size": "2097152",
+      "status": "ok",
+      "steps": 100,
+      "threads": 1
+    },
+    "snap-weak-16gpu": {
+      "api": "cuda",
+      "category": "kokkos-cuda",
+      "flags": "newton on neigh half comm device gpu/aware on UCX_TLS=^cuda_ipc",
+      "gpus": 16,
+      "gpus_per_node": 16,
+      "input": "snap",
+      "loop_time": [
+        34.6654,
+        35.1175,
+        34.7853
+      ],
+      "natoms": 2097152,
+      "nodes": 1,
+      "package": "kokkos",
+      "precision": "double",
+      "ranks": 16,
+      "samples": [
+        24198791.87893404,
+        23887258.48935716,
+        24115382.072312154
+      ],
+      "size": "2097152",
+      "status": "ok",
+      "steps": 400,
+      "threads": 1
+    },
+    "snap-weak-32gpu": {
+      "api": "cuda",
+      "category": "kokkos-cuda",
+      "flags": "newton on neigh half comm device gpu/aware on UCX_TLS=^cuda_ipc",
+      "gpus": 32,
+      "gpus_per_node": 16,
+      "input": "snap",
+      "loop_time": [
+        34.7734,
+        35.4493,
+        35.2103
+      ],
+      "natoms": 4194304,
+      "nodes": 2,
+      "package": "kokkos",
+      "precision": "double",
+      "ranks": 32,
+      "samples": [
+        48247269.46459075,
+        47327354.8419856,
+        47648602.8236056
+      ],
+      "size": "4194304",
+      "status": "ok",
+      "steps": 400,
+      "threads": 1
+    },
+    "snap-weak-4gpu": {
+      "api": "cuda",
+      "category": "kokkos-cuda",
+      "flags": "newton on neigh half comm device gpu/aware on UCX_TLS=^cuda_ipc",
+      "gpus": 4,
+      "gpus_per_node": 4,
+      "input": "snap",
+      "loop_time": [
+        31.9167,
+        32.0818,
+        32.0091
+      ],
+      "natoms": 524288,
+      "nodes": 1,
+      "package": "kokkos",
+      "precision": "double",
+      "ranks": 4,
+      "samples": [
+        6570704.36479962,
+        6536890.074746429,
+        6551736.849833329
+      ],
+      "size": "524288",
+      "status": "ok",
+      "steps": 400,
+      "threads": 1
+    },
+    "snap-weak-8gpu": {
+      "api": "cuda",
+      "category": "kokkos-cuda",
+      "flags": "newton on neigh half comm device gpu/aware on UCX_TLS=^cuda_ipc",
+      "gpus": 8,
+      "gpus_per_node": 8,
+      "input": "snap",
+      "loop_time": [
+        32.8647,
+        33.1532,
+        33.0578
+      ],
+      "natoms": 1048576,
+      "nodes": 1,
+      "package": "kokkos",
+      "precision": "double",
+      "ranks": 8,
+      "samples": [
+        12762337.705805926,
+        12651279.51449634,
+        12687789.266073363
+      ],
+      "size": "1048576",
+      "status": "ok",
+      "steps": 400,
+      "threads": 1
+    },
+    "spce-strong-16gpu": {
+      "api": "cuda",
+      "category": "kokkos-cuda",
+      "flags": "newton on neigh half comm device gpu/aware on UCX_TLS=^cuda_ipc",
+      "gpus": 16,
+      "gpus_per_node": 16,
+      "input": "spce",
+      "loop_time": [
+        21.2204,
+        20.8227,
+        20.7336
+      ],
+      "natoms": 972000,
+      "nodes": 1,
+      "package": "kokkos",
+      "precision": "double",
+      "ranks": 16,
+      "samples": [
+        57256225.14184464,
+        58349781.72859427,
+        58600532.46903577
+      ],
+      "size": "972000",
+      "status": "ok",
+      "steps": 1250,
+      "threads": 1
+    },
+    "spce-strong-32gpu": {
+      "api": "cuda",
+      "category": "kokkos-cuda",
+      "flags": "newton on neigh half comm device gpu/aware on UCX_TLS=^cuda_ipc",
+      "gpus": 32,
+      "gpus_per_node": 16,
+      "input": "spce",
+      "loop_time": [
+        13.1651,
+        13.1341,
+        12.9561
+      ],
+      "natoms": 972000,
+      "nodes": 2,
+      "package": "kokkos",
+      "precision": "double",
+      "ranks": 32,
+      "samples": [
+        92289462.29044974,
+        92507290.18356797,
+        93778220.29777479
+      ],
+      "size": "972000",
+      "status": "ok",
+      "steps": 1250,
+      "threads": 1
+    },
+    "spce-strong-4gpu": {
+      "api": "cuda",
+      "category": "kokkos-cuda",
+      "flags": "newton on neigh half comm device gpu/aware on UCX_TLS=^cuda_ipc",
+      "gpus": 4,
+      "gpus_per_node": 4,
+      "input": "spce",
+      "loop_time": [
+        42.8169,
+        42.4079,
+        42.6096
+      ],
+      "natoms": 972000,
+      "nodes": 1,
+      "package": "kokkos",
+      "precision": "double",
+      "ranks": 4,
+      "samples": [
+        28376645.670284398,
+        28650322.227698144,
+        28514700.91247043
+      ],
+      "size": "972000",
+      "status": "ok",
+      "steps": 1250,
+      "threads": 1
+    },
+    "spce-strong-8gpu": {
+      "api": "cuda",
+      "category": "kokkos-cuda",
+      "flags": "newton on neigh half comm device gpu/aware on UCX_TLS=^cuda_ipc",
+      "gpus": 8,
+      "gpus_per_node": 8,
+      "input": "spce",
+      "loop_time": [
+        32.6159,
+        32.458,
+        32.4511
+      ],
+      "natoms": 972000,
+      "nodes": 1,
+      "package": "kokkos",
+      "precision": "double",
+      "ranks": 8,
+      "samples": [
+        37251769.842316166,
+        37432990.325959705,
+        37440949.61341835
+      ],
+      "size": "972000",
+      "status": "ok",
+      "steps": 1250,
+      "threads": 1
+    },
+    "spce-weak-16gpu": {
+      "api": "cuda",
+      "category": "kokkos-cuda",
+      "flags": "newton on neigh half comm device gpu/aware on UCX_TLS=^cuda_ipc",
+      "gpus": 16,
+      "gpus_per_node": 16,
+      "input": "spce",
+      "loop_time": [
+        40.8741,
+        41.6097,
+        40.8866
+      ],
+      "natoms": 486000,
+      "nodes": 1,
+      "package": "kokkos",
+      "precision": "double",
+      "ranks": 16,
+      "samples": [
+        59450850.29395143,
+        58399844.26708196,
+        59432674.76385906
+      ],
+      "size": "486000",
+      "status": "ok",
+      "steps": 5000,
+      "threads": 1
+    },
+    "spce-weak-32gpu": {
+      "api": "cuda",
+      "category": "kokkos-cuda",
+      "flags": "newton on neigh half comm device gpu/aware on UCX_TLS=^cuda_ipc",
+      "gpus": 32,
+      "gpus_per_node": 16,
+      "input": "spce",
+      "loop_time": [
+        51.4997,
+        51.137,
+        50.9949
+      ],
+      "natoms": 972000,
+      "nodes": 2,
+      "package": "kokkos",
+      "precision": "double",
+      "ranks": 32,
+      "samples": [
+        94369481.76397145,
+        95038817.29471812,
+        95303648.01186001
+      ],
+      "size": "972000",
+      "status": "ok",
+      "steps": 5000,
+      "threads": 1
+    },
+    "spce-weak-4gpu": {
+      "api": "cuda",
+      "category": "kokkos-cuda",
+      "flags": "newton on neigh half comm device gpu/aware on UCX_TLS=^cuda_ipc",
+      "gpus": 4,
+      "gpus_per_node": 4,
+      "input": "spce",
+      "loop_time": [
+        29.8446,
+        30.3405,
+        30.1423
+      ],
+      "natoms": 121500,
+      "nodes": 1,
+      "package": "kokkos",
+      "precision": "double",
+      "ranks": 4,
+      "samples": [
+        20355441.18534006,
+        20022741.879665796,
+        20154400.958121974
+      ],
+      "size": "121500",
+      "status": "ok",
+      "steps": 5000,
+      "threads": 1
+    },
+    "spce-weak-8gpu": {
+      "api": "cuda",
+      "category": "kokkos-cuda",
+      "flags": "newton on neigh half comm device gpu/aware on UCX_TLS=^cuda_ipc",
+      "gpus": 8,
+      "gpus_per_node": 8,
+      "input": "spce",
+      "loop_time": [
+        42.0012,
+        41.3354,
+        42.5519
+      ],
+      "natoms": 243000,
+      "nodes": 1,
+      "package": "kokkos",
+      "precision": "double",
+      "ranks": 8,
+      "samples": [
+        28927744.921573672,
+        29393691.605742294,
+        28553366.594676144
+      ],
+      "size": "243000",
+      "status": "ok",
+      "steps": 5000,
+      "threads": 1
+    }
+  },
+  "runtime_environment": {
+    "UCX_TLS": "^cuda_ipc"
+  },
+  "sample_policy": "Three sequential segments after warmup; SAI plots use medians and min/max ranges. The upstream dashboard currently selects the best sample.",
+  "url": "https://github.com/Stardust0831/lammps/tree/sai-multigpu-reports/performance/20261110-fullnode",
+  "version": "30 Sep 2026 - Development - d291d572-modified"
+}

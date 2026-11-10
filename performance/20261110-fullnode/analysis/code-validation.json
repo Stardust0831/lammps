@@ -1,0 +1,13 @@
+{
+  "controller_source_commit": "1f87db105ba812ac4bbc1fda485913a25cfdf48b",
+  "tests": {
+    "command": "python3 -B -m unittest discover -s tools/sai -p 'test_*.py'",
+    "passed": 18
+  },
+  "style": {
+    "command": "make -C src check",
+    "exit_code": 0,
+    "log": "ipc-style-check.log"
+  },
+  "historical_report_check": "All 16 original table rows retained identical metrics after GPU-layout parameterization; final acceptance also requires matched input hashes and successful Slurm accounting."
+}

@@ -1,3 +1,5 @@
+> **Acceptance withdrawn on 2026-11-10.** A raw-log audit found UCX CUDA IPC errors in 13 of 28 case logs, including four numerical gates. The old validator checked numerical agreement and exit status but missed these communication errors. The original PASS flags below and in raw records describe that incomplete validation. All timing tables and charts here are historical diagnostic observations, not accepted performance results. The dashboard JSON now marks this experiment as error. [Correction evidence](acceptance-correction.json); [accepted full-node rerun](../20261110-fullnode/README.md).
+
 # SAI LAMMPS multi-node performance trial
 
 ![Scaling curves](scaling.png)

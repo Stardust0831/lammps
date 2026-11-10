@@ -1,0 +1,235 @@
+[
+  {
+    "node": "16v100n53",
+    "processes": [
+      {
+        "SLURM_JOB_ID": "2340456",
+        "OMPI_COMM_WORLD_RANK": "1",
+        "OMPI_COMM_WORLD_LOCAL_RANK": "1",
+        "UCX_TLS": "^cuda_ipc",
+        "UCX_CUDA_IPC_CACHE": "",
+        "CUDA_VISIBLE_DEVICES": "GPU-b5c4119a-2ab6-d1a1-896a-ef2df8d2e71d",
+        "pid": 2212217,
+        "ucx_libraries": [
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/libucp.so.0.0.0",
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/libucs.so.0.0.0",
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/ucx/libuct_cuda.so.0.0.0"
+        ]
+      },
+      {
+        "SLURM_JOB_ID": "2340456",
+        "OMPI_COMM_WORLD_RANK": "12",
+        "OMPI_COMM_WORLD_LOCAL_RANK": "12",
+        "UCX_TLS": "^cuda_ipc",
+        "UCX_CUDA_IPC_CACHE": "",
+        "CUDA_VISIBLE_DEVICES": "GPU-c3c0612b-6ff8-9418-bbb4-4889f7d049b9",
+        "pid": 2212404,
+        "ucx_libraries": [
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/libucp.so.0.0.0",
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/libucs.so.0.0.0",
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/ucx/libuct_cuda.so.0.0.0"
+        ]
+      },
+      {
+        "SLURM_JOB_ID": "2340456",
+        "OMPI_COMM_WORLD_RANK": "13",
+        "OMPI_COMM_WORLD_LOCAL_RANK": "13",
+        "UCX_TLS": "^cuda_ipc",
+        "UCX_CUDA_IPC_CACHE": "",
+        "CUDA_VISIBLE_DEVICES": "GPU-a3307980-701e-6cc4-0398-6555c8878dc4",
+        "pid": 2212405,
+        "ucx_libraries": [
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/libucp.so.0.0.0",
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/libucs.so.0.0.0",
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/ucx/libuct_cuda.so.0.0.0"
+        ]
+      },
+      {
+        "SLURM_JOB_ID": "2340456",
+        "OMPI_COMM_WORLD_RANK": "3",
+        "OMPI_COMM_WORLD_LOCAL_RANK": "3",
+        "UCX_TLS": "^cuda_ipc",
+        "UCX_CUDA_IPC_CACHE": "",
+        "CUDA_VISIBLE_DEVICES": "GPU-0c898f3b-6578-d9b6-1bb6-6de7d1b6320b",
+        "pid": 2212427,
+        "ucx_libraries": [
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/libucp.so.0.0.0",
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/libucs.so.0.0.0",
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/ucx/libuct_cuda.so.0.0.0"
+        ]
+      },
+      {
+        "SLURM_JOB_ID": "2340456",
+        "OMPI_COMM_WORLD_RANK": "2",
+        "OMPI_COMM_WORLD_LOCAL_RANK": "2",
+        "UCX_TLS": "^cuda_ipc",
+        "UCX_CUDA_IPC_CACHE": "",
+        "CUDA_VISIBLE_DEVICES": "GPU-d889460e-dc93-d82e-1323-a7c8fc258176",
+        "pid": 2212428,
+        "ucx_libraries": [
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/libucp.so.0.0.0",
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/libucs.so.0.0.0",
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/ucx/libuct_cuda.so.0.0.0"
+        ]
+      },
+      {
+        "SLURM_JOB_ID": "2340456",
+        "OMPI_COMM_WORLD_RANK": "7",
+        "OMPI_COMM_WORLD_LOCAL_RANK": "7",
+        "UCX_TLS": "^cuda_ipc",
+        "UCX_CUDA_IPC_CACHE": "",
+        "CUDA_VISIBLE_DEVICES": "GPU-123d9cad-e009-41cd-75af-01473cc8654a",
+        "pid": 2212435,
+        "ucx_libraries": [
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/libucp.so.0.0.0",
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/libucs.so.0.0.0",
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/ucx/libuct_cuda.so.0.0.0"
+        ]
+      },
+      {
+        "SLURM_JOB_ID": "2340456",
+        "OMPI_COMM_WORLD_RANK": "6",
+        "OMPI_COMM_WORLD_LOCAL_RANK": "6",
+        "UCX_TLS": "^cuda_ipc",
+        "UCX_CUDA_IPC_CACHE": "",
+        "CUDA_VISIBLE_DEVICES": "GPU-4cec6150-07bd-25d8-686c-04111cdf3683",
+        "pid": 2212436,
+        "ucx_libraries": [
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/libucp.so.0.0.0",
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/libucs.so.0.0.0",
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/ucx/libuct_cuda.so.0.0.0"
+        ]
+      },
+      {
+        "SLURM_JOB_ID": "2340456",
+        "OMPI_COMM_WORLD_RANK": "14",
+        "OMPI_COMM_WORLD_LOCAL_RANK": "14",
+        "UCX_TLS": "^cuda_ipc",
+        "UCX_CUDA_IPC_CACHE": "",
+        "CUDA_VISIBLE_DEVICES": "GPU-4d0efccd-7fa2-5ebf-00c3-0bbddbfbadf3",
+        "pid": 2212439,
+        "ucx_libraries": [
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/libucp.so.0.0.0",
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/libucs.so.0.0.0",
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/ucx/libuct_cuda.so.0.0.0"
+        ]
+      },
+      {
+        "SLURM_JOB_ID": "2340456",
+        "OMPI_COMM_WORLD_RANK": "15",
+        "OMPI_COMM_WORLD_LOCAL_RANK": "15",
+        "UCX_TLS": "^cuda_ipc",
+        "UCX_CUDA_IPC_CACHE": "",
+        "CUDA_VISIBLE_DEVICES": "GPU-df5de7b0-6cef-5a92-7579-c5ee22be8ed9",
+        "pid": 2212440,
+        "ucx_libraries": [
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/libucp.so.0.0.0",
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/libucs.so.0.0.0",
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/ucx/libuct_cuda.so.0.0.0"
+        ]
+      },
+      {
+        "SLURM_JOB_ID": "2340456",
+        "OMPI_COMM_WORLD_RANK": "4",
+        "OMPI_COMM_WORLD_LOCAL_RANK": "4",
+        "UCX_TLS": "^cuda_ipc",
+        "UCX_CUDA_IPC_CACHE": "",
+        "CUDA_VISIBLE_DEVICES": "GPU-40f34736-dbbe-0680-387e-37a479acbec6",
+        "pid": 2212443,
+        "ucx_libraries": [
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/libucp.so.0.0.0",
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/libucs.so.0.0.0",
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/ucx/libuct_cuda.so.0.0.0"
+        ]
+      },
+      {
+        "SLURM_JOB_ID": "2340456",
+        "OMPI_COMM_WORLD_RANK": "5",
+        "OMPI_COMM_WORLD_LOCAL_RANK": "5",
+        "UCX_TLS": "^cuda_ipc",
+        "UCX_CUDA_IPC_CACHE": "",
+        "CUDA_VISIBLE_DEVICES": "GPU-fd82f9a6-35c2-86bc-39bc-5704075f3fcf",
+        "pid": 2212444,
+        "ucx_libraries": [
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/libucp.so.0.0.0",
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/libucs.so.0.0.0",
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/ucx/libuct_cuda.so.0.0.0"
+        ]
+      },
+      {
+        "SLURM_JOB_ID": "2340456",
+        "OMPI_COMM_WORLD_RANK": "8",
+        "OMPI_COMM_WORLD_LOCAL_RANK": "8",
+        "UCX_TLS": "^cuda_ipc",
+        "UCX_CUDA_IPC_CACHE": "",
+        "CUDA_VISIBLE_DEVICES": "GPU-8148033e-f77a-95d4-eb64-9cd8d9448ac7",
+        "pid": 2212445,
+        "ucx_libraries": [
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/libucp.so.0.0.0",
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/libucs.so.0.0.0",
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/ucx/libuct_cuda.so.0.0.0"
+        ]
+      },
+      {
+        "SLURM_JOB_ID": "2340456",
+        "OMPI_COMM_WORLD_RANK": "9",
+        "OMPI_COMM_WORLD_LOCAL_RANK": "9",
+        "UCX_TLS": "^cuda_ipc",
+        "UCX_CUDA_IPC_CACHE": "",
+        "CUDA_VISIBLE_DEVICES": "GPU-7379fe74-a479-1b25-d9c7-a1672991b796",
+        "pid": 2212446,
+        "ucx_libraries": [
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/libucp.so.0.0.0",
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/libucs.so.0.0.0",
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/ucx/libuct_cuda.so.0.0.0"
+        ]
+      },
+      {
+        "SLURM_JOB_ID": "2340456",
+        "OMPI_COMM_WORLD_RANK": "0",
+        "OMPI_COMM_WORLD_LOCAL_RANK": "0",
+        "UCX_TLS": "^cuda_ipc",
+        "UCX_CUDA_IPC_CACHE": "",
+        "CUDA_VISIBLE_DEVICES": "GPU-7de9cfe3-e914-d463-87a6-d05d936d566a",
+        "pid": 2212447,
+        "ucx_libraries": [
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/libucp.so.0.0.0",
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/libucs.so.0.0.0",
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/ucx/libuct_cuda.so.0.0.0"
+        ]
+      },
+      {
+        "SLURM_JOB_ID": "2340456",
+        "OMPI_COMM_WORLD_RANK": "11",
+        "OMPI_COMM_WORLD_LOCAL_RANK": "11",
+        "UCX_TLS": "^cuda_ipc",
+        "UCX_CUDA_IPC_CACHE": "",
+        "CUDA_VISIBLE_DEVICES": "GPU-7e41da8e-cce1-d81c-5c95-e07078baa59a",
+        "pid": 2212448,
+        "ucx_libraries": [
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/libucp.so.0.0.0",
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/libucs.so.0.0.0",
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/ucx/libuct_cuda.so.0.0.0"
+        ]
+      },
+      {
+        "SLURM_JOB_ID": "2340456",
+        "OMPI_COMM_WORLD_RANK": "10",
+        "OMPI_COMM_WORLD_LOCAL_RANK": "10",
+        "UCX_TLS": "^cuda_ipc",
+        "UCX_CUDA_IPC_CACHE": "",
+        "CUDA_VISIBLE_DEVICES": "GPU-9795b22f-c4b3-256e-b666-c8db3e85b8f3",
+        "pid": 2212449,
+        "ucx_libraries": [
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/libucp.so.0.0.0",
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/libucs.so.0.0.0",
+          "/opt/devtools/openmpi/openmpi-5.0.10-nvhpc263-gnu-cuda12-avx2/lib/ucx/libuct_cuda.so.0.0.0"
+        ]
+      }
+    ]
+  },
+  {
+    "node": "16v100n54",
+    "processes": []
+  }
+]

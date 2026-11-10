@@ -1,0 +1,38 @@
+{
+  "job": "2332512",
+  "revised_acceptance": "WITHDRAWN",
+  "errors": [
+    {
+      "path": "cases/lj-kokkos-2/screen.txt",
+      "errors": 2,
+      "first_error": "[1794248099.332743] [16v100n83:4063568:0]  cuda_ipc_cache.c:211  UCX  ERROR cuIpcOpenMemHandle() failed: resource already mapped"
+    },
+    {
+      "path": "cases/lj-kokkos-4/screen.txt",
+      "errors": 8,
+      "first_error": "[1794248102.862518] [16v100n83:4063718:0]  cuda_ipc_cache.c:211  UCX  ERROR cuIpcOpenMemHandle() failed: resource already mapped"
+    },
+    {
+      "path": "cases/lj-kokkos-8-2nodes/screen.txt",
+      "errors": 16,
+      "first_error": "[1794248107.368996] [16v100n83:4064000:0]  cuda_ipc_cache.c:211  UCX  ERROR cuIpcOpenMemHandle() failed: resource already mapped"
+    },
+    {
+      "path": "cases/pppm-kokkos-2/screen.txt",
+      "errors": 2,
+      "first_error": "[1794248130.168991] [16v100n83:4065001:0]  cuda_ipc_cache.c:211  UCX  ERROR cuIpcOpenMemHandle() failed: resource already mapped"
+    },
+    {
+      "path": "cases/pppm-kokkos-4/screen.txt",
+      "errors": 8,
+      "first_error": "[1794248133.468570] [16v100n83:4065215:0]  cuda_ipc_cache.c:211  UCX  ERROR cuIpcOpenMemHandle() failed: resource already mapped"
+    },
+    {
+      "path": "cases/pppm-kokkos-8-2nodes/screen.txt",
+      "errors": 8,
+      "first_error": "[1794248138.639318] [16v100n83:4065395:0]  cuda_ipc_cache.c:211  UCX  ERROR cuIpcOpenMemHandle() failed: resource already mapped"
+    }
+  ],
+  "original_report": "https://github.com/Stardust0831/lammps/tree/867227d8004ce2554af54605764ad54e4a5cc82a",
+  "scope": "All original numerical comparisons passed, but six Kokkos cases contained UCX errors. Original raw evidence is retained at the immutable report commit."
+}

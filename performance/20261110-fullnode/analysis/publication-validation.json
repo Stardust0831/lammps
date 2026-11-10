@@ -1,0 +1,15 @@
+{
+  "frozen_performance_controller_commit": "1f87db105ba812ac4bbc1fda485913a25cfdf48b",
+  "reporting_and_regression_commit": "4d61cd58d16d2012cf2172c0bcc3f9e0dec092e1",
+  "tests_passed": 19,
+  "tests_command": "python3 -B -m unittest discover -s tools/sai -p 'test_*.py' -v",
+  "required_style": {
+    "command": "make -C src check",
+    "exit_code": 0,
+    "log": "communication-gates-style-check.log"
+  },
+  "historical_negative_check": "The current reporter rejects job 2338108 from its raw spce-gate-4gpu UCX error.",
+  "final_log_check": "28 case logs have clean LAMMPS exits and no UCX errors.",
+  "source_code_changed": false,
+  "public_modules_changed": false
+}

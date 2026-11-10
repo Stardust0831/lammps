@@ -1,0 +1,15 @@
+{
+  "Account": "proj-sai-hpc-software",
+  "AllocTRES": "billing=4800,cpu=256,gres/gpu=32,mem=480G,node=2",
+  "Elapsed": "00:29:30",
+  "ElapsedRaw": "1770",
+  "ExitCode": "0:0",
+  "JobIDRaw": "2340456",
+  "JobName": "sai-lmp-topology",
+  "NodeList": "16v100n[53-54]",
+  "Partition": "16V100",
+  "QOS": "huge-gpu",
+  "State": "COMPLETED",
+  "TotalCPU": "00:00:00",
+  "WorkDir": "/org/org-open-sai/proj-sai-hpc-software/lammps-performance/runs/topology-noipc-20261110-a"
+}

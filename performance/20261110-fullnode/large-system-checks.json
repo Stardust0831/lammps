@@ -1,0 +1,12 @@
+{
+  "snap": {
+    "max_minus_min": 1.7763568394002505e-15,
+    "tolerance": 1e-06,
+    "unit": "eV/atom"
+  },
+  "spce": {
+    "max_minus_min": 3.832001382875205e-11,
+    "tolerance": 1e-06,
+    "unit": "kcal/mol/atom"
+  }
+}

@@ -1,0 +1,80 @@
+make: Entering directory '/home/stardust-vm/.cache/lammps-sai-style-20261110/src'
+/usr/bin/python3 ../tools/coding_standard/whitespace.py ..
+/usr/bin/python3 ../tools/coding_standard/permissions.py ..
+/usr/bin/python3 ../tools/coding_standard/homepage.py ..
+/usr/bin/python3 ../tools/coding_standard/errordocs.py ..
+/usr/bin/python3 ../tools/coding_standard/fmtlib.py ..
+make  -C ../doc anchor_check style_check package_check role_check
+make[1]: Entering directory '/home/stardust-vm/.cache/lammps-sai-style-20261110/doc'
+Found 1406 anchor labels
+Unused anchor label 'four' @ src/Commands_parse.rst:118
+Unused anchor label 'five' @ src/Commands_parse.rst:124
+Unused anchor label 'howto-Ponder' @ src/Howto_amoeba.rst:308
+Unused anchor label 'howto-Rackers' @ src/Howto_amoeba.rst:312
+Unused anchor label 'howto-Ren' @ src/Howto_amoeba.rst:316
+Unused anchor label 'howto-Shi' @ src/Howto_amoeba.rst:320
+Unused anchor label 'bulk2slab' @ src/Howto_bulk2slab.rst:21
+Unused anchor label 'DeLyser1' @ src/Howto_ldd.rst:372
+Unused anchor label 'DeLyser2' @ src/Howto_ldd.rst:376
+Unused anchor label 'DeLyser3' @ src/Howto_ldd.rst:380
+Unused anchor label 'DeLyser4' @ src/Howto_ldd.rst:384
+Unused anchor label 'Szukalo' @ src/Howto_ldd.rst:388
+Unused anchor label 'Lesniewski1' @ src/Howto_ldd.rst:392
+Unused anchor label 'Dutta' @ src/Howto_ldd.rst:396
+Unused anchor label 'Lesniewski2' @ src/Howto_ldd.rst:400
+Unused anchor label 'figperitarget' @ src/Howto_peri.rst:1337
+Unused anchor label 'lammps_cplusplus_api' @ src/Library.rst:173
+Unused anchor label 'Larentzos1' @ src/compute_dpd.rst:85
+Unused anchor label 'Larentzos2' @ src/compute_dpd_atom.rst:71
+Unused anchor label 'Ikeshoji3' @ src/compute_stress_mop.rst:163
+Unused anchor label 'Gissinger' @ src/fix_bond_react.rst:970
+Unused anchor label 'Gissinger2020' @ src/fix_bond_react.rst:974
+Unused anchor label 'Gissinger2024' @ src/fix_bond_react.rst:978
+Unused anchor label 'Colvars_LAMMPS_doc' @ src/fix_colvars.rst:266
+Unused anchor label 'deform_balance' @ src/fix_deform_pressure.rst:294
+Unused anchor label 'Lisal1' @ src/fix_dpd_energy.rst:84
+Unused anchor label 'Larentzos3' @ src/fix_dpd_energy.rst:88
+Unused anchor label 'Larentzos4' @ src/fix_eos_cv.rst:64
+Unused anchor label 'Evans2' @ src/fix_flow_gauss.rst:188
+Unused anchor label 'Dunweg2' @ src/fix_langevin_eff.rst:122
+Unused anchor label 'Mackay2' @ src/fix_lb_fluid.rst:422
+Unused anchor label 'Martyna1' @ src/fix_nh_eff.rst:149
+Unused anchor label 'Parrinello' @ src/fix_nh_eff.rst:153
+Unused anchor label 'Tuckerman1' @ src/fix_nh_eff.rst:157
+Unused anchor label 'Shinoda2' @ src/fix_nh_eff.rst:162
+Unused anchor label 'nc-Miller' @ src/fix_npt_cauchy.rst:648
+Unused anchor label 'nve-Dullweber' @ src/fix_nve_sphere.rst:120
+Unused anchor label 'Tuckerman2' @ src/fix_nvt_sllod_eff.rst:107
+Unused anchor label 'Liujian' @ src/fix_pimd.rst:652
+Unused anchor label 'Coleman' @ src/fix_saed_vtk.rst:229
+Unused anchor label 'Larentzos2sh' @ src/fix_shardlow.rst:100
+Unused anchor label 'geturl_proxy' @ src/geturl.rst:69
+Unused anchor label 'tangential_models_preamble' @ src/granular_tangential_models.rst:4
+Unused anchor label 'tangential_damping_discussion' @ src/granular_tangential_models.rst:65
+Unused anchor label 'Brooks1' @ src/pair_charmm.rst:282
+Unused anchor label 'pair-MacKerell' @ src/pair_charmm.rst:286
+Unused anchor label 'Steinbach' @ src/pair_charmm.rst:291
+Unused anchor label 'Thole3' @ src/pair_coul_tt.rst:127
+Unused anchor label 'Thornton1991_2' @ src/pair_granular_superellipsoid.rst:570
+Unused anchor label 'Thornton2013_2' @ src/pair_granular_superellipsoid.rst:575
+Unused anchor label 'WaltonPC_2' @ src/pair_granular_superellipsoid.rst:582
+Unused anchor label 'Mie' @ src/pair_mie.rst:118
+Unused anchor label 'Avendano' @ src/pair_mie.rst:122
+Unused anchor label 'Behler_2011' @ src/pair_runner.rst:374
+Found 54 unused anchor labels.
+No anchor label errors.
+Parsed style names w/o suffixes from C++ tree in ../src:
+   Angle styles:      29    Atom styles:       30
+   Body styles:        3    Bond styles:       31
+   Command styles:    55    Compute styles:   181
+   Dihedral styles:   19    Dump styles:       35
+   Fix styles:       316    Improper styles:   14
+   Integrate styles:   5    Kspace styles:     26
+   Minimize styles:    9    Pair styles:      333
+   Reader styles:      4    Region styles:      9
+----------------------------------------------------
+Total number of styles (including suffixes): 2830
+Total number of style index entries: 1832
+Found 94 packages
+make[1]: Leaving directory '/home/stardust-vm/.cache/lammps-sai-style-20261110/doc'
+make: Leaving directory '/home/stardust-vm/.cache/lammps-sai-style-20261110/src'

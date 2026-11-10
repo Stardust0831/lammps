@@ -1,0 +1,251 @@
+{
+  "status": "PASS",
+  "cases": [
+    {
+      "case": "snap-gate-4gpu",
+      "nodes": [
+        "16v100n53"
+      ],
+      "gpus_per_node": 4,
+      "unique_gpus": 4,
+      "physical_cores_per_rank": 4,
+      "status": "PASS"
+    },
+    {
+      "case": "snap-gate-8gpu",
+      "nodes": [
+        "16v100n53"
+      ],
+      "gpus_per_node": 8,
+      "unique_gpus": 8,
+      "physical_cores_per_rank": 4,
+      "status": "PASS"
+    },
+    {
+      "case": "snap-gate-16gpu",
+      "nodes": [
+        "16v100n53"
+      ],
+      "gpus_per_node": 16,
+      "unique_gpus": 16,
+      "physical_cores_per_rank": 4,
+      "status": "PASS"
+    },
+    {
+      "case": "snap-gate-32gpu",
+      "nodes": [
+        "16v100n53",
+        "16v100n54"
+      ],
+      "gpus_per_node": 16,
+      "unique_gpus": 32,
+      "physical_cores_per_rank": 4,
+      "status": "PASS"
+    },
+    {
+      "case": "spce-gate-4gpu",
+      "nodes": [
+        "16v100n53"
+      ],
+      "gpus_per_node": 4,
+      "unique_gpus": 4,
+      "physical_cores_per_rank": 4,
+      "status": "PASS"
+    },
+    {
+      "case": "spce-gate-8gpu",
+      "nodes": [
+        "16v100n53"
+      ],
+      "gpus_per_node": 8,
+      "unique_gpus": 8,
+      "physical_cores_per_rank": 4,
+      "status": "PASS"
+    },
+    {
+      "case": "spce-gate-16gpu",
+      "nodes": [
+        "16v100n53"
+      ],
+      "gpus_per_node": 16,
+      "unique_gpus": 16,
+      "physical_cores_per_rank": 4,
+      "status": "PASS"
+    },
+    {
+      "case": "spce-gate-32gpu",
+      "nodes": [
+        "16v100n53",
+        "16v100n54"
+      ],
+      "gpus_per_node": 16,
+      "unique_gpus": 32,
+      "physical_cores_per_rank": 4,
+      "status": "PASS"
+    },
+    {
+      "case": "spce-strong-32gpu",
+      "nodes": [
+        "16v100n53",
+        "16v100n54"
+      ],
+      "gpus_per_node": 16,
+      "unique_gpus": 32,
+      "physical_cores_per_rank": 4,
+      "status": "PASS"
+    },
+    {
+      "case": "spce-weak-32gpu",
+      "nodes": [
+        "16v100n53",
+        "16v100n54"
+      ],
+      "gpus_per_node": 16,
+      "unique_gpus": 32,
+      "physical_cores_per_rank": 4,
+      "status": "PASS"
+    },
+    {
+      "case": "spce-strong-16gpu",
+      "nodes": [
+        "16v100n53"
+      ],
+      "gpus_per_node": 16,
+      "unique_gpus": 16,
+      "physical_cores_per_rank": 4,
+      "status": "PASS"
+    },
+    {
+      "case": "spce-weak-16gpu",
+      "nodes": [
+        "16v100n53"
+      ],
+      "gpus_per_node": 16,
+      "unique_gpus": 16,
+      "physical_cores_per_rank": 4,
+      "status": "PASS"
+    },
+    {
+      "case": "snap-strong-4gpu",
+      "nodes": [
+        "16v100n53"
+      ],
+      "gpus_per_node": 4,
+      "unique_gpus": 4,
+      "physical_cores_per_rank": 4,
+      "status": "PASS"
+    },
+    {
+      "case": "snap-weak-4gpu",
+      "nodes": [
+        "16v100n53"
+      ],
+      "gpus_per_node": 4,
+      "unique_gpus": 4,
+      "physical_cores_per_rank": 4,
+      "status": "PASS"
+    },
+    {
+      "case": "snap-strong-8gpu",
+      "nodes": [
+        "16v100n53"
+      ],
+      "gpus_per_node": 8,
+      "unique_gpus": 8,
+      "physical_cores_per_rank": 4,
+      "status": "PASS"
+    },
+    {
+      "case": "snap-weak-8gpu",
+      "nodes": [
+        "16v100n53"
+      ],
+      "gpus_per_node": 8,
+      "unique_gpus": 8,
+      "physical_cores_per_rank": 4,
+      "status": "PASS"
+    },
+    {
+      "case": "snap-strong-16gpu",
+      "nodes": [
+        "16v100n53"
+      ],
+      "gpus_per_node": 16,
+      "unique_gpus": 16,
+      "physical_cores_per_rank": 4,
+      "status": "PASS"
+    },
+    {
+      "case": "snap-weak-16gpu",
+      "nodes": [
+        "16v100n53"
+      ],
+      "gpus_per_node": 16,
+      "unique_gpus": 16,
+      "physical_cores_per_rank": 4,
+      "status": "PASS"
+    },
+    {
+      "case": "snap-strong-32gpu",
+      "nodes": [
+        "16v100n53",
+        "16v100n54"
+      ],
+      "gpus_per_node": 16,
+      "unique_gpus": 32,
+      "physical_cores_per_rank": 4,
+      "status": "PASS"
+    },
+    {
+      "case": "snap-weak-32gpu",
+      "nodes": [
+        "16v100n53",
+        "16v100n54"
+      ],
+      "gpus_per_node": 16,
+      "unique_gpus": 32,
+      "physical_cores_per_rank": 4,
+      "status": "PASS"
+    },
+    {
+      "case": "spce-strong-4gpu",
+      "nodes": [
+        "16v100n53"
+      ],
+      "gpus_per_node": 4,
+      "unique_gpus": 4,
+      "physical_cores_per_rank": 4,
+      "status": "PASS"
+    },
+    {
+      "case": "spce-weak-4gpu",
+      "nodes": [
+        "16v100n53"
+      ],
+      "gpus_per_node": 4,
+      "unique_gpus": 4,
+      "physical_cores_per_rank": 4,
+      "status": "PASS"
+    },
+    {
+      "case": "spce-strong-8gpu",
+      "nodes": [
+        "16v100n53"
+      ],
+      "gpus_per_node": 8,
+      "unique_gpus": 8,
+      "physical_cores_per_rank": 4,
+      "status": "PASS"
+    },
+    {
+      "case": "spce-weak-8gpu",
+      "nodes": [
+        "16v100n53"
+      ],
+      "gpus_per_node": 8,
+      "unique_gpus": 8,
+      "physical_cores_per_rank": 4,
+      "status": "PASS"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "backup": "/org/org-open-sai/proj-sai-hpc-software/lammps-daily-tester/control-backups/20261110-ucx-audit",
+  "installed": {
+    "common.py": "f528382234323bb5ec45f14843c9a5a1ee25b6c879766be7c7f05b9ab0f50a90",
+    "endpoint.py": "8cc48cf4fceacad72f761f90a2e76b1080146908ede4b2b8bc2a0f8ab8feb7b7",
+    "site.json": "f6bfeddba4b8feb222013eff1212860765f71ba1d034dddb35342251758b1e97",
+    "suite.py": "a45461e3c0f8bb2ab2c006e122adf5a91da4438442169cd7a6630d93da95c0fb"
+  }
+}
