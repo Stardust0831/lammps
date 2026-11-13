@@ -176,6 +176,15 @@ performs the scientific calculations. A successful dispatch only establishes
 that GitHub accepted the request; inspect Actions and the dated public report
 to verify execution.
 
+On 2026-11-13, enabling the VM timer automatically dispatched
+[run 43363930881](https://github.com/Stardust0831/lammps/actions/runs/43363930881).
+The dispatcher finished in about five seconds, with a 14.5 MiB peak under its
+64 MiB limit. The workflow passed all 26 controller tests and skipped GPU
+submission because `da42d3d22249` already had a published 19/19 passing result.
+An Actions download-information request timed out once and recovered through
+the runner's retry; moving the clock to the VM does not remove dependence on
+GitHub API and network availability.
+
 The site configuration now records `UCX_TLS=^cuda_ipc` for the small scheduled
 suite. It disables the problematic CUDA IPC transport while retaining GPU
 calculation. Reports and per-rank records disclose this setting. All test
