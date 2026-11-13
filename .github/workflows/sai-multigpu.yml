@@ -1,9 +1,7 @@
 name: SAI multi-GPU regression
 
 on:
-  schedule:
-    # Poll for accepted daily builds. Unchanged upstream commits submit no jobs.
-    - cron: '17 * * * *'
+  # The VM timer in tools/sai/scheduler requests this workflow hourly.
   workflow_dispatch:
     inputs:
       force:

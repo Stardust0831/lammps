@@ -130,7 +130,7 @@ configuration with pinned host keys and the dedicated identity. The workflow
 has only scheduled and manual triggers, restricted to this fork; it does not
 run pull-request code. A memory limit on the VM service bounds peak usage.
 
-The hourly workflow skips unchanged upstream commits without submitting GPU
+The VM's hourly timer requests the workflow, which skips unchanged upstream commits without submitting GPU
 work or changing published reports. `workflow_dispatch` with `force=true`
 requests a retest. One active job is resumed after a relay interruption instead
 of duplicated. A new upstream commit without a matching accepted image is
@@ -139,6 +139,42 @@ remain visible in Actions and leave the previous explicitly dated report intact.
 Completed results remain resumable until the report push is acknowledged, so
 a connection loss during publication does not discard a completed test.
 Acknowledgement happens after both the report-branch push and Pages deployment.
+
+### Local trigger
+
+`scheduler/lammps-sai-scheduler.timer` triggers at minute 17 of each hour in
+`Asia/Shanghai`. The existing workflow remains available for manual dispatch;
+GitHub cron is disabled. A startup check and `Persistent=true` recover a missed
+tick when the user manager starts. The VM and its WSL distribution must be
+running; the timer cannot wake a powered-off Windows host.
+
+The short-lived Python dispatcher only calls the GitHub API. It skips requests
+while a workflow is queued or running, locks concurrent local invocations, and
+records its intent before sending the request. A lost HTTP reply imposes a
+15-minute delay before retrying; GitHub workflow concurrency and the existing
+cluster state prevent duplicate GPU jobs. Every request uses `force=false`.
+API failures remain visible in the service journal and retry at the next tick.
+
+Install under a trusted operator account with user lingering enabled, outside
+the runner's job directory. The deployed VM uses the existing `sai` scheduler
+account, separate from the LAMMPS runner account. The dispatcher needs an
+owner-only token file with repository Actions read/write permission, normally
+`~/.config/lammps-sai-scheduler/token`. An existing credential can be selected
+by putting `LAMMPS_SAI_TOKEN_FILE=/absolute/path/to/token` in
+`~/.config/lammps-sai-scheduler/environment`; no token is stored in the workflow.
+
+```bash
+bash tools/sai/scheduler/install.sh --install
+systemctl --user list-timers lammps-sai-scheduler.timer
+journalctl --user -u lammps-sai-scheduler.service -n 30
+```
+
+`--prepare` copies the files without enabling the timer. The oneshot service
+has a 64 MiB memory limit and no swap; no Python dispatcher stays resident.
+The existing self-hosted runner still executes the workflow and SAI still
+performs the scientific calculations. A successful dispatch only establishes
+that GitHub accepted the request; inspect Actions and the dated public report
+to verify execution.
 
 The site configuration now records `UCX_TLS=^cuda_ipc` for the small scheduled
 suite. It disables the problematic CUDA IPC transport while retaining GPU

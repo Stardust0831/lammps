@@ -1,0 +1,17 @@
+[Unit]
+Description=Request the LAMMPS SAI regression workflow
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 %h/.local/lib/lammps-sai-scheduler/dispatch.py
+Environment=PYTHONDONTWRITEBYTECODE=1
+EnvironmentFile=-%h/.config/lammps-sai-scheduler/environment
+UMask=0077
+NoNewPrivileges=yes
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+MemoryMax=64M
+MemorySwapMax=0
+CPUQuota=25%
+LimitCORE=0
+TimeoutStartSec=240
