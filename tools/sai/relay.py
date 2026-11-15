@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
-"""Poll upstream develop and submit/resume the fixed SAI regression suite."""
+"""Test the accepted daily build and resume the fixed SAI regression suite."""
 import argparse
 import hashlib
 import io
 import json
 import os
 from pathlib import Path
-import re
 import subprocess
 import tarfile
 import time
@@ -39,14 +38,18 @@ def remote(*arguments, binary=False):
     raise RuntimeError(str(last_error))
 
 
-def upstream_head():
-    # Git's read-only ref query avoids the anonymous REST API rate limit.
-    result = subprocess.check_output(["git", "ls-remote", "https://github.com/lammps/lammps.git",
-                                      "refs/heads/develop"], text=True, timeout=90)
-    sha, ref = result.strip().split()
-    if not re.fullmatch(r"[0-9a-f]{40}", sha) or ref != "refs/heads/develop":
-        raise ValueError("unexpected upstream branch response")
-    return sha
+def start_accepted(run_id, controller_sha, policy):
+    for _ in range(3):
+        selected = remote("inspect")
+        if selected["control_digest"] != control_digest(Path(__file__).resolve().parent):
+            raise ValueError("operator-installed controller differs from this workflow; deploy it first")
+        print("Accepted develop build:", selected["source_sha"],
+              "Image SHA256:", selected["image_sha256"], flush=True)
+        state = remote("start", run_id, selected["source_sha"], controller_sha, policy)
+        if not state.get("pending"):
+            return state
+        print("Accepted build changed during selection; reading the new build.", flush=True)
+    raise RuntimeError("accepted build changed repeatedly during selection; retry this workflow")
 
 
 def collect(raw, destination, expected_sha):
@@ -78,16 +81,10 @@ def main():
     if args.ack:
         remote("ack", read(Path("artifacts") / "summary.json")["run_id"])
         return 0
-    source = upstream_head()
-    selected = remote("inspect")
-    if selected["control_digest"] != control_digest(Path(__file__).resolve().parent):
-        raise ValueError("operator-installed controller differs from this workflow; deploy it first")
-    print("Upstream develop:", source, "Accepted image:", selected["source_sha"], flush=True)
     run_id = "github-" + os.environ["GITHUB_RUN_ID"] + "-" + os.environ["GITHUB_RUN_ATTEMPT"]
-    state = remote("start", run_id, source, os.environ["GITHUB_SHA"], "force" if args.force else "once")
-    if state.get("pending") or state.get("skipped"):
-        message = ("Waiting for the build workflow to accept upstream develop " + source
-                   if state.get("pending") else "Unchanged develop; no GPU job submitted. Previous result: "
+    state = start_accepted(run_id, os.environ["GITHUB_SHA"], "force" if args.force else "once")
+    if state.get("skipped"):
+        message = ("Accepted image and test configuration unchanged; no GPU job submitted. Previous result: "
                    + state["status"] + " " + state["action_url"])
         print(message, flush=True)
         if os.environ.get("GITHUB_STEP_SUMMARY"):
@@ -110,7 +107,7 @@ def main():
     if os.environ.get("GITHUB_STEP_SUMMARY"):
         Path(os.environ["GITHUB_STEP_SUMMARY"]).write_text(
             f"SAI multi-GPU tests: **{result['status']}**\n\n"
-            f"Develop `{result['commit']}`; {result['passed']}/{result['tests']} passed, "
+            f"Accepted develop build `{result['commit']}`; {result['passed']}/{result['tests']} passed, "
             f"{result['failures']} failures, {result['errors']} errors.\n\n"
             f"Slurm job: {result['slurm_job']}. [Public report]({result['url']})\n")
     output(publish="true", skipped="false")

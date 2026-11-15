@@ -8,7 +8,7 @@ import sys
 import tarfile
 import tempfile
 import unittest
-from unittest.mock import patch
+from unittest.mock import Mock, call, patch
 import xml.etree.ElementTree as ET
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -24,6 +24,8 @@ class TesterTests(unittest.TestCase):
         self.addCleanup(self.temporary.cleanup)
         self.root = Path(self.temporary.name)
         self.sha = "a" * 40
+        self.accepted = dict(source_sha=self.sha, image_sha256="d" * 64,
+                             recipe_sha256="e" * 64, control_digest="c" * 64)
 
     def test_numerical_gate_rejects_error_and_nan(self):
         for actual in ([.01], [math.nan], [math.inf], []):
@@ -61,12 +63,52 @@ class TesterTests(unittest.TestCase):
         self.assertEqual(len(xml.findall("testcase/error")), 1)
         self.assertEqual(result["commit"], self.sha)
 
-    def test_unchanged_commit_skips_submission(self):
-        common.write(self.root / "state.json", dict(last=dict(source_sha=self.sha, status="PASS")))
-        with patch.object(endpoint, "snapshot") as snapshot, patch.object(endpoint.subprocess, "check_output") as command:
+    def test_unchanged_accepted_build_skips_submission(self):
+        common.write(self.root / "state.json", dict(last=dict(self.accepted, status="PASS")))
+        with patch.object(endpoint, "snapshot", return_value=self.accepted), \
+                patch.object(endpoint.subprocess, "run") as command:
             result = endpoint.start(dict(root=str(self.root)), "github-2-1", self.sha, "b" * 40, "once")
         self.assertTrue(result["skipped"])
-        snapshot.assert_not_called()
+        command.assert_not_called()
+
+    def test_rebuilt_image_or_changed_tests_are_submitted_for_the_same_source(self):
+        for index, key in enumerate(("image_sha256", "recipe_sha256", "control_digest", "legacy", "force"), 1):
+            with self.subTest(key=key):
+                last = dict(self.accepted, status="PASS")
+                if key == "legacy":
+                    last = dict(source_sha=self.sha, status="PASS")
+                elif key != "force":
+                    last[key] = "f" * 64
+                common.write(self.root / "state.json", dict(last=last))
+                run_id = f"github-2-{index}"
+                with patch.object(endpoint, "snapshot", return_value=self.accepted), \
+                        patch.object(endpoint, "batch", return_value="#!/bin/bash\nexit 0\n"), \
+                        patch.object(endpoint.subprocess, "run", return_value=Mock(
+                            returncode=0, stdout="123\n", stderr="")) as command:
+                    result = endpoint.start(dict(root=str(self.root), repository="example/lammps",
+                                            report_url="https://example.org/", partition="16V100"),
+                                            run_id, self.sha, "b" * 40, "force" if key == "force" else "once")
+                self.assertEqual(result["state"], "SUBMITTED")
+                plan = common.read(self.root / "runs" / run_id / "plan.json")
+                self.assertEqual(plan["source_sha"], self.sha)
+                self.assertEqual(plan["image_sha256"], self.accepted["image_sha256"])
+                self.assertEqual(command.call_args_list[1].args[0][:3], ["sbatch", "--hold", "--parsable"])
+
+    def test_completed_result_retains_build_identity_for_duplicate_suppression(self):
+        plan = dict(self.accepted, run_id="github-1-1", job="123", controller_sha="b" * 40,
+                    report_url="https://example.org/", action_url="https://example.org/run/1")
+        common.write(self.root / "plan.json", plan)
+        common.reports(self.root, [dict(name="numerical", status="pass", message="")])
+        config = dict(root=str(self.root), partition="16V100", account="project")
+        row = ["123", "COMPLETED", "0:0", "16V100", "project", str(self.root)]
+        with patch.object(endpoint, "accounting", return_value=row):
+            final = endpoint.status(self.root, config)
+        for key, value in self.accepted.items():
+            self.assertEqual(final[key], value)
+        common.write(self.root / "state.json", dict(last=final))
+        with patch.object(endpoint, "snapshot", return_value=self.accepted), \
+                patch.object(endpoint.subprocess, "run") as command:
+            self.assertTrue(endpoint.start(config, "github-2-1", self.sha, "b" * 40, "once")["skipped"])
         command.assert_not_called()
 
     def test_active_job_is_resumed_even_when_head_changes(self):
@@ -78,12 +120,43 @@ class TesterTests(unittest.TestCase):
         self.assertEqual(result["job"], "123")
         command.assert_not_called()
 
-    def test_stale_image_does_not_claim_head_was_tested(self):
+    def test_rotated_build_does_not_claim_the_requested_source_was_tested(self):
+        common.write(self.root / "state.json", dict(last=dict(self.accepted, status="PASS")))
         with patch.object(endpoint, "snapshot", return_value=dict(source_sha="b" * 40)), \
-                patch.object(endpoint.subprocess, "check_output") as command:
+                patch.object(endpoint.subprocess, "run") as command:
             result = endpoint.start(dict(root=str(self.root)), "github-2-1", self.sha, "b" * 40, "once")
         self.assertTrue(result["pending"])
         command.assert_not_called()
+
+    def test_relay_tests_accepted_build_without_querying_upstream_head(self):
+        expected = dict(terminal=False, job="123", source_sha=self.sha)
+        with patch.object(relay, "remote", side_effect=[self.accepted, expected]) as remote, \
+                patch.object(relay, "control_digest", return_value=self.accepted["control_digest"]), \
+                patch.object(relay.subprocess, "check_output", side_effect=AssertionError("no upstream query")):
+            self.assertEqual(relay.start_accepted("github-2-1", "b" * 40, "once"), expected)
+        self.assertEqual(remote.call_args_list, [call("inspect"),
+                         call("start", "github-2-1", self.sha, "b" * 40, "once")])
+
+    def test_relay_refreshes_a_build_that_rotates_before_submission(self):
+        newer = dict(self.accepted, source_sha="f" * 40, image_sha256="f" * 64)
+        expected = dict(terminal=False, job="123", source_sha=newer["source_sha"])
+        with patch.object(relay, "remote", side_effect=[self.accepted, dict(pending=True), newer, expected]) as remote, \
+                patch.object(relay, "control_digest", return_value=self.accepted["control_digest"]):
+            self.assertEqual(relay.start_accepted("github-2-1", "b" * 40, "once"), expected)
+        self.assertEqual(remote.call_args_list[-1], call("start", "github-2-1", newer["source_sha"], "b" * 40, "once"))
+
+    def test_repeated_build_rotation_fails_instead_of_reporting_success(self):
+        with patch.object(relay, "remote", side_effect=[self.accepted, dict(pending=True)] * 3), \
+                patch.object(relay, "control_digest", return_value=self.accepted["control_digest"]), \
+                self.assertRaisesRegex(RuntimeError, "changed repeatedly"):
+            relay.start_accepted("github-2-1", "b" * 40, "once")
+
+    def test_controller_mismatch_cannot_submit_an_accepted_build(self):
+        with patch.object(relay, "remote", return_value=self.accepted) as remote, \
+                patch.object(relay, "control_digest", return_value="f" * 64), \
+                self.assertRaisesRegex(ValueError, "controller differs"):
+            relay.start_accepted("github-2-1", "b" * 40, "once")
+        remote.assert_called_once_with("inspect")
 
     def test_completed_unpublished_job_is_resumed(self):
         common.write(self.root / "state.json", dict(active="github-1-1"))

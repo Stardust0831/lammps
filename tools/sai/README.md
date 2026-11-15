@@ -6,9 +6,10 @@ VM submits Slurm jobs and publishes results. Compilation and computation stay
 on SAI; the VM does not compile LAMMPS or store container images.
 
 The tested binary is the accepted daily LAMMPS image from
-[sai-hpc-software](https://github.com/AI4SAI/sai-hpc-software). The tester resolves
-the current upstream `develop` SHA and waits until the accepted image matches
-it. The exact image, recipe and controller hashes are recorded. The image
+[sai-hpc-software](https://github.com/AI4SAI/sai-hpc-software). The tester selects
+the accepted `develop-beta-later` image and records its source commit. Later
+upstream commits do not delay testing that build. The exact image, recipe and
+controller hashes are recorded. The image
 includes the site's existing DeePMD integration; this tester does not modify
 LAMMPS sources or rebuild dependencies.
 The executable reports `-modified` for that integration. Reports retain the
@@ -130,11 +131,15 @@ configuration with pinned host keys and the dedicated identity. The workflow
 has only scheduled and manual triggers, restricted to this fork; it does not
 run pull-request code. A memory limit on the VM service bounds peak usage.
 
-The VM's hourly timer requests the workflow, which skips unchanged upstream commits without submitting GPU
-work or changing published reports. `workflow_dispatch` with `force=true`
-requests a retest. One active job is resumed after a relay interruption instead
-of duplicated. A new upstream commit without a matching accepted image is
-reported as waiting, never as tested. Failures before any completed result
+The VM's hourly timer requests the workflow, which tests the latest accepted
+build. It skips GPU work only when the source, image, recipe and installed test
+configuration match the last published result. A rebuilt image is tested even
+if its source commit is unchanged. `workflow_dispatch` with `force=true` requests
+a retest. One active or completed unpublished job is resumed after a relay
+interruption instead of duplicated. If the beta changes between inspection and
+submission, the relay reads it again before submitting. Each job pins the fixed
+module and image hashes in its plan; reports identify that build's commit.
+Failures before any completed result
 remain visible in Actions and leave the previous explicitly dated report intact.
 Completed results remain resumable until the report push is acknowledged, so
 a connection loss during publication does not discard a completed test.

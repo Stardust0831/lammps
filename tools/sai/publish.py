@@ -44,7 +44,7 @@ def main():
             "[JUnit](junit.xml) | [Raw evidence](raw.tar.gz) | [Hashes](manifest.json)\n\n"
             "LJ and PPPM comparisons using the GPU package and Kokkos CUDA on one and two nodes. "
             "The source commit identifies the upstream develop code in the tested accepted image. "
-            "Unchanged upstream commits are skipped unless a retest is requested. "
+            "An unchanged accepted image and test configuration are skipped unless a retest is requested. "
             "CPU execution supplies numerical controls; timing is diagnostic, not a scaling claim.\n\n"
             "[Workflow and operator documentation](https://github.com/" + repository + "/tree/develop/tools/sai)\n")
         git("config", "user.name", "github-actions[bot]")

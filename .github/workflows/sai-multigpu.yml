@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
     inputs:
       force:
-        description: Retest unchanged upstream develop
+        description: Retest the accepted build even if it was already tested
         type: boolean
         default: false
 

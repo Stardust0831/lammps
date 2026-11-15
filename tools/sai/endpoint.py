@@ -131,6 +131,8 @@ def status(directory, config):
                          result.get("binary_git_info", result["version"]))
     final_record = dict(run_id=plan["run_id"], job=job, terminal=True,
                         state=row[1], source_sha=plan["source_sha"], status=result["status"],
+                        image_sha256=plan["image_sha256"], recipe_sha256=plan["recipe_sha256"],
+                        control_digest=plan["control_digest"],
                         action_url=plan["action_url"], completed_at=result["date"],
                         tests=result["tests"], failures=result["failures"], errors=result["errors"])
     # Archive includes the exact inputs, controls, outputs, GPU mappings and accounting.
@@ -164,11 +166,12 @@ def start(config, run_id, source_sha, controller_sha, force):
             active = status(root / "runs" / state["active"], config)
             # Keep completed work resumable until the public report is acknowledged.
             return dict(active, resumed=True)
-        if force == "once" and state.get("last", {}).get("source_sha") == source_sha:
-            return dict(state["last"], skipped=True)
         selected = snapshot(config)
         if selected["source_sha"] != source_sha:
             return dict(pending=True, expected_source=source_sha, available_source=selected["source_sha"])
+        identity = ("source_sha", "image_sha256", "recipe_sha256", "control_digest")
+        if force == "once" and all(state.get("last", {}).get(key) == selected[key] for key in identity):
+            return dict(state["last"], skipped=True)
         directory = root / "runs" / run_id
         if directory.exists():
             if (directory / "plan.json").exists() and read(directory / "plan.json").get("job"):
