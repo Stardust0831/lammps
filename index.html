@@ -1,4 +1,4 @@
-<!doctype html><html lang='en'><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>SAI LAMMPS multi-GPU tests</title><style>body{max-width:1100px;margin:3em auto;padding:0 1em;font:16px system-ui}table{border-collapse:collapse}td,th{padding:.5em;border:1px solid #bbb;text-align:left}pre{white-space:pre-wrap}</style><h1>SAI LAMMPS multi-GPU tests: PASS</h1><p>Develop commit <a href='https://github.com/lammps/lammps/commit/713cd85974ef9697063f039155563ff722653fe7'>713cd85974ef9697063f039155563ff722653fe7</a><br>Completed: 2026-11-15T22:19:02Z</p><p>LJ and PPPM CPU/GPU numerical comparisons; 1, 2 and 4 GPUs on one node, and 8 GPUs on two nodes. Timings are diagnostic, not a scaling benchmark.</p><p>Runtime settings: {&quot;UCX_TLS&quot;: &quot;^cuda_ipc&quot;}</p><p><a href='junit.xml'>JUnit XML</a> | <a href='summary.json'>Summary JSON</a> | <a href='raw.tar.gz'>Raw inputs and outputs</a> | <a href='manifest.json'>File hashes</a> | <a href='https://github.com/Stardust0831/lammps/actions/runs/43768418592'>GitHub run</a></p><table><tr><th>Case</th><th>Status</th><th>Seconds</th><th>Details</th></tr><tr><td>provenance</td><td>pass</td><td>0</td><td>Git info (HEAD / 713cd859-modified)</td></tr><tr><td>lj-cpu-1</td><td>pass</td><td>2.401526</td><td></td></tr><tr><td>lj-gpu-1</td><td>pass</td><td>2.5535</td><td></td></tr><tr><td>lj-gpu-2</td><td>pass</td><td>3.142065</td><td></td></tr><tr><td>lj-gpu-4</td><td>pass</td><td>3.094774</td><td></td></tr><tr><td>lj-gpu-8-2nodes</td><td>pass</td><td>5.604611</td><td></td></tr><tr><td>lj-kokkos-1</td><td>pass</td><td>2.553372</td><td></td></tr><tr><td>lj-kokkos-2</td><td>pass</td><td>3.004938</td><td></td></tr><tr><td>lj-kokkos-4</td><td>pass</td><td>3.543754</td><td></td></tr><tr><td>lj-kokkos-8-2nodes</td><td>pass</td><td>4.400176</td><td></td></tr><tr><td>pppm-cpu-1</td><td>pass</td><td>2.742106</td><td></td></tr><tr><td>pppm-gpu-1</td><td>pass</td><td>2.607015</td><td></td></tr><tr><td>pppm-gpu-2</td><td>pass</td><td>2.842521</td><td></td></tr><tr><td>pppm-gpu-4</td><td>pass</td><td>3.707923</td><td></td></tr><tr><td>pppm-gpu-8-2nodes</td><td>pass</td><td>4.857453</td><td></td></tr><tr><td>pppm-kokkos-1</td><td>pass</td><td>2.84331</td><td></td></tr><tr><td>pppm-kokkos-2</td><td>pass</td><td>3.192475</td><td></td></tr><tr><td>pppm-kokkos-4</td><td>pass</td><td>3.64365</td><td></td></tr><tr><td>pppm-kokkos-8-2nodes</td><td>pass</td><td>6.457858</td><td></td></tr></table><h2>Machine and build</h2><pre>{
+<!doctype html><html lang='en'><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>SAI LAMMPS multi-GPU tests</title><style>body{max-width:1100px;margin:3em auto;padding:0 1em;font:16px system-ui}table{border-collapse:collapse}td,th{padding:.5em;border:1px solid #bbb;text-align:left}pre{white-space:pre-wrap}</style><h1>SAI LAMMPS multi-GPU tests: PASS</h1><p>Develop commit <a href='https://github.com/lammps/lammps/commit/582a54bcaaec568889b5960793d318c1b863ffbc'>582a54bcaaec568889b5960793d318c1b863ffbc</a><br>Completed: 2026-11-17T02:19:17Z</p><p>LJ and PPPM CPU/GPU numerical comparisons; 1, 2 and 4 GPUs on one node, and 8 GPUs on two nodes. Timings are diagnostic, not a scaling benchmark.</p><p>Runtime settings: {&quot;UCX_TLS&quot;: &quot;^cuda_ipc&quot;}</p><p><a href='junit.xml'>JUnit XML</a> | <a href='summary.json'>Summary JSON</a> | <a href='raw.tar.gz'>Raw inputs and outputs</a> | <a href='manifest.json'>File hashes</a> | <a href='https://github.com/Stardust0831/lammps/actions/runs/44001835659'>GitHub run</a></p><table><tr><th>Case</th><th>Status</th><th>Seconds</th><th>Details</th></tr><tr><td>provenance</td><td>pass</td><td>0</td><td>Git info (HEAD / 582a54bc-modified)</td></tr><tr><td>lj-cpu-1</td><td>pass</td><td>2.293622</td><td></td></tr><tr><td>lj-gpu-1</td><td>pass</td><td>2.54242</td><td></td></tr><tr><td>lj-gpu-2</td><td>pass</td><td>2.892313</td><td></td></tr><tr><td>lj-gpu-4</td><td>pass</td><td>3.263032</td><td></td></tr><tr><td>lj-gpu-8-2nodes</td><td>pass</td><td>4.800287</td><td></td></tr><tr><td>lj-kokkos-1</td><td>pass</td><td>2.541851</td><td></td></tr><tr><td>lj-kokkos-2</td><td>pass</td><td>2.942629</td><td></td></tr><tr><td>lj-kokkos-4</td><td>pass</td><td>3.793938</td><td></td></tr><tr><td>lj-kokkos-8-2nodes</td><td>pass</td><td>4.75114</td><td></td></tr><tr><td>pppm-cpu-1</td><td>pass</td><td>2.542335</td><td></td></tr><tr><td>pppm-gpu-1</td><td>pass</td><td>2.588356</td><td></td></tr><tr><td>pppm-gpu-2</td><td>pass</td><td>2.847959</td><td></td></tr><tr><td>pppm-gpu-4</td><td>pass</td><td>3.643032</td><td></td></tr><tr><td>pppm-gpu-8-2nodes</td><td>pass</td><td>4.50004</td><td></td></tr><tr><td>pppm-kokkos-1</td><td>pass</td><td>2.892402</td><td></td></tr><tr><td>pppm-kokkos-2</td><td>pass</td><td>3.39318</td><td></td></tr><tr><td>pppm-kokkos-4</td><td>pass</td><td>3.693938</td><td></td></tr><tr><td>pppm-kokkos-8-2nodes</td><td>pass</td><td>4.952713</td><td></td></tr></table><h2>Machine and build</h2><pre>{
   &quot;nodes&quot;: [
     {
       &quot;affinity&quot;: [
@@ -41,30 +41,30 @@
           &quot;driver&quot;: &quot;550.163.01&quot;,
           &quot;index&quot;: &quot;0&quot;,
           &quot;name&quot;: &quot;Tesla V100-SXM2-16GB&quot;,
-          &quot;uuid&quot;: &quot;GPU-4af56c69-4846-275f-5138-9a9f9b9f7719&quot;
+          &quot;uuid&quot;: &quot;GPU-bb3d9177-37c9-f3b2-f6f6-da6fd7887ba5&quot;
         },
         {
           &quot;driver&quot;: &quot;550.163.01&quot;,
           &quot;index&quot;: &quot;1&quot;,
           &quot;name&quot;: &quot;Tesla V100-SXM2-16GB&quot;,
-          &quot;uuid&quot;: &quot;GPU-d6980b54-7e23-2659-af57-417d6bac3081&quot;
+          &quot;uuid&quot;: &quot;GPU-29af4a46-1a32-abf8-8c3b-8cb057c9bbcf&quot;
         },
         {
           &quot;driver&quot;: &quot;550.163.01&quot;,
           &quot;index&quot;: &quot;2&quot;,
           &quot;name&quot;: &quot;Tesla V100-SXM2-16GB&quot;,
-          &quot;uuid&quot;: &quot;GPU-fc792d86-01b4-1a2c-004a-020f6b929070&quot;
+          &quot;uuid&quot;: &quot;GPU-12bae2ff-ea39-982a-1c22-f2e24cfd0ca7&quot;
         },
         {
           &quot;driver&quot;: &quot;550.163.01&quot;,
           &quot;index&quot;: &quot;3&quot;,
           &quot;name&quot;: &quot;Tesla V100-SXM2-16GB&quot;,
-          &quot;uuid&quot;: &quot;GPU-e44452f9-e066-90ba-c987-01fe3cdfe1ad&quot;
+          &quot;uuid&quot;: &quot;GPU-eba41dff-b923-198e-d8e9-da57522e3696&quot;
         }
       ],
       &quot;logical_cpus&quot;: &quot;128&quot;,
-      &quot;node&quot;: &quot;16v100n69&quot;,
-      &quot;operating_system&quot;: &quot;Linux 16v100n69.mr-sai.ai 5.15.0-100-generic #110-Ubuntu SMP Wed Feb 7 13:27:48 UTC 2024 x86_64&quot;
+      &quot;node&quot;: &quot;16v100n57&quot;,
+      &quot;operating_system&quot;: &quot;Linux 16v100n57.mr-sai.ai 5.15.0-100-generic #110-Ubuntu SMP Wed Feb 7 13:27:48 UTC 2024 x86_64&quot;
     },
     {
       &quot;affinity&quot;: [
@@ -107,33 +107,33 @@
           &quot;driver&quot;: &quot;550.163.01&quot;,
           &quot;index&quot;: &quot;0&quot;,
           &quot;name&quot;: &quot;Tesla V100-SXM2-16GB&quot;,
-          &quot;uuid&quot;: &quot;GPU-5dd77bb9-3b28-4143-e53b-9e122cf792f6&quot;
+          &quot;uuid&quot;: &quot;GPU-099e6683-0a78-f9c9-ce28-a4bad84ed24c&quot;
         },
         {
           &quot;driver&quot;: &quot;550.163.01&quot;,
           &quot;index&quot;: &quot;1&quot;,
           &quot;name&quot;: &quot;Tesla V100-SXM2-16GB&quot;,
-          &quot;uuid&quot;: &quot;GPU-872dfdd3-90a7-7a8d-f8a2-63c12ca54b3b&quot;
+          &quot;uuid&quot;: &quot;GPU-1e3eceac-0277-bcf3-1a61-ca7a1b0ea8d4&quot;
         },
         {
           &quot;driver&quot;: &quot;550.163.01&quot;,
           &quot;index&quot;: &quot;2&quot;,
           &quot;name&quot;: &quot;Tesla V100-SXM2-16GB&quot;,
-          &quot;uuid&quot;: &quot;GPU-e665b6ba-134c-a1e0-bb86-1f107372b6b3&quot;
+          &quot;uuid&quot;: &quot;GPU-09756731-a3c5-1ee8-4a36-b14ca606a22e&quot;
         },
         {
           &quot;driver&quot;: &quot;550.163.01&quot;,
           &quot;index&quot;: &quot;3&quot;,
           &quot;name&quot;: &quot;Tesla V100-SXM2-16GB&quot;,
-          &quot;uuid&quot;: &quot;GPU-44738751-db6c-4a95-4791-26e733489813&quot;
+          &quot;uuid&quot;: &quot;GPU-ba13c3c9-2260-e4a4-7395-424c03b274ec&quot;
         }
       ],
       &quot;logical_cpus&quot;: &quot;128&quot;,
-      &quot;node&quot;: &quot;16v100n70&quot;,
-      &quot;operating_system&quot;: &quot;Linux 16v100n70.mr-sai.ai 5.15.0-100-generic #110-Ubuntu SMP Wed Feb 7 13:27:48 UTC 2024 x86_64&quot;
+      &quot;node&quot;: &quot;16v100n58&quot;,
+      &quot;operating_system&quot;: &quot;Linux 16v100n58.mr-sai.ai 5.15.0-100-generic #110-Ubuntu SMP Wed Feb 7 13:27:48 UTC 2024 x86_64&quot;
     }
   ],
-  &quot;operating_system&quot;: &quot;Linux 16v100n69.mr-sai.ai 5.15.0-100-generic #110-Ubuntu SMP Wed Feb 7 13:27:48 UTC 2024 x86_64&quot;,
+  &quot;operating_system&quot;: &quot;Linux 16v100n57.mr-sai.ai 5.15.0-100-generic #110-Ubuntu SMP Wed Feb 7 13:27:48 UTC 2024 x86_64&quot;,
   &quot;mpi&quot;: &quot;mpirun (Open MPI) 5.0.10\n\nReport bugs to https://www.open-mpi.org/community/help/&quot;,
   &quot;threads_per_rank&quot;: 1,
   &quot;partition&quot;: &quot;16V100&quot;,
