@@ -1,16 +1,16 @@
 {
-  "action_url": "https://github.com/Stardust0831/lammps/actions/runs/45268087335",
-  "binary_git_info": "Git info (HEAD / 06428256-modified)",
+  "action_url": "https://github.com/Stardust0831/lammps/actions/runs/45489522997",
+  "binary_git_info": "Git info (HEAD / 30020142-modified)",
   "binary_modified": true,
   "branch": "develop",
-  "commit": "06428256f980b63d014d81b9ad973a6141976a1b",
+  "commit": "30020142e47377840fdf72d83053f1c01926c12f",
   "compiler": "Compiler: GNU C++ 14.3.0 with OpenMP 4.5",
   "controller_digest": "d533525537d66d898c21b2e1e3a42c85e03353de82c6364778281240eaec28e8",
   "controller_sha": "fa35049182bc58ab0df29b796500532425b47167",
-  "date": "2026-11-23T21:19:14Z",
+  "date": "2026-11-24T21:18:51Z",
   "errors": 0,
   "failures": 0,
-  "image_sha256": "b6e9e3100d8e5448424bbe4bd6483bc00535f1a0f9dfdb9393dde2f06926cf1d",
+  "image_sha256": "2dbf4b687df64e245c44748d86d36a421790e666cdfffcf17747e096d7bd2ada",
   "machine": {
     "compiler": "Compiler: GNU C++ 14.3.0 with OpenMP 4.5",
     "mpi": "mpirun (Open MPI) 5.0.10\n\nReport bugs to https://www.open-mpi.org/community/help/",
@@ -56,30 +56,30 @@
             "driver": "550.163.01",
             "index": "0",
             "name": "Tesla V100-SXM2-16GB",
-            "uuid": "GPU-6f97b0bb-46df-6098-398e-be8f89517d78"
+            "uuid": "GPU-7de9cfe3-e914-d463-87a6-d05d936d566a"
           },
           {
             "driver": "550.163.01",
             "index": "1",
             "name": "Tesla V100-SXM2-16GB",
-            "uuid": "GPU-ab4302aa-3c88-560c-8378-e0f3f11c29eb"
+            "uuid": "GPU-b5c4119a-2ab6-d1a1-896a-ef2df8d2e71d"
           },
           {
             "driver": "550.163.01",
             "index": "2",
             "name": "Tesla V100-SXM2-16GB",
-            "uuid": "GPU-c4e3dd6d-430c-cf17-d8a4-1034e0a5dbc3"
+            "uuid": "GPU-d889460e-dc93-d82e-1323-a7c8fc258176"
           },
           {
             "driver": "550.163.01",
             "index": "3",
             "name": "Tesla V100-SXM2-16GB",
-            "uuid": "GPU-b7bba305-f1f1-52af-bf78-ed43d662613a"
+            "uuid": "GPU-0c898f3b-6578-d9b6-1bb6-6de7d1b6320b"
           }
         ],
         "logical_cpus": "128",
-        "node": "16v100n55",
-        "operating_system": "Linux 16v100n55.mr-sai.ai 5.15.0-100-generic #110-Ubuntu SMP Wed Feb 7 13:27:48 UTC 2024 x86_64"
+        "node": "16v100n53",
+        "operating_system": "Linux 16v100n53.mr-sai.ai 5.15.0-100-generic #110-Ubuntu SMP Wed Feb 7 13:27:48 UTC 2024 x86_64"
       },
       {
         "affinity": [
@@ -122,49 +122,49 @@
             "driver": "550.163.01",
             "index": "0",
             "name": "Tesla V100-SXM2-16GB",
-            "uuid": "GPU-8a153814-05a7-a23a-e57f-095748258221"
+            "uuid": "GPU-d669fcb7-affe-8524-f723-bff4a4252ce6"
           },
           {
             "driver": "550.163.01",
             "index": "1",
             "name": "Tesla V100-SXM2-16GB",
-            "uuid": "GPU-8f8ad93d-a378-f305-4d18-a8577349ed2e"
+            "uuid": "GPU-c738cd58-1ac9-1a55-d188-281efab62b0e"
           },
           {
             "driver": "550.163.01",
             "index": "2",
             "name": "Tesla V100-SXM2-16GB",
-            "uuid": "GPU-8919c54f-5e9e-7178-89d5-f5e9955fc4aa"
+            "uuid": "GPU-dbe6464b-7b25-7bf9-fc2a-e31cda35303f"
           },
           {
             "driver": "550.163.01",
             "index": "3",
             "name": "Tesla V100-SXM2-16GB",
-            "uuid": "GPU-51f1a159-8095-6ff0-47d2-c5798233a7dd"
+            "uuid": "GPU-0d6c4196-e9c9-beff-961a-d475339e4d99"
           }
         ],
         "logical_cpus": "128",
-        "node": "16v100n56",
-        "operating_system": "Linux 16v100n56.mr-sai.ai 5.15.0-100-generic #110-Ubuntu SMP Wed Feb 7 13:27:48 UTC 2024 x86_64"
+        "node": "16v100n54",
+        "operating_system": "Linux 16v100n54.mr-sai.ai 5.15.0-100-generic #110-Ubuntu SMP Wed Feb 7 13:27:48 UTC 2024 x86_64"
       }
     ],
-    "operating_system": "Linux 16v100n55.mr-sai.ai 5.15.0-100-generic #110-Ubuntu SMP Wed Feb 7 13:27:48 UTC 2024 x86_64",
+    "operating_system": "Linux 16v100n53.mr-sai.ai 5.15.0-100-generic #110-Ubuntu SMP Wed Feb 7 13:27:48 UTC 2024 x86_64",
     "partition": "16V100",
     "threads_per_rank": 1
   },
-  "operating_system": "Linux 16v100n55.mr-sai.ai 5.15.0-100-generic #110-Ubuntu SMP Wed Feb 7 13:27:48 UTC 2024 x86_64",
+  "operating_system": "Linux 16v100n53.mr-sai.ai 5.15.0-100-generic #110-Ubuntu SMP Wed Feb 7 13:27:48 UTC 2024 x86_64",
   "passed": 19,
   "recipe_sha256": "bebd46422dca7b50b7c1fc2684fcf1b26343a038cc6c8d1ae3247664834d74bf",
-  "run_id": "github-45268087335-1",
+  "run_id": "github-45489522997-1",
   "runtime_environment": {
     "UCX_TLS": "^cuda_ipc"
   },
   "scope": "LJ and PPPM CPU/GPU numerical comparisons; 1, 2 and 4 GPUs on one node, and 8 GPUs on two nodes. Timings are diagnostic, not a scaling benchmark.",
   "skipped": 0,
-  "slurm_job": "2760834",
+  "slurm_job": "2802851",
   "source_repository": "https://github.com/lammps/lammps",
   "status": "PASS",
   "tests": 19,
   "url": "https://stardust0831.github.io/lammps/",
-  "version": "Git info (HEAD / 06428256-modified)"
+  "version": "Git info (HEAD / 30020142-modified)"
 }
