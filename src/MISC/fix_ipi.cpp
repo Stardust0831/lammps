@@ -304,8 +304,13 @@ void FixIPI::initial_integrate(int /*vflag*/)
       else break;
     }
 
-    if (strcmp(header,"EXIT        ") == 0)
-      error->one(FLERR, "Got EXIT message from i-PI. Now leaving!");
+  }
+
+  // Error::done must be called by every rank.
+  MPI_Bcast(header,MSGLEN+1,MPI_CHAR,0,world);
+  if (strcmp(header,"EXIT        ") == 0) error->done(0);
+
+  if (master) {
 
     // when i-PI signals it has positions to evaluate new forces,
     // read positions and cell data
@@ -505,8 +510,13 @@ void FixIPI::final_integrate()
       else break;
     }
 
-    if (strcmp(header,"EXIT        ") == 0)
-      error->one(FLERR, "Got EXIT message from i-PI. Now leaving!");
+  }
+
+  // Error::done must be called by every rank.
+  MPI_Bcast(header,MSGLEN+1,MPI_CHAR,0,world);
+  if (strcmp(header,"EXIT        ") == 0) error->done(0);
+
+  if (master) {
 
     if (strcmp(header,"GETFORCE    ") == 0)  {
       // return force and energy data
