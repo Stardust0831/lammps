@@ -28,7 +28,6 @@
 #include "modify.h"
 #include "neighbor.h"
 #include "update.h"
-#include "utils.h"
 
 #include <cstring>
 
@@ -307,16 +306,9 @@ void FixIPI::initial_integrate(int /*vflag*/)
 
   }
 
-  // EXIT is a protocol shutdown, and Error::done must be reached by every rank.
-  int exit_requested = master && (strcmp(header,"EXIT        ") == 0);
-  MPI_Bcast(&exit_requested,1,MPI_INT,0,world);
-  if (exit_requested) {
-    if (master) {
-      close(ipisock);
-      utils::logmesg(lmp, "Received EXIT from i-PI; closing normally.\n");
-    }
-    error->done(0);
-  }
+  // Error::done must be called by every rank.
+  MPI_Bcast(header,MSGLEN+1,MPI_CHAR,0,world);
+  if (strcmp(header,"EXIT        ") == 0) error->done(0);
 
   if (master) {
 
@@ -520,16 +512,9 @@ void FixIPI::final_integrate()
 
   }
 
-  // EXIT is a protocol shutdown, and Error::done must be reached by every rank.
-  int exit_requested = master && (strcmp(header,"EXIT        ") == 0);
-  MPI_Bcast(&exit_requested,1,MPI_INT,0,world);
-  if (exit_requested) {
-    if (master) {
-      close(ipisock);
-      utils::logmesg(lmp, "Received EXIT from i-PI; closing normally.\n");
-    }
-    error->done(0);
-  }
+  // Error::done must be called by every rank.
+  MPI_Bcast(header,MSGLEN+1,MPI_CHAR,0,world);
+  if (strcmp(header,"EXIT        ") == 0) error->done(0);
 
   if (master) {
 
