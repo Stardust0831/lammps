@@ -28,6 +28,7 @@
 #include "modify.h"
 #include "neighbor.h"
 #include "update.h"
+#include "utils.h"
 
 #include <cstring>
 
@@ -304,8 +305,20 @@ void FixIPI::initial_integrate(int /*vflag*/)
       else break;
     }
 
-    if (strcmp(header,"EXIT        ") == 0)
-      error->one(FLERR, "Got EXIT message from i-PI. Now leaving!");
+  }
+
+  // EXIT is a protocol shutdown, and Error::done must be reached by every rank.
+  int exit_requested = master && (strcmp(header,"EXIT        ") == 0);
+  MPI_Bcast(&exit_requested,1,MPI_INT,0,world);
+  if (exit_requested) {
+    if (master) {
+      close(ipisock);
+      utils::logmesg(lmp, "Received EXIT from i-PI; closing normally.\n");
+    }
+    error->done(0);
+  }
+
+  if (master) {
 
     // when i-PI signals it has positions to evaluate new forces,
     // read positions and cell data
@@ -505,8 +518,20 @@ void FixIPI::final_integrate()
       else break;
     }
 
-    if (strcmp(header,"EXIT        ") == 0)
-      error->one(FLERR, "Got EXIT message from i-PI. Now leaving!");
+  }
+
+  // EXIT is a protocol shutdown, and Error::done must be reached by every rank.
+  int exit_requested = master && (strcmp(header,"EXIT        ") == 0);
+  MPI_Bcast(&exit_requested,1,MPI_INT,0,world);
+  if (exit_requested) {
+    if (master) {
+      close(ipisock);
+      utils::logmesg(lmp, "Received EXIT from i-PI; closing normally.\n");
+    }
+    error->done(0);
+  }
+
+  if (master) {
 
     if (strcmp(header,"GETFORCE    ") == 0)  {
       // return force and energy data

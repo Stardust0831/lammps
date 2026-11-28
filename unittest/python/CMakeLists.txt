@@ -6,6 +6,17 @@
 
 set(TEST_INPUT_FOLDER ${CMAKE_CURRENT_SOURCE_DIR})
 
+# The socket peer launches the executable and also works with static builds.
+if(PKG_MISC AND NOT WIN32)
+  find_package(Python 3.6 QUIET COMPONENTS Interpreter)
+  if(Python_Interpreter_FOUND)
+    add_test(NAME FixIPIExit
+             COMMAND ${Python_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/python-fix-ipi-exit.py
+                     --lmp $<TARGET_FILE:lmp> -v)
+    set_tests_properties(FixIPIExit PROPERTIES TIMEOUT 120 ENVIRONMENT "OMP_NUM_THREADS=1")
+  endif()
+endif()
+
 # we must have shared libraries enabled for testing the python module
 if(NOT BUILD_SHARED_LIBS)
   message(STATUS "Skipping Tests for the LAMMPS Python Module: must enable BUILD_SHARED_LIBS")
